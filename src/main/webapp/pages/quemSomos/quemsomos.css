@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.boxImg {
+    height: 10rem;
+    margin-bottom: 13rem;
+}
+
+.title {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    font-size: 16px;
+    font-family: 'Rajdhani', sans-serif;
+    text-align: center;
+}
+
+.titleAvaliacao{
+    margin-top: 30%;
+    margin-bottom: 1rem;
+    font-size: 16px;
+    font-family: 'Rajdhani', sans-serif;
+    text-align: center;
+}
+.boxSizeImg img {
+   width: 18rem;
+   margin-left: 8rem;
+  
+}
+
+.bodyQuemSomos {
+    margin-left: 2.5rem;
+    margin-right: 5rem;
+    font-size: 17px;
+    text-align: justify;
+    font-family: 'Inter', sans-serif;
+    line-height: 28px;
+}
+
+.boxImgMobile{
+    display: none;
+}
+
+p {
+    margin: 0 1rem 0 1rem;
+    text-align: justify;
+}
+
+li {
+    margin: 0 1rem 0 1rem;
+    text-align: justify;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .boxImg{display: none}
+    table{display: none}
+    tr{display: none}
+    td{display: none}
+
+    .boxImgMobile {
+        display: block;
+    }
+
+    .boxSizeImg {
+        text-align: center;
+    }
+
+    .boxSizeImg img {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .bodyQuemSomos {
+        margin-left: 10%;
+        margin-right: 10%;
+    
+    }
+    
+  }

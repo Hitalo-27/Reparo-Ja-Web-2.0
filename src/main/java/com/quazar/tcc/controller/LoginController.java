@@ -1,0 +1,89 @@
+package com.quazar.tcc.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.quazar.tcc.model.Administrador;
+import com.quazar.tcc.model.Cliente;
+import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.model.User;
+import com.quazar.tcc.service.AdministradorService;
+import com.quazar.tcc.service.ClienteService;
+import com.quazar.tcc.service.PrestadorServicoService;
+import com.quazar.tcc.service.UserService;
+
+@WebServlet(urlPatterns = {"/pages/login/login"})
+public class LoginController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	UserService userService = new UserService();
+	ClienteService clienteService = new ClienteService();
+	PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
+	AdministradorService administradorService = new AdministradorService();
+       
+    public LoginController() {
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		login(request, response);
+	}
+	
+	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User loginUser = new User(request.getParameter("email"), request.getParameter("senha"));
+		User user = userService.selectUserByEmail(loginUser);
+		if(user != null && user.getSenha().equals(loginUser.getSenha())) {
+			if(user.getId_tipoUser() == 1) {
+				Cliente cliente = clienteService.selectClienteByIdUser(user);
+				if(cliente != null) {
+					HttpSession session = request.getSession();
+					session.setAttribute("cliente", cliente);
+					RequestDispatcher rd = request.getRequestDispatcher("../perfil/perfil.jsp");
+					rd.forward(request, response);
+				} else {
+					response.sendRedirect("../login/login.jsp");
+				}
+			}
+			else if(user.getId_tipoUser() == 2) {
+				PrestadorServico prestador = prestadorServicoService.selectPrestadorByIdUser(user);
+				if(prestador != null) {
+					HttpSession session = request.getSession();
+					session.setAttribute("prestador", prestador);
+					RequestDispatcher rd = request.getRequestDispatcher("../perfil/perfil.jsp");
+					rd.forward(request, response);
+
+				} else {
+					response.sendRedirect("../login/login.jsp");
+				}
+			}
+			else if(user.getId_tipoUser() == 3) {
+				Administrador administrador = administradorService.selectAdministradorByIdUser(user);
+				if(administrador != null) {
+					HttpSession session = request.getSession();
+					session.setAttribute("administrador", administrador);
+					RequestDispatcher rd = request.getRequestDispatcher("../perfil/perfil.jsp");
+					rd.forward(request, response);
+
+				} else {
+					response.sendRedirect("../login/login.jsp");
+				}
+			}
+			else {
+				response.sendRedirect("../login/login.jsp");
+			}
+		}
+		else {
+			response.sendRedirect("../login/login.jsp");
+		}
+	}
+}

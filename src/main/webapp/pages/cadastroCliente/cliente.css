@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+
+.contact {
+    position: relative;
+    min-height: 100vh;
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    background-color: var(--background);
+    background-size: cover;
+}
+
+.contactForm {
+    width: 60%;
+    padding: 40px;
+    background: var(--background);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(209, 56, 255, 0.17);
+    -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+    filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+    margin-top: 50px;
+}
+
+.form{
+    display: flex;
+    text-align: justify;
+    align-items: center;
+    justify-content: center;
+}
+
+.formDireita{
+    margin-left: 5%;
+}
+
+.contactForm h2 {
+    font-size: 35px;
+    color: var(--color1);
+    font-weight: 500;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.contactForm .inputBox {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contactForm .inputBox input, .contactForm .inputBox textarea {
+    width: 100%;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    resize: none;
+}
+
+.textareaStyle {
+    height: 90px;
+}
+
+.contactForm .inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #666;
+}
+
+.contactForm .inputBox input:focus ~ span,
+.contactForm .inputBox input:valid ~ span,
+.contactForm .inputBox textarea:focus ~ span,
+.contactForm .inputBox textarea:valid ~ span
+
+ {
+    color: var(--color1);
+    font-size: 12px;
+    transform: translateY(-20px);
+}
+
+.contactForm .inputBox input[type="submit"] {
+    width: 50%;
+    background: var(--color1);
+    border-radius: 10px;
+    color: var(--background);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+}
+
+
+@media (max-width: 991px) {
+    .contact {
+        padding: 50px;
+    }
+
+    .container-contact {
+        flex-direction: column;
+    }
+
+    .contact .contactInfo {
+        margin-bottom: 40px;
+    }
+
+    .contact .contactInfo, .contactForm {
+        width: 100%;
+    }
+}

@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+#bodyColor {
+    background:var(--background);
+    width: 100%;
+    height: auto;
+}
+
+.bodyTitle {
+  padding: 1rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.bodyTitle h1 {
+  font-size: 40px;
+  margin-top: 5%;
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--color1);
+}
+
+.menuFixed {
+   width: 100%;
+   position: fixed;
+   z-index: 5;
+}
+
+nav {
+  background: var(--color1);
+  padding: 5px 40px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+nav ul li {
+  padding: 15px 0;
+  cursor: pointer;
+}
+
+nav ul li.login {
+  position: relative;
+  margin: 0 16px;
+  text-align: center;
+  order: 3;
+  width: 7%;
+  background: transparent;
+  color: var(--background);
+  border-radius: 6%;
+}
+
+nav ul li.login:hover {
+  background-color: #3c3163;
+}
+
+
+nav ul li.items {
+  position: relative;
+  width: auto;
+  margin: 0 16px;
+  text-align: center;
+  order: 3;
+}
+nav ul li.items:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 5px;
+  height: 2px;
+  width: 100%;
+  background: var(--background);
+  opacity: 0;
+  transition: all 0.2s linear;
+}
+
+nav ul li.items:hover:after {
+  opacity: 1;
+  bottom: 8px;
+}
+
+nav ul li.logo {
+  flex: 1;
+  color: var(--background);
+  font-size: 23px;
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+}
+
+nav ul li a {
+  color: var(--background);
+  font-size: 18px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+
+nav ul li i {
+  font-size: 23px;
+}
+
+nav ul li.btn {
+  display: none;
+}
+
+nav ul li.btn.hide i:before {
+  content: "\f00d";
+}
+
+.Menuvideo {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+}
+
+.Menuvideo > h1 {
+    color: var(--background);
+    font-size: 100px;
+    margin-top: -100px;
+    margin-top: 6%;
+}
+
+.Menuvideo > p {
+    margin-top: 8px;
+    color: var(--background);
+    font-size: 32px;
+    font-family: 'Inter', sans-serif;
+}
+
+video {
+    object-fit: cover;
+    width: 100%;
+    height: 90rem;
+    position: fixed;
+    z-index: -1;
+}
+
+@media screen  and (max-width: 900px) {
+  nav {
+    padding: 5px 30px;
+    
+  }
+
+  nav ul li.items {
+    width: 100%;
+    display: none;
+    
+  }
+
+  nav ul li.items.show {
+    display: block;
+  }
+
+  nav ul li.btn {
+    display: block;
+  }
+
+  nav ul li.items:hover {
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px var(--background), inset 0 0 10px var(--background);
+  }
+
+  nav ul li.items:hover:after {
+    opacity: 0;
+  }
+
+  .Menuvideo > h1 {
+    font-size: 70px;
+    margin-top: -150px;
+}
+  
+}
+
+@media screen and (max-width: 760) {
+    .Menuvideo > h1 {
+        font-size: 50px;
+        margin-top: -100px;
+    }
+
+    .Menuvideo > p {
+        font-size: 30px;
+    }
+
+    
+}

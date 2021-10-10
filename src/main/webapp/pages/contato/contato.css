@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.contact {
+    position: relative;
+    min-height: 100vh;
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* background-image: url('../../img/contatoFundo.jpg');
+    background-size: cover; */
+}
+
+.contact .contact-below {
+    max-width: 800px;
+    text-align: center;
+}
+
+.contact .contact-below h2 {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--color1);
+    margin-bottom: 3%;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.contact .contact-below p {
+    font-weight: 300;
+    color: var(--color1);
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.container-contact {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.container-contact .contactInfo {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-contact .contactInfo .box {
+    position: relative;
+    padding: 20px 0;
+    display: flex;
+}
+
+.container-contact .contactInfo .box .icon {
+    min-width: 60px;
+    height: 60px;
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.container-contact .contactInfo .box .text {
+    display: flex;
+    margin-left: 20px;
+    font-size: 16px;
+    color: var(--color1);
+    flex-direction: column;
+    font-weight:  300;
+    font-family: 'Inter', sans-serif;
+}
+
+.container-contact .contactInfo .box .text h3 {
+    font-weight: 500;
+    color: var(--color1);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.contactForm {
+    width: 40%;
+    padding: 40px;
+    background: var(--background);
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(209, 56, 255, 0.17);
+    -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+    filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+}
+
+.contactForm h2 {
+    font-size: 30px;
+    color: #333;
+    font-weight: 500;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.contactForm .inputBox {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contactForm .inputBox input, .contactForm .inputBox textarea {
+    width: 100%;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    resize: none;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.textareaStyle {
+    height: 90px;
+}
+
+.contactForm .inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #666;
+}
+
+.contactForm .inputBox input:focus ~ span,
+.contactForm .inputBox input:valid ~ span,
+.contactForm .inputBox textarea:focus ~ span,
+.contactForm .inputBox textarea:valid ~ span
+
+    {
+    color: var(--color1);
+    font-size: 12px;
+    transform: translateY(-20px);
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+.contactForm .inputBox input[type="submit"] {
+    width: 200px;
+    background: var(--color1);
+    border-radius: 10px;
+    color: var(--background);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 991px) {
+    .contact {
+        padding: 50px;
+    }
+
+    .container-contact {
+        flex-direction: column;
+    }
+
+    .contact .contactInfo {
+        margin-bottom: 40px;
+    }
+
+    .contact .contactInfo, .contactForm {
+        width: 100%;
+    }
+}
