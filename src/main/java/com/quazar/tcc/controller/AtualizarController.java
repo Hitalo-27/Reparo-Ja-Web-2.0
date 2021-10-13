@@ -10,12 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.quazar.tcc.dao.PrestadorServicoDao;
+import com.quazar.tcc.dao.TelefoneDao;
 import com.quazar.tcc.dao.UserDao;
 import com.quazar.tcc.model.Cliente;
 import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.model.Telefone;
 import com.quazar.tcc.model.User;
 import com.quazar.tcc.service.ClienteService;
 import com.quazar.tcc.service.PrestadorServicoService;
+import com.quazar.tcc.service.TelefoneService;
 import com.quazar.tcc.service.UserService;
 
 @WebServlet(urlPatterns = {"/atualizarCliente", "/atualizarPrestador", "/attCliente", "/attPrestador"})
@@ -25,8 +29,11 @@ public class AtualizarController extends HttpServlet {
 	ClienteService clienteService = new ClienteService();
 	PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
 	UserService userService = new UserService();
+	TelefoneService telefoneService = new TelefoneService();
 	
 	UserDao userDao = new UserDao();
+	TelefoneDao telefoneDao = new TelefoneDao();
+	PrestadorServicoDao prestadorServicoDao = new PrestadorServicoDao();
        
     public AtualizarController() {
     }
@@ -57,6 +64,10 @@ public class AtualizarController extends HttpServlet {
 		User userId = new User(Long.parseLong(request.getParameter("id")));
 		User user = userService.selectUserById(userId);
 		if(user != null) {
+			Telefone telefone = telefoneService.selectTelefoneByIdUser(user);
+			if(telefone != null) {
+				request.setAttribute("telefone", telefone);
+			}
 			Cliente cliente = clienteService.selectClienteByIdUser(user);
 			if(cliente != null) {
 				request.setAttribute("cliente", cliente);
@@ -72,6 +83,10 @@ public class AtualizarController extends HttpServlet {
 		User userId = new User(Long.parseLong(request.getParameter("id")));
 		User user = userService.selectUserById(userId);
 		if(user != null) {
+			Telefone telefone = telefoneService.selectTelefoneByIdUser(user);
+			if(telefone != null) {
+				request.setAttribute("telefone", telefone);
+			}
 			PrestadorServico prestador = prestadorServicoService.selectPrestadorByIdUser(userId);
 			if(prestador != null) {
 				request.setAttribute("prestador", prestador);
@@ -85,13 +100,21 @@ public class AtualizarController extends HttpServlet {
 	}
 	
 	protected void atualizarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = null;
 		User user = new User(Long.parseLong(request.getParameter("id")), request.getParameter("nome"), request.getParameter("email"), 
-				request.getParameter("senha"),  request.getParameter("cpf"), request.getParameter("cep"), request.getParameter("rua"),
-				Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"));
+				request.getParameter("senha"), request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), 
+				request.getParameter("rua"), Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"));
 		userDao.alterarUser(user);
+		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_telefone")), Integer.parseInt(request.getParameter("telefone")));
+		telefoneDao.alterarTelefone(telefone);
+		Telefone newFone = telefoneService.selectTelefoneByIdUser(user);
+		if(newFone != null) {
+			session = request.getSession();
+			session.setAttribute("telefone", newFone);
+		}
 		Cliente cliente = clienteService.selectClienteByIdUser(user);
 		if(cliente != null) {
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			session.setAttribute("cliente", cliente);
 			response.sendRedirect("/ReparoJa/pages/perfil/perfil.jsp");
 		} else {
@@ -100,13 +123,24 @@ public class AtualizarController extends HttpServlet {
 	}
 	
 	protected void atualizarPrestador(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = new User(Long.parseLong(request.getParameter("id")), request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), 
-				request.getParameter("cpf"), request.getParameter("cep"), request.getParameter("rua"),
-				Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"));
+		HttpSession session = null;
+		User user = new User(Long.parseLong(request.getParameter("id")), request.getParameter("nome"), request.getParameter("email"), 
+				request.getParameter("senha"), request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), 
+				request.getParameter("rua"), Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"));
 		userDao.alterarUser(user);
+		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_telefone")), Integer.parseInt(request.getParameter("telefone")));
+		telefoneDao.alterarTelefone(telefone);
+		Telefone newFone = telefoneService.selectTelefoneByIdUser(user);
+		if(newFone != null) {
+			session = request.getSession();
+			session.setAttribute("telefone", newFone);
+		}
+		PrestadorServico prestadorServico = new PrestadorServico(Long.parseLong(request.getParameter("id_prestador")),
+				request.getParameter("tipoPrestador"), Long.parseLong(request.getParameter("qtdeFuncionarios")));
+		prestadorServicoDao.alterarPrestador(prestadorServico);
 		PrestadorServico prestador = prestadorServicoService.selectPrestadorByIdUser(user);
 		if(prestador != null) {
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			session.setAttribute("prestador", prestador);
 			response.sendRedirect("/ReparoJa/pages/perfil/perfil.jsp");
 		} else {

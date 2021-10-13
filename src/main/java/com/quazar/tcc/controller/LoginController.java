@@ -13,10 +13,12 @@ import javax.servlet.http.HttpSession;
 import com.quazar.tcc.model.Administrador;
 import com.quazar.tcc.model.Cliente;
 import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.model.Telefone;
 import com.quazar.tcc.model.User;
 import com.quazar.tcc.service.AdministradorService;
 import com.quazar.tcc.service.ClienteService;
 import com.quazar.tcc.service.PrestadorServicoService;
+import com.quazar.tcc.service.TelefoneService;
 import com.quazar.tcc.service.UserService;
 
 @WebServlet(urlPatterns = {"/pages/login/login"})
@@ -27,6 +29,7 @@ public class LoginController extends HttpServlet {
 	ClienteService clienteService = new ClienteService();
 	PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
 	AdministradorService administradorService = new AdministradorService();
+	TelefoneService telefoneService = new TelefoneService();
        
     public LoginController() {
     }
@@ -40,13 +43,19 @@ public class LoginController extends HttpServlet {
 	}
 	
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = null;
 		User loginUser = new User(request.getParameter("email"), request.getParameter("senha"));
 		User user = userService.selectUserByEmail(loginUser);
 		if(user != null && user.getSenha().equals(loginUser.getSenha())) {
+			Telefone telefone = telefoneService.selectTelefoneByIdUser(user);
+			if(telefone != null) {
+				session = request.getSession();
+				session.setAttribute("telefone", telefone);
+			}
 			if(user.getId_tipoUser() == 1) {
 				Cliente cliente = clienteService.selectClienteByIdUser(user);
 				if(cliente != null) {
-					HttpSession session = request.getSession();
+					session = request.getSession();
 					session.setAttribute("cliente", cliente);
 					RequestDispatcher rd = request.getRequestDispatcher("../perfil/perfil.jsp");
 					rd.forward(request, response);
@@ -57,7 +66,7 @@ public class LoginController extends HttpServlet {
 			else if(user.getId_tipoUser() == 2) {
 				PrestadorServico prestador = prestadorServicoService.selectPrestadorByIdUser(user);
 				if(prestador != null) {
-					HttpSession session = request.getSession();
+					session = request.getSession();
 					session.setAttribute("prestador", prestador);
 					RequestDispatcher rd = request.getRequestDispatcher("../perfil/perfil.jsp");
 					rd.forward(request, response);
@@ -69,7 +78,7 @@ public class LoginController extends HttpServlet {
 			else if(user.getId_tipoUser() == 3) {
 				Administrador administrador = administradorService.selectAdministradorByIdUser(user);
 				if(administrador != null) {
-					HttpSession session = request.getSession();
+					session = request.getSession();
 					session.setAttribute("administrador", administrador);
 					RequestDispatcher rd = request.getRequestDispatcher("../perfil/perfil.jsp");
 					rd.forward(request, response);
@@ -83,7 +92,9 @@ public class LoginController extends HttpServlet {
 			}
 		}
 		else {
-			response.sendRedirect("../login/login.jsp");
+			request.setAttribute("log", "E-mail ou senha incorretos");
+			RequestDispatcher rd = request.getRequestDispatcher("../login/login.jsp");
+			rd.forward(request, response);
 		}
 	}
 }

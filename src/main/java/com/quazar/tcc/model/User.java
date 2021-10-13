@@ -10,6 +10,7 @@ public class User implements Serializable {
 	private String email;
 	private String senha;
 	private String cpf;
+	private Integer idade;
 	private String cep;
 	private String rua;
 	private Integer numeroCasa;
@@ -21,12 +22,13 @@ public class User implements Serializable {
 	public User() {
 	}
 	
-	public User(Long id, String nome, String email, String senha, String cpf, String cep, String rua, Integer numeroCasa, String bairro, TipoUser tipoUser) {
+	public User(Long id, String nome, String email, String senha, String cpf, Integer idade, String cep, String rua, Integer numeroCasa, String bairro, TipoUser tipoUser) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.cpf = cpf;
+		this.idade = idade;
 		this.cep = cep;
 		this.rua = rua;
 		this.numeroCasa = numeroCasa;
@@ -35,11 +37,12 @@ public class User implements Serializable {
 	}
 	
 	//create dao
-	public User(String nome, String email, String senha, String cpf, String cep, String rua, Integer numeroCasa, String bairro, TipoUser tipoUser) {
+	public User(String nome, String email, String senha, String cpf, Integer idade, String cep, String rua, Integer numeroCasa, String bairro, TipoUser tipoUser) {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.cpf = cpf;
+		this.idade = idade;
 		this.cep = cep;
 		this.rua = rua;
 		this.numeroCasa = numeroCasa;
@@ -48,12 +51,13 @@ public class User implements Serializable {
 	}
 	
 	//update dao
-	public User(Long id, String nome, String email, String senha, String cpf, String cep, String rua, Integer numeroCasa, String bairro) {
+	public User(Long id, String nome, String email, String senha, String cpf, Integer idade, String cep, String rua, Integer numeroCasa, String bairro) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.cpf = cpf;
+		this.idade = idade;
 		this.cep = cep;
 		this.rua = rua;
 		this.numeroCasa = numeroCasa;
@@ -61,12 +65,13 @@ public class User implements Serializable {
 	}
 	
 	//read dao
-	public User(Long id, String nome, String email, String senha, String cpf, String cep, String rua, Integer numeroCasa, String bairro, Long id_tipoUser) {
+	public User(Long id, String nome, String email, String senha, String cpf, Integer idade, String cep, String rua, Integer numeroCasa, String bairro, Long id_tipoUser) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.cpf = cpf;
+		this.idade = idade;
 		this.cep = cep;
 		this.rua = rua;
 		this.numeroCasa = numeroCasa;
@@ -115,6 +120,14 @@ public class User implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	public Integer getIdade() {
+		return idade;
+	}
+
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
+
 	public String getCep() {
 		return cep;
 	}

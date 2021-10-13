@@ -23,6 +23,12 @@ public class PrestadorServico implements Serializable {
 		this.user = user;
 	}
 	
+	public PrestadorServico(Long id, String tipoPrestador, Long qtdeFuncionarios) {
+		this.id = id;
+		this.tipoPrestador = tipoPrestador;
+		this.qtdeFuncionarios = qtdeFuncionarios;
+	}
+	
 	public PrestadorServico(String tipoPrestador, Long qtdeFuncionarios, User user) {
 		this.tipoPrestador = tipoPrestador;
 		this.qtdeFuncionarios = qtdeFuncionarios;
@@ -36,6 +42,10 @@ public class PrestadorServico implements Serializable {
 		this.id_user = id_user;
 		UserService userService = new UserService();	
 		this.user = userService.selectUserById(new User(id_user));
+	}
+	
+	public PrestadorServico(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {

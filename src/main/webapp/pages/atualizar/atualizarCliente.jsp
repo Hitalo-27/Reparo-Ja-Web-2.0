@@ -1,6 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ page import="com.quazar.tcc.model.Cliente" %> <%
-Cliente cliente = (Cliente) request.getAttribute("cliente"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ page import="com.quazar.tcc.model.Cliente" %>
+<%@ page import="com.quazar.tcc.model.Telefone" %> 
+
+<%
+	Cliente cliente = (Cliente) request.getAttribute("cliente");
+	Telefone telefone = (Telefone) request.getAttribute("telefone");
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -63,7 +68,7 @@ Cliente cliente = (Cliente) request.getAttribute("cliente"); %>
             <div>
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="hidden"
                   name="id"
                   readonly
                   value="<%= cliente.getId_user()%>"
@@ -101,8 +106,33 @@ Cliente cliente = (Cliente) request.getAttribute("cliente"); %>
                   value="<%= cliente.getUser().getCpf()%>"
                 />
               </div>
+              
+              <div class="inputBox">
+                <input
+                  type="hidden"
+                  name="id_telefone"
+                  value="<%= telefone.getId()%>"
+                />
+              </div>
+              
+              <div class="inputBox">
+                <input
+                  type="text"
+                  name="telefone"
+                  value="<%= telefone.getNumero()%>"
+                />
+              </div>
             </div>
+            
             <div class="formDireita">
+            	<div class="inputBox">
+                <input
+                  type="text"
+                  name="idade"
+                  value="<%= cliente.getUser().getIdade()%>"
+                />
+              </div>
+            
               <div class="inputBox">
                 <input
                   type="text"

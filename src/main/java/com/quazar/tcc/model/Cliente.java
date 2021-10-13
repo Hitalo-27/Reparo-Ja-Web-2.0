@@ -29,6 +29,10 @@ public class Cliente implements Serializable {
 		UserService userService = new UserService();	
 		this.user = userService.selectUserById(new User(id_user));
 	}
+	
+	public Cliente(Long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

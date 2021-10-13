@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+	String cadastro = (String) request.getAttribute("cadastro");
+%>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -67,34 +71,34 @@ pageEncoding="UTF-8"%>
               </div>
 
               <div class="inputBox">
-                <input type="text" name="telefone" id="telefone" required />
+                <input type="number" name="telefone" id="telefone" required />
                 <span>Telefone</span>
               </div>
 
               <div class="inputBox">
-                <input type="text" name="cep" id="cep" required />
+                <input type="number" name="cep" id="cep" required />
                 <span>CEP</span>
               </div>
 
               <div class="inputBox">
-                <input type="text" name="numeroCasa" id="numeroCasa" required />
+                <input type="number" name="numeroCasa" id="numeroCasa" required />
                 <span>Numero da Casa</span>
               </div>
 
               <div class="inputBox">
-                <input type="text" name="senha" id="senha" required />
-                <span>Senha</span>
+                <input type="number" name="idade" id="idade" required />
+                <span>Idade</span>
               </div>
             </div>
 
             <div class="formDireita">
               <div class="inputBox">
-                <input type="text" name="email" id="email" required />
+                <input type="email" name="email" id="email" required />
                 <span>Email</span>
               </div>
 
               <div class="inputBox">
-                <input type="text" name="cpf" id="cpf" required />
+                <input type="number" name="cpf" id="cpf" required />
                 <span>CPF</span>
               </div>
 
@@ -109,11 +113,18 @@ pageEncoding="UTF-8"%>
               </div>
 
               <div class="inputBox">
-                <input type="text" name="senha2" id="senha2" required />
-                <span>Senha Novamente</span>
+                <input type="password" name="senha" id="senha" required />
+                <span>Senha</span>
               </div>
             </div>
           </div>
+          <%
+          	if(cadastro != null){
+          %>
+          <p><%= cadastro %></p>
+          <%
+          	}
+          %>
           <div class="inputBox">
             <input type="submit" name="" value="Cadastrar" required />
           </div>

@@ -51,11 +51,13 @@ public class PrestadorServicoDao extends ConexaoBd {
 	
 	//UPDATE
 	public void alterarPrestador(PrestadorServico prestadorServico) {
-		String update = "update tb_prestadoresServico set id_user = ?";
+		String update = "UPDATE tb_prestadoresServico SET tipoPrestador = ?, qtdeFuncionarios = ? WHERE id = ?";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(update);
-			stmt.setLong(1, prestadorServico.getUser().getId());
+			stmt.setString(1, prestadorServico.getTipoPrestador());
+			stmt.setLong(2, prestadorServico.getQtdeFuncionarios());
+			stmt.setLong(3, prestadorServico.getId());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {

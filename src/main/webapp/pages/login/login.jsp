@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+
+<%
+	String log = (String) request.getAttribute("log");
+%>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -64,13 +69,24 @@ pageEncoding="UTF-8"%>
           <div class="form">
             <div class="inputBox">
               <input type="text" name="email" id="email" required />
-              <span>E-mail</span>
+              <span>E-mail ou CPF</span>
             </div>
 
             <div class="inputBox">
-              <input type="text" name="senha" id="senha" required />
+              <input type="password" name="senha" id="senha" required />
               <span>Senha</span>
             </div>
+            
+            <%
+            	if(log != null){
+            %>
+            <script>
+              console.log(log);
+            </script>
+            <p><%= log %></p>
+            <% 		
+            	} 	
+            %>
 
             <div class="inputBox">
               <input

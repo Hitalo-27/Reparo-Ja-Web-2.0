@@ -3,11 +3,13 @@ pageEncoding="UTF-8"%>
 <%@ page import="com.quazar.tcc.model.Cliente" %>
 <%@ page import="com.quazar.tcc.model.PrestadorServico" %>
 <%@ page import="com.quazar.tcc.model.Administrador" %>
+<%@ page import="com.quazar.tcc.model.Telefone" %>
 
 <%
 	Cliente cliente = null;
 	PrestadorServico prestadorServico = null;
 	Administrador administrador = null;
+	Telefone telefone = (Telefone) session.getAttribute("telefone");
 	
 	if(session.getAttribute("cliente") != null){
 		cliente = (Cliente) session.getAttribute("cliente");
@@ -109,7 +111,7 @@ pageEncoding="UTF-8"%>
 						out.print(administrador.getUser().getNome());
 					}
 					else{
-						out.print("Erro, todos nulos");
+						out.print("Erro, Nulo");
 					}
 				%>
 			</h3>
@@ -120,43 +122,45 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="perfil-usuario-footer">
           <ul class="lista-datos">
-            <li>
-            	<i class="icono fas fa-map-signs"></i>
-            	Endereço:
+          	<li>
+            	<i class="icono fa fa-envelope"></i>
+            	Email:
             	<%
 					if(cliente != null){
-						out.print(cliente.getUser().getRua());
+						out.print(cliente.getUser().getEmail());
 					}
 					else if(prestadorServico != null){
-						out.print(prestadorServico.getUser().getRua());
+						out.print(prestadorServico.getUser().getEmail());
 					}
 					else if(administrador != null){
-						out.print(administrador.getUser().getRua());
+						out.print(administrador.getUser().getEmail());
 					}
 					else{
 						out.print("Erro, todos nulos");
 					}
 				%>
             </li>
-            <li><i class="icono fas fa-phone-alt"></i>Telefone:</li>
-            <li><i class="icono fa fa-star"></i>Estrelas:</li>
-            <li><i class="icono fas fa-building"></i>Cargo:</li>
-            <%
-            	if(prestadorServico != null){
-            %>
             <li>
-				<i class="icono fas fa-user-check"></i>
-				Tipo de Prestador:
-				<%= prestadorServico.getTipoPrestador() %>
-			</li>
-           <%
-				}
-            %>
-          </ul>
-          <ul class="lista-datos">
+            	<i class="icono fas fa-map-signs"></i>
+            	CEP:
+            	<%
+					if(cliente != null){
+						out.print(cliente.getUser().getCep());
+					}
+					else if(prestadorServico != null){
+						out.print(prestadorServico.getUser().getCep());
+					}
+					else if(administrador != null){
+						out.print(administrador.getUser().getCep());
+					}
+					else{
+						out.print("Erro, todos nulos");
+					}
+				%>
+            </li>
             <li>
-            	<i class="icono fas fa-map-marker-alt"></i>
-            	Localização:
+            	<i class="icono fas fa-map-signs"></i>
+            	Bairro:
             	<%
 					if(cliente != null){
 						out.print(cliente.getUser().getBairro());
@@ -173,7 +177,101 @@ pageEncoding="UTF-8"%>
 				%>
             </li>
             <li>
-              <i class="icono fas fa-calendar-alt"></i>Data de nascimento:
+            	<i class="icono fas fa-map-signs"></i>
+            	Rua:
+            	<%
+					if(cliente != null){
+						out.print(cliente.getUser().getRua());
+					}
+					else if(prestadorServico != null){
+						out.print(prestadorServico.getUser().getRua());
+					}
+					else if(administrador != null){
+						out.print(administrador.getUser().getRua());
+					}
+					else{
+						out.print("Erro, todos nulos");
+					}
+				%>
+            </li>
+            <li>
+            	<i class="icono fas fa-map-signs"></i>
+            	Numero da casa:
+            	<%
+					if(cliente != null){
+						out.print(cliente.getUser().getNumeroCasa());
+					}
+					else if(prestadorServico != null){
+						out.print(prestadorServico.getUser().getNumeroCasa());
+					}
+					else if(administrador != null){
+						out.print(administrador.getUser().getNumeroCasa());
+					}
+					else{
+						out.print("Erro, todos nulos");
+					}
+				%>
+            </li>
+            <%
+            	if(prestadorServico != null){
+            %>
+            <li>
+				<i class="icono fas fa-user-check"></i>
+				Tipo de Prestador:
+				<%= prestadorServico.getTipoPrestador() %>
+			</li>
+			<li><i class="icono fas fa-building"></i>Cargo:</li>
+           <%
+				}
+            %>
+          </ul>
+          <ul class="lista-datos">
+          	<li>
+          		<i class="icono fa fa-star"></i>
+          		CPF:
+          		<%
+					if(cliente != null){
+						out.print(cliente.getUser().getCpf());
+					}
+					else if(prestadorServico != null){
+						out.print(prestadorServico.getUser().getCpf());
+					}
+					else if(administrador != null){
+						out.print(administrador.getUser().getCpf());
+					}
+					else{
+						out.print("Erro, todos nulos");
+					}
+				%>
+          	</li>
+          	<li>
+          		<i class="icono fas fa-phone-alt"></i>Telefone:
+          		<%
+          			if(telefone != null){
+          				out.print(telefone.getNumero());
+          			}
+          			else{
+          				out.print("telefone não cadastrado");
+          			}
+          		%>
+          	</li>
+            <li><i class="icono fa fa-star"></i>Estrelas:</li>
+            <li>
+              <i class="icono fas fa-calendar-alt"></i>Idade:
+              <%
+					if(cliente != null){
+						out.print(cliente.getUser().getIdade());
+					}
+					else if(prestadorServico != null){
+						out.print(prestadorServico.getUser().getIdade());
+					}
+					else if(administrador != null){
+						out.print(administrador.getUser().getIdade());
+					}
+					else{
+						out.print("Erro, todos nulos");
+					}
+				%>
             </li>
             <li>
             	<i class="icono fas fa-user-check"></i>
@@ -187,24 +285,6 @@ pageEncoding="UTF-8"%>
 					}
 					else if(administrador != null){
 						out.print("Administrador");
-					}
-					else{
-						out.print("Erro, todos nulos");
-					}
-				%>
-            </li>
-            <li>
-            	<i class="icono fa fa-envelope"></i>
-            	Email:
-            	<%
-					if(cliente != null){
-						out.print(cliente.getUser().getEmail());
-					}
-					else if(prestadorServico != null){
-						out.print(prestadorServico.getUser().getEmail());
-					}
-					else if(administrador != null){
-						out.print(administrador.getUser().getEmail());
 					}
 					else{
 						out.print("Erro, todos nulos");
@@ -235,7 +315,8 @@ pageEncoding="UTF-8"%>
        	<%
 			if(cliente != null){
 				%>
-				<a class="deletar" href="../../deletarCliente?id=<%= cliente.getId() %>&id_user=<%= cliente.getId_user() %>">Deletar Conta</a>
+				<a class="deletar" href="../../deletarCliente?
+				id=<%= cliente.getId() %>&id_user=<%= cliente.getId_user() %>&id_fone=<%= telefone.getId() %>">Deletar Conta</a>
 	      		<a class="editar" href="../../attCliente?id=<%= cliente.getId_user() %>">Atualizar Dados</a>
 				<%
 						
@@ -243,7 +324,8 @@ pageEncoding="UTF-8"%>
        			
 			else if(prestadorServico != null){
 				%>
-				<a class="deletar" href="../../deletarPrestador?id=<%= prestadorServico.getId() %>&id_user=<%= prestadorServico.getId_user() %>">Deletar Conta</a>
+				<a class="deletar" href="../../deletarPrestador?
+				id=<%= prestadorServico.getId() %>&id_user=<%= prestadorServico.getId_user() %>&id_fone=<%= telefone.getId() %>">Deletar Conta</a>
 	      		<a class="editar" href="../../attPrestador?id=<%= prestadorServico.getId_user() %>">Atualizar Dados</a>
 				<%
 						

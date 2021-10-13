@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.quazar.tcc.dao.ClienteDao;
 import com.quazar.tcc.dao.PrestadorServicoDao;
+import com.quazar.tcc.dao.TelefoneDao;
 import com.quazar.tcc.dao.UserDao;
 import com.quazar.tcc.model.Cliente;
 import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.model.Telefone;
 import com.quazar.tcc.model.User;
 
 @WebServlet(urlPatterns = {"/deletarCliente", "/deletarPrestador"})
@@ -22,6 +24,7 @@ public class DeletarController extends HttpServlet {
 	ClienteDao clienteDao = new ClienteDao();
 	PrestadorServicoDao prestadorServicoDao = new PrestadorServicoDao();
 	UserDao userDao = new UserDao();
+	TelefoneDao telefoneDao = new TelefoneDao();
        
     public DeletarController() {
     }
@@ -41,21 +44,23 @@ public class DeletarController extends HttpServlet {
 	}
 	
 	protected void deletarCliente(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cliente cliente = new Cliente();
-		cliente.setId(Long.parseLong(request.getParameter("id")));
+		Cliente cliente = new Cliente(Long.parseLong(request.getParameter("id")));
+		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_fone")));
 		User user = new User(Long.parseLong(request.getParameter("id_user")));
 		clienteDao.deletarCliente(cliente);
+		telefoneDao.deletarTelefone(telefone);
 		userDao.deletarUser(user);
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("logout");
 	}
 	
 	protected void deletarPrestador(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrestadorServico prestador = new PrestadorServico();
-		prestador.setId(Long.parseLong(request.getParameter("id")));
+		PrestadorServico prestador = new PrestadorServico(Long.parseLong(request.getParameter("id")));
+		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_fone")));
 		User user = new User(Long.parseLong(request.getParameter("id_user")));
 		prestadorServicoDao.deletarPrestador(prestador);
+		telefoneDao.deletarTelefone(telefone);
 		userDao.deletarUser(user);
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("logout");
 	}
 
 }

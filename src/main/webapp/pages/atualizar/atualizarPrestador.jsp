@@ -1,7 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ page import="com.quazar.tcc.model.PrestadorServico"
-%> <% PrestadorServico prestador = (PrestadorServico)
-request.getAttribute("prestador"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ page import="com.quazar.tcc.model.PrestadorServico" %> 
+<%@ page import="com.quazar.tcc.model.Telefone" %>
+
+<%
+	PrestadorServico prestador = (PrestadorServico) request.getAttribute("prestador");
+	Telefone telefone = (Telefone) request.getAttribute("telefone");
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -64,7 +68,7 @@ request.getAttribute("prestador"); %>
             <div>
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="hidden"
                   name="id"
                   readonly
                   value="<%= prestador.getId_user()%>"
@@ -96,6 +100,29 @@ request.getAttribute("prestador"); %>
                   type="text"
                   name="cpf"
                   value="<%= prestador.getUser().getCpf()%>"
+                />
+              </div>
+              <div class="inputBox">
+                <input
+                  type="text"
+                  name="idade"
+                  value="<%= prestador.getUser().getIdade()%>"
+                />
+              </div>
+              
+              <div class="inputBox">
+                <input
+                  type="hidden"
+                  name="id_telefone"
+                  value="<%= telefone.getId()%>"
+                />
+              </div>
+              
+              <div class="inputBox">
+                <input
+                  type="text"
+                  name="telefone"
+                  value="<%= telefone.getNumero()%>"
                 />
               </div>
             </div>
@@ -130,6 +157,13 @@ request.getAttribute("prestador"); %>
               </div>
               <div class="inputBox">
                 <input
+                  type="hidden"
+                  name="id_prestador"
+                  value="<%= prestador.getId()%>"
+                />
+              </div>
+              <div class="inputBox">
+                <input
                   type="text"
                   name="tipoPrestador"
                   value="<%= prestador.getTipoPrestador()%>"
@@ -138,7 +172,7 @@ request.getAttribute("prestador"); %>
               <div class="inputBox">
                 <input
                   type="text"
-                  name="qtdeFuncionario"
+                  name="qtdeFuncionarios"
                   value="<%= prestador.getQtdeFuncionarios()%>"
                 />
               </div>
