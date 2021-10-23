@@ -31,6 +31,7 @@
 		<link rel="stylesheet" href="../../global/global.css" />
 		<link rel="stylesheet" href="../../styles/menu.css" />
 		<link rel="stylesheet" href="./anuncio.css" />
+		<link rel="stylesheet" href="../../styles/cardProfile.css" />
 		<link rel="stylesheet" href="../../styles/footer.css" />
 	  </head>
 <body>
@@ -79,54 +80,87 @@
 	<div class="containerAnuncio">
 	<%
 		if(session.getAttribute("prestador") != null){
-	%>
-	<form action="fazerAnuncio" method="POST">
-		<label>Digite aqui o titulo do seu anuncio</label><br>
-		<input type="text" name="titulo" id="titulo"><br>
-		<label>Digite aqui o seu anuncio</label><br>
-		<textarea name="descricao"></textarea><br>
-		<label>Selecione uma categoria</label><br>
-		<select name="categoria">
-			<option value="marcenaria">Marcenaria</option>
-			<option value="eletronica">Eletronica</option>
-			<option value="eletroeletronica">Eletroeletronica</option>
-			<option value="pedreiro">Pedreiro</option>
-			<option value="pintor">Pintor</option>
-		</select> <br><br>
-		<input type="submit" value="Enviar">
-	</form>
+	%>	
+
+	<main class="contact">
+		<div class="contactForm">
+		<form action="fazerAnuncio" method="POST">
+			<div class="form">
+				<h2>Faça o Seu Anuncio Aqui!</h2>
+				<div class="inputBox">
+			<input type="text" name="titulo" id="titulo" required>
+			<span>Digite aqui o titulo do seu anuncio</span>
+			</div>
 	
-	<h3>Seus anuncios</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Id do anuncio</th>
-				<th>Id do prestador</th>
-				<th>Nome do prestador</th>
-				<th>Titulo</th>
-				<th>Categoria</th>
-				<th>Anuncio</th>
-				<th>Atualizar</th>
-				<th>Deletar</th>
-			</tr>
-		</thead>
-		<tbody>
+			<div class="inputBox">
+			<textarea name="descricao" required></textarea>
+			<span>Digite aqui o seu anuncio</span>
+			</div>
+	
+			<div class="inputBox">
+			<label>Selecione uma categoria: </label>
+			<select name="categoria">
+				<option value="marcenaria">Marcenaria</option>
+				<option value="eletronica">Eletronica</option>
+				<option value="eletroeletronica">Eletroeletronica</option>
+				<option value="pedreiro">Pedreiro</option>
+				<option value="pintor">Pintor</option>
+			</select>
+			</div>
+	
+			<div class="inputBox">
+			<input type="submit" value="Fazer Anuncio">
+			</div>
+		</div>
+		</form>
+		</div>
+		</main>
+
+	<h1>Seus anuncios</h1>
+	<section class="cards-wrapper">
 			<%
 				try{
 					List<AnuncioServico> anuncioServicos = anuncioServicoService
 							.selectAnunciosServicoByIdPrestador((PrestadorServico)request.getSession().getAttribute("prestador"));
 					for(AnuncioServico as : anuncioServicos){
 			%>
-			<tr>
-				<td><%= as.getId() %></td>
-				<td><%= as.getId_prestador() %></td>
-				<td><%= as.getPrestadorServico().getUser().getNome() %></td>
-				<td><%= as.getTitulo() %></td>
-				<td><%= as.getCategoria() %></td>
-				<td><%= as.getDescricao() %></td>
-				<td><a href="atualizarAnuncio">Atualizar</a></td>
-				<td><a href="deletarAnuncio?id_anuncio=<%= as.getId() %>">Deletar</a></td>
-			</tr>
+
+			<script>
+				function Deletar(){
+					var r=confirm("Deseja Mesmo Deletar o Seu Anuncio?");
+					if (r==true)
+					{
+						window.location = "deletarAnuncio?id_anuncio=<%= as.getId() %>";
+					}
+					document.getElementById("demo").innerHTML=x;
+				}
+			</script>
+
+			<div class="card-grid-space">
+				<div class="card-container">
+				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
+		
+				  <h3><%= as.getPrestadorServico().getUser().getNome() %></h3>
+				  <h4><%= as.getTitulo() %></h4>
+				  <br>
+				  <h6>Descrição:</h6>
+				  <p>
+					<%= as.getDescricao() %>
+				  </p>
+		
+				  <div class="buttons">
+					<button class="primary"><a href="atualizarAnuncio">Atualizar</a></button>
+					<button class="primary" onclick="Deletar()">Deletar</button>
+				  </div>
+		
+				  <div class="skills">
+					<h6>Categoria</h6>
+					<ul>
+					  <li><%= as.getCategoria() %></li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
 			<%
 					}
 				}
@@ -134,37 +168,42 @@
 					out.print("Erro");
 				}
 			%>
-		</tbody>
-	</table>
 	<%
 		}
 	%>
+	</section>
 
-	<h3>Anuncios feitos</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Id do anuncio</th>
-				<th>Id do prestador</th>
-				<th>Nome do prestador</th>
-				<th>Titulo</th>
-				<th>Categoria</th>
-				<th>Anuncio</th>
-			</tr>
-		</thead>
-		<tbody>
+	<h1>Anuncios feitos</h1>
+	<section class="cards-wrapper">
 			<%
 				try{
 					for(AnuncioServico as : listaAnuncioPedidos){
 			%>
-			<tr>
-				<td><%= as.getId() %></td>
-				<td><%= as.getId_prestador() %></td>
-				<td><%= as.getPrestadorServico().getUser().getNome() %></td>
-				<td><%= as.getTitulo() %></td>
-				<td><%= as.getCategoria() %></td>
-				<td><%= as.getDescricao() %></td>
-			</tr>
+
+			<div class="card-grid-space">
+				<div class="card-container">
+				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
+		
+				  <h3><%= as.getPrestadorServico().getUser().getNome() %></h3>
+				  <h4><%= as.getTitulo() %></h4>
+				  <br>
+				  <h6>Descrição:</h6>
+				  <p>
+					<%= as.getDescricao() %>
+				  </p>
+		
+				  <div class="buttons">
+					<button class="primary">Mensagem</button>
+				  </div>
+		
+				  <div class="skills">
+					<h6>Categoria</h6>
+					<ul>
+					  <li><%= as.getCategoria() %></li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
 			<%
 					}
 				}
@@ -172,8 +211,7 @@
 					out.print("Erro");
 				}
 			%>
-		</tbody>
-	</table>
+	</section>
   </div>
 
   <!-- Inicio do Footer -->

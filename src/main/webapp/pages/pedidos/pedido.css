@@ -1,4 +1,4 @@
-.containerAnuncio {
+.containerPedido {
   text-align: center;
 }
 
@@ -32,6 +32,7 @@ option {
 h4 {
   text-decoration: underline;
 }
+
 .contactForm {
   width: 60%;
   padding: 40px;

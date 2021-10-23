@@ -30,7 +30,8 @@
 		<title>Reparo Já</title>
 		<link rel="stylesheet" href="../../global/global.css" />
 		<link rel="stylesheet" href="../../styles/menu.css" />
-		<link rel="stylesheet" href="./pedido2.css" />
+		<link rel="stylesheet" href="./pedido.css" />
+		<link rel="stylesheet" href="../../styles/cardProfile.css" />
 		<link rel="stylesheet" href="../../styles/footer.css" />
 	  </head>
 <body>
@@ -81,67 +82,84 @@
 	%>
 
 	<main class="contact">
-	<div class="contactForm">
-	<form action="fazerPedido" method="POST">
-		<div class="form">
-			<h2>Faça o Seu Pedido</h2>
-            <div class="inputBox">
-			<input type="text" name="titulo" id="titulo" required />
-			<span>Digite o titulo do pedido</span>
-			</div>
-
-			<div class="inputBox">
-			<textarea type="text" name="pedido" required ></textarea>
-			<span>Digite aqui o seu pedido</span>
-			</div>
-
-		<label>Digite a categoria do pedido</label><br>
-		<select name="categoria">
-			<option value="marcenaria">Marcenaria</option>
-			<option value="eletronica">Eletronica</option>
-			<option value="eletroeletronica">Eletroeletronica</option>
-			<option value="pedreiro">Pedreiro</option>
-			<option value="pintor">Pintor</option>
-		</select>
-
-		<div class="inputBox">
-		<input type="submit" value="Enviar">
-		</div>
-		</div>
-	</form>
-	</div>
-	</main>
+		<div class="contactForm">
+		<form action="fazerPedido" method="POST">
+			<div class="form">
+				<h2>Faça o Seu Pedido Aqui!</h2>
+				<div class="inputBox">
+				<input type="text" name="titulo" id="titulo" required />
+				<span>Digite o titulo do pedido</span>
+				</div>
 	
-	<h3>Seus pedidos</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Id do pedido</th>
-				<th>Id do cliente</th>
-				<th>Nome do cliente</th>
-				<th>Titulo</th>
-				<th>Categoria</th>
-				<th>Pedido</th>
-				<th>Atualizar</th>
-				<th>Deletar</th>
-			</tr>
-		</thead>
-		<tbody>
+				<div class="inputBox">
+				<textarea type="text" name="pedido" required ></textarea>
+				<span>Digite aqui o seu pedido</span>
+				</div>
+	
+				<div class="inputBox">
+				<label>Digite a categoria do pedido</label>
+				<select name="categoria">
+					<option value="marcenaria">Marcenaria</option>
+					<option value="eletronica">Eletronica</option>
+					<option value="eletroeletronica">Eletroeletronica</option>
+					<option value="pedreiro">Pedreiro</option>
+					<option value="pintor">Pintor</option>
+				</select>
+				</div>
+			<div class="inputBox">
+			<input type="submit" value="Fazer Pedido">
+			</div>
+			</div>
+		</form>
+		</div>
+		</main>
+	
+	<h1>Seus pedidos</h1>
+	<section class="cards-wrapper">
 			<%
 				try{
 					List<Pedido> pedidos = pedidoService.selectPedidosByIdCliente((Cliente) request.getSession().getAttribute("cliente"));
 					for(Pedido pedido : pedidos){
 			%>
-			<tr>
-				<td><%= pedido.getId() %></td>
-				<td><%= pedido.getId_cliente() %></td>
-				<td><%= pedido.getCliente().getUser().getNome() %></td>
-				<td><%= pedido.getTitulo() %></td>
-				<td><%= pedido.getCategoria() %></td>
-				<td><%= pedido.getPedido() %></td>
-				<td><a href="atualizarPedido">Atualizar</a></td>
-				<td><a href="deletarPedido?id_pedido=<%= pedido.getId() %>">Deletar</a></td>
-			</tr>
+
+			<script>
+				function Deletar(){
+					var r=confirm("Deseja Mesmo Deletar o Seu Pedido?");
+					if (r==true)
+					{
+						window.location = "deletarPedido?id_pedido=<%= pedido.getId() %>";
+					}
+					document.getElementById("demo").innerHTML=x;
+				}
+			</script>
+		
+			<div class="card-grid-space">
+				<div class="card-container">
+				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
+		
+				  <h3><%= pedido.getCliente().getUser().getNome() %></h3>
+				  <h4><%= pedido.getTitulo() %></h4>
+				  <br>
+				  <h6>Descrição:</h6>
+				  <p>
+					<%= pedido.getPedido() %>
+				  </p>
+		
+				  <div class="buttons">
+					<button class="primary"><a href="atualizarPedido">Atualizar</a></button>
+					<!-- <button class="primary"><a href="deletarPedido?id_pedido=<%= pedido.getId() %>">Deletar</a></button> -->
+					<button class="primary" onclick="Deletar()"> Deletar</button>
+				  </div>
+		
+				  <div class="skills">
+					<h6>Categorias</h6>
+					<ul>
+					  <li><%= pedido.getCategoria() %></li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
+
 			<%
 					}
 				}
@@ -149,37 +167,43 @@
 					out.print("Erro");
 				}
 			%>
-		</tbody>
-	</table>
 	<%
 		}
 	%>
+	</section>
 
-	<h3>pedidos feitos</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Id do pedido</th>
-				<th>Id do cliente</th>
-				<th>Nome do cliente</th>
-				<th>Titulo</th>
-				<th>Categoria</th>
-				<th>Pedido</th>
-			</tr>
-		</thead>
-		<tbody>
+	<h1>Pedidos feitos</h1>
+	<section class="cards-wrapper">
 			<%
 				try{
 					for(Pedido pedido : listaPedidos){
 			%>
-			<tr>
-				<td><%= pedido.getId() %></td>
-				<td><%= pedido.getId_cliente() %></td>
-				<td><%= pedido.getCliente().getUser().getNome() %></td>
-				<td><%= pedido.getTitulo() %></td>
-				<td><%= pedido.getCategoria() %></td>
-				<td><%= pedido.getPedido() %></td>
-			</tr>
+
+			<div class="card-grid-space">
+				<div class="card-container">
+				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
+		
+				  <h3><%= pedido.getCliente().getUser().getNome() %></h3>
+				  <h4><%= pedido.getTitulo() %></h4>
+				  <br>
+				  <h6>Descrição:</h6>
+				  <p>
+					<%= pedido.getPedido() %>
+				  </p>
+		
+				  <div class="buttons">
+					<button class="primary">Mensagem</button>
+				  </div>
+		
+				  <div class="skills">
+					<h6>Categorias</h6>
+					<ul>
+					  <li><%= pedido.getCategoria() %></li>
+					</ul>
+				  </div>
+				</div>
+			  </div>
+
 			<%
 					}
 				}
@@ -187,8 +211,7 @@
 					out.print("Erro");
 				}
 			%>
-		</tbody>
-	</table>
+	</section>
 	</div>
 	<!-- Inicio do Footer -->
     <div class="footer-container">
