@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
+    <link rel="shortcut icon" href="../../img/logoFundo.png" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -31,7 +31,6 @@
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="../../index.jsp">Home</a></li>
-          <li class="items"><a href="../servicos/servicos.jsp">Serviços</a></li>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -58,14 +57,6 @@
         });
       </script>
     </div>
-    <!-- <nav>
-		<ul>
-			<li><a href="index.jsp">Home</a></li>
-			<li><a href="cadastrarCliente.jsp">Cadastrar Cliente</a></li>
-			<li><a href="cadastrarPrestador.jsp">Cadastrar Prestador de Serviço</a></li>
-			<li><a href="login.jsp">Login</a></li>
-		</ul>
-	</nav> -->
 
     <main class="contact">
       <div class="contactForm">
@@ -99,14 +90,30 @@
               </div>
 
               <div class="inputBox">
-                <input
-                  type="text"
-                  name="tipoPrestador"
-                  id="tipoPrestador"
-                  required
-                />
+                <input type="text" name="tipoPrestador" id="tipoPrestador" required />
                 <span>Tipo Prestador</span>
               </div>
+              
+              	<br>
+	      		<label for="marceneiro">Marceneiro</label>
+		        <input type="checkbox" name="marceneiro" id="marceneiro" checked />
+		 		<br><br>
+
+		     	<label for="eletronica">Eletronica</label>
+		        <input type="checkbox" name="eletronica" id="eletronica" />
+		        <br><br>
+     
+	    		<label for="eletroeletronica">Eletroeletronica</label>
+		         <input type="checkbox" name="eletroeletronica" id="eletroeletronica"/>
+		         <br><br>
+
+		     	<label for="pedreiro">Pedreiro</label>
+		       	<input type="checkbox" name="pedreiro" id="pedreiro" />
+	    		<br><br>
+
+	      		<label for="pintor">Pintor</label>
+	        	<input type="checkbox" name="pintor" id="pintor"/>
+
             </div>
 
             <div class="formDireita">
@@ -137,7 +144,7 @@
 
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="number"
                   name="qtdeFuncionarios"
                   id="qtdeFuncionarios"
                   required

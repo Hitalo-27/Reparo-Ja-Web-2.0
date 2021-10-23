@@ -10,6 +10,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="../../img/logoFundo.png" type="image/x-icon" />
     <link rel="stylesheet" href="./global/global.css" />
     <link rel="stylesheet" href="./styles/menu.css" />
     <link rel="stylesheet" href="./pages/atualizar/atualizar.css" />
@@ -22,7 +23,8 @@
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="./index.jsp">Home</a></li>
-          <li class="items"><a href="./pages/servicos/servicos.jsp">Serviços</a></li>
+          <li class="items"><a href="./pages/pedidos/pedido">Pedidos</a></li>
+          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Anuncio Serviço</a></li>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -85,7 +87,7 @@
 
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   value="<%= cliente.getUser().getEmail()%>"
                 />
@@ -93,7 +95,7 @@
 
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="password"
                   name="senha"
                   value="<%= cliente.getUser().getSenha()%>"
                 />
@@ -101,7 +103,7 @@
 
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="number"
                   name="cpf"
                   value="<%= cliente.getUser().getCpf()%>"
                 />
@@ -117,7 +119,7 @@
               
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="number"
                   name="telefone"
                   value="<%= telefone.getNumero()%>"
                 />
@@ -127,7 +129,7 @@
             <div class="formDireita">
             	<div class="inputBox">
                 <input
-                  type="text"
+                  type="number"
                   name="idade"
                   value="<%= cliente.getUser().getIdade()%>"
                 />
@@ -135,7 +137,7 @@
             
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="number"
                   name="cep"
                   value="<%= cliente.getUser().getCep()%>"
                 />
@@ -151,7 +153,7 @@
 
               <div class="inputBox">
                 <input
-                  type="text"
+                  type="number"
                   name="numeroCasa"
                   value="<%= cliente.getUser().getNumeroCasa()%>"
                 />

@@ -1,6 +1,7 @@
 package com.quazar.tcc.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,14 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.quazar.tcc.dao.AnuncioServicoDao;
 import com.quazar.tcc.dao.ClienteDao;
+import com.quazar.tcc.dao.PedidoDao;
 import com.quazar.tcc.dao.PrestadorServicoDao;
+import com.quazar.tcc.dao.ServicosPrestadorDao;
 import com.quazar.tcc.dao.TelefoneDao;
 import com.quazar.tcc.dao.UserDao;
+import com.quazar.tcc.model.AnuncioServico;
 import com.quazar.tcc.model.Cliente;
+import com.quazar.tcc.model.Pedido;
 import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.model.ServicosPrestador;
 import com.quazar.tcc.model.Telefone;
 import com.quazar.tcc.model.User;
+import com.quazar.tcc.service.AnuncioServicoService;
+import com.quazar.tcc.service.PedidoService;
+import com.quazar.tcc.service.ServicosPrestadorService;
 
 @WebServlet(urlPatterns = {"/deletarCliente", "/deletarPrestador"})
 public class DeletarController extends HttpServlet {
@@ -25,6 +35,13 @@ public class DeletarController extends HttpServlet {
 	PrestadorServicoDao prestadorServicoDao = new PrestadorServicoDao();
 	UserDao userDao = new UserDao();
 	TelefoneDao telefoneDao = new TelefoneDao();
+	PedidoDao pedidoDao = new PedidoDao();
+	ServicosPrestadorDao servicosPrestadorDao = new ServicosPrestadorDao();
+	AnuncioServicoDao anuncioServicoDao = new AnuncioServicoDao();
+	
+	PedidoService pedidoService = new PedidoService();
+	ServicosPrestadorService servicosPrestadorService = new ServicosPrestadorService();
+	AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
        
     public DeletarController() {
     }
@@ -47,6 +64,10 @@ public class DeletarController extends HttpServlet {
 		Cliente cliente = new Cliente(Long.parseLong(request.getParameter("id")));
 		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_fone")));
 		User user = new User(Long.parseLong(request.getParameter("id_user")));
+		List<Pedido> pedidosCliente = pedidoService.selectPedidosByIdCliente(cliente);
+		for(Pedido pedido : pedidosCliente) {
+			pedidoDao.deletarPedido(pedido);
+		}
 		clienteDao.deletarCliente(cliente);
 		telefoneDao.deletarTelefone(telefone);
 		userDao.deletarUser(user);
@@ -57,6 +78,15 @@ public class DeletarController extends HttpServlet {
 		PrestadorServico prestador = new PrestadorServico(Long.parseLong(request.getParameter("id")));
 		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_fone")));
 		User user = new User(Long.parseLong(request.getParameter("id_user")));
+		List<ServicosPrestador> servicosPrestadors = servicosPrestadorService
+				.selectServicosPrestadorByIdPrestador(Long.parseLong(request.getParameter("id")));
+		for(ServicosPrestador sp : servicosPrestadors) {
+			servicosPrestadorDao.deletarServicoPrestador(sp);
+		}
+		List<AnuncioServico> anuncioServicos = anuncioServicoService.selectAnunciosServicoByIdPrestador(prestador);
+		for(AnuncioServico as : anuncioServicos) {
+			anuncioServicoDao.deletarAnuncioServico(as);
+		}
 		prestadorServicoDao.deletarPrestador(prestador);
 		telefoneDao.deletarTelefone(telefone);
 		userDao.deletarUser(user);

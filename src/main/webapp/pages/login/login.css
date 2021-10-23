@@ -107,6 +107,11 @@
     font-family: 'Rajdhani';
     margin-bottom: 5%;
     margin-right: 25%;
+    text-decoration: underline;
+  }
+
+  .linkCadastrar:hover{
+    color: var(--color);
   }
 
 @media (max-width: 991px) {

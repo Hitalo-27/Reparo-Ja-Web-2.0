@@ -10,6 +10,16 @@ public class PrestadorServicoService {
 	
 	private PrestadorServicoDao prestadorServicoDao = new PrestadorServicoDao();
 	
+	public PrestadorServico selectPrestadorById(Long id) {
+		List<PrestadorServico> listaPrestadores = prestadorServicoDao.listarPrestadores();
+		for(PrestadorServico prestador : listaPrestadores) {
+			if(prestador.getId() == id) {
+				return prestador;
+			}
+		}
+		return null;
+	}
+	
 	public PrestadorServico selectPrestadorByIdUser(User user) {
 		List<PrestadorServico> listaPrestadores = prestadorServicoDao.listarPrestadores();
 		for(PrestadorServico prestador : listaPrestadores) {

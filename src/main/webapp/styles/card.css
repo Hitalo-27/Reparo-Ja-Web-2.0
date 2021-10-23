@@ -50,10 +50,10 @@ a {
   --bg-filter-opacity: 0.5;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
   height: 18em;
-  width: 13em;
+  width: 14em;
   font-size: 1.5em;
   color: black;
-  border-radius: 1em;
+  border-radius: 10px;
   display: flex;
   align-items: flex-end;
   background-size: cover;
@@ -62,7 +62,7 @@ a {
   transition: all, var(--transition-time);
   position: relative;
   overflow: hidden;
-  border: 10px solid #231E39;
+  border: 1px solid #231E39;
   text-decoration: none;
 }
 

@@ -8,6 +8,7 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="shortcut icon" href="../../img/logoFundo.png" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -27,7 +28,14 @@ pageEncoding="UTF-8"%>
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="../../index.jsp">Home</a></li>
-          <li class="items"><a href="../servicos/servicos.jsp">Serviços</a></li>
+          <%
+          	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+          %>
+          <li class="items"><a href="../pedidos/pedido">Pedidos</a></li>
+          <li class="items"><a href="../anuncioServicos/anuncioServico">Anuncio Servico</a></li>
+          <%
+          	}
+          %>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>

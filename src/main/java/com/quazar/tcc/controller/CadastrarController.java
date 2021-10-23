@@ -1,6 +1,7 @@
 package com.quazar.tcc.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,16 +14,21 @@ import javax.servlet.http.HttpSession;
 
 import com.quazar.tcc.dao.ClienteDao;
 import com.quazar.tcc.dao.PrestadorServicoDao;
+import com.quazar.tcc.dao.ServicosPrestadorDao;
 import com.quazar.tcc.dao.TelefoneDao;
 import com.quazar.tcc.dao.TipoUserDao;
 import com.quazar.tcc.dao.UserDao;
 import com.quazar.tcc.model.Cliente;
 import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.model.Servico;
+import com.quazar.tcc.model.ServicosPrestador;
 import com.quazar.tcc.model.Telefone;
 import com.quazar.tcc.model.TipoUser;
 import com.quazar.tcc.model.User;
 import com.quazar.tcc.service.ClienteService;
 import com.quazar.tcc.service.PrestadorServicoService;
+import com.quazar.tcc.service.ServicoService;
+import com.quazar.tcc.service.ServicosPrestadorService;
 import com.quazar.tcc.service.TelefoneService;
 import com.quazar.tcc.service.TipoUserService;
 import com.quazar.tcc.service.UserService;
@@ -36,12 +42,15 @@ public class CadastrarController extends HttpServlet {
 	PrestadorServicoDao prestadorServicoDao = new PrestadorServicoDao();
 	TipoUserDao tipoUserDao = new TipoUserDao();
 	TelefoneDao telefoneDao = new TelefoneDao();
+	ServicosPrestadorDao servicosPrestadorDao = new ServicosPrestadorDao();
 	
 	TipoUserService tipoUserService = new TipoUserService();
 	UserService userService = new UserService();
 	TelefoneService telefoneService = new TelefoneService();
 	ClienteService clienteService = new ClienteService();
 	PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
+	ServicoService servicoService = new ServicoService();
+	ServicosPrestadorService servicosPrestadorService = new ServicosPrestadorService();
 
     public CadastrarController() {
     }
@@ -144,22 +153,55 @@ public class CadastrarController extends HttpServlet {
 					userDao.cadastrarUser(user);
 					Telefone telefone = new Telefone(Integer.parseInt(request.getParameter("telefone")), userService.selectUserByEmail(user));
 					telefoneDao.cadastrarTelefone(telefone);
+					
 					PrestadorServico prestadorServico = new PrestadorServico(request.getParameter("tipoPrestador"), 
 							Long.parseLong(request.getParameter("qtdeFuncionarios")), userService.selectUserByEmail(user));
 					prestadorServicoDao.cadastrarPrestador(prestadorServico);
 					
-					HttpSession session = null;
+					List<String> servicosStr = new ArrayList<>();
+					if(request.getParameter("marceneiro") != null) {
+						String add = "marceneiro";
+						servicosStr.add(add);
+					}
+					if(request.getParameter("eletronica") != null) {
+						String add = "eletronica";
+						servicosStr.add(add);
+					}
+					if(request.getParameter("eletroeletronica") != null) {
+						String add = "eletroeletronica";
+						servicosStr.add(add);
+					}
+					if(request.getParameter("pedreiro") != null) {
+						String add = "pedreiro";
+						servicosStr.add(add);
+					}
+					if(request.getParameter("pintor") != null) {
+						String add = "pintor";
+						servicosStr.add(add);
+					}
+					
+					List<Servico> servicos = servicoService.selectServicosByName(servicosStr);
 					user = userService.selectUserByEmail(new User(request.getParameter("email"), request.getParameter("senha")));
+					prestadorServico = prestadorServicoService.selectPrestadorByIdUser(user);
+					for(Servico servico : servicos) {
+						servicosPrestadorDao.cadastrarServicoPrestador(servico, prestadorServico);
+					}
+					
+					HttpSession session = null;
+					//user = userService.selectUserByEmail(new User(request.getParameter("email"), request.getParameter("senha")));
 					if(user != null) {
 						telefone = telefoneService.selectTelefoneByIdUser(user);
 						if(telefone != null) {
 							session = request.getSession();
 							session.setAttribute("telefone", telefone);
 						}
-						prestadorServico = prestadorServicoService.selectPrestadorByIdUser(user);
+						//prestadorServico = prestadorServicoService.selectPrestadorByIdUser(user);
 						if(prestadorServico != null) {
+							List<ServicosPrestador> servicosPrestador = servicosPrestadorService
+									.selectServicosPrestadorByIdPrestador(prestadorServico.getId());
 							session = request.getSession();
 							session.setAttribute("prestador", prestadorServico);
+							session.setAttribute("servicosPrestador", servicosPrestador);
 							RequestDispatcher rd = request.getRequestDispatcher("../perfil/perfil.jsp");
 							rd.forward(request, response);
 						}

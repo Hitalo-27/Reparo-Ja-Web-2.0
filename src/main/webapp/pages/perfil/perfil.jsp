@@ -1,21 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
 <%@ page import="com.quazar.tcc.model.Cliente" %>
 <%@ page import="com.quazar.tcc.model.PrestadorServico" %>
 <%@ page import="com.quazar.tcc.model.Administrador" %>
 <%@ page import="com.quazar.tcc.model.Telefone" %>
+<%@ page import="com.quazar.tcc.model.ServicosPrestador" %>
 
 <%
 	Cliente cliente = null;
 	PrestadorServico prestadorServico = null;
 	Administrador administrador = null;
 	Telefone telefone = (Telefone) session.getAttribute("telefone");
+	List<ServicosPrestador> listaServicosPrestador = null;
 	
 	if(session.getAttribute("cliente") != null){
 		cliente = (Cliente) session.getAttribute("cliente");
 	} 
 	else if(session.getAttribute("prestador") != null){
 		prestadorServico = (PrestadorServico) session.getAttribute("prestador");
+		listaServicosPrestador = (List<ServicosPrestador>) session.getAttribute("servicosPrestador");
 	}
 	else if(session.getAttribute("administrador") != null){
 		administrador = (Administrador) session.getAttribute("administrador");
@@ -30,7 +34,7 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
+    <link rel="shortcut icon" href="../../img/logoFundo.png" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -49,7 +53,8 @@ pageEncoding="UTF-8"%>
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="../../index.jsp">Home</a></li>
-          <li class="items"><a href="../servicos/servicos.jsp">Serviços</a></li>
+          <li class="items"><a href="../pedidos/pedido">Pedidos</a></li>
+          <li class="items"><a href="../anuncioServicos/anuncioServico">Anuncio Servico</a></li>
           <li class="items"><a href="../perfil/perfil.jsp">Perfil</a></li>
           <li class="items">
             <a href="../quemSomos/quemsomos.jsp">Quem Somos</a>
@@ -141,7 +146,7 @@ pageEncoding="UTF-8"%>
 				%>
             </li>
             <li>
-            	<i class="icono fas fa-map-signs"></i>
+            	<i class="fa fa-map-marker" aria-hidden="true"></i>
             	CEP:
             	<%
 					if(cliente != null){
@@ -159,7 +164,7 @@ pageEncoding="UTF-8"%>
 				%>
             </li>
             <li>
-            	<i class="icono fas fa-map-signs"></i>
+            	<i class="fa fa-home" aria-hidden="true"></i>
             	Bairro:
             	<%
 					if(cliente != null){
@@ -177,7 +182,7 @@ pageEncoding="UTF-8"%>
 				%>
             </li>
             <li>
-            	<i class="icono fas fa-map-signs"></i>
+            	<i class="fa fa-home" aria-hidden="true"></i>
             	Rua:
             	<%
 					if(cliente != null){
@@ -195,7 +200,7 @@ pageEncoding="UTF-8"%>
 				%>
             </li>
             <li>
-            	<i class="icono fas fa-map-signs"></i>
+            	<i class="fa fa-home" aria-hidden="true"></i>
             	Numero da casa:
             	<%
 					if(cliente != null){
@@ -220,14 +225,23 @@ pageEncoding="UTF-8"%>
 				Tipo de Prestador:
 				<%= prestadorServico.getTipoPrestador() %>
 			</li>
-			<li><i class="icono fas fa-building"></i>Cargo:</li>
-           <%
+			<%
+				if(listaServicosPrestador != null){
+					for(ServicosPrestador servicosPrestador : listaServicosPrestador){
+			%>
+			<li>
+				<i class="icono fas fa-building"></i>Cargo:
+				<%= servicosPrestador.getServico().getNome() %>
+			</li>
+			<%
+						}
+					}
 				}
             %>
           </ul>
           <ul class="lista-datos">
           	<li>
-          		<i class="icono fa fa-star"></i>
+				<i class="fa fa-id-card" aria-hidden="true"></i>
           		CPF:
           		<%
 					if(cliente != null){

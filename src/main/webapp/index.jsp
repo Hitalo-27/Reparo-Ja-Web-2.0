@@ -13,6 +13,7 @@ pageEncoding="UTF-8"%>
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <link rel="shortcut icon" href="./img/logoFundo.png" type="image/x-icon" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Reparo Já</title>
@@ -28,9 +29,14 @@ pageEncoding="UTF-8"%>
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="./index.jsp">Home</a></li>
-          <li class="items">
-            <a href="./pages/servicos/servicos.jsp">Serviços</a>
-          </li>
+          <%
+          	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+          %>
+          <li class="items"><a href="./pages/pedidos/pedido">Pedidos</a></li>
+          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Anuncios Servico</a></li>
+          <%
+          	}
+          %>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -184,16 +190,15 @@ pageEncoding="UTF-8"%>
           <a
             class="card"
             href="#"
-            style="background-image: url('./img/ex.jpg')"
+            style="background-image: url('./img/pedreiro.jpg')"
           >
             <div class="bodyCard">
-              <h1>Nome</h1>
+              <h1>Pedreiro</h1>
               <p>
-                Conserto de Eletrodomesticos com os melhores profissionais da
-                região
+                Os melhores pedreiros para conserto e construção de casas.
               </p>
               <div class="tags">
-                <div class="tag">Tag</div>
+                <div class="tag">Pedreiro</div>
               </div>
             </div>
           </a>
@@ -221,7 +226,7 @@ pageEncoding="UTF-8"%>
             </div>
 
             <div class="skills">
-              <h6>Abilidades</h6>
+              <h6>Habilidades</h6>
               <ul>
                 <li>Trabalho feito de forma rapida</li>
                 <li>Atencioso</li>
@@ -248,7 +253,7 @@ pageEncoding="UTF-8"%>
             </div>
 
             <div class="skills">
-              <h6>Abilidades</h6>
+              <h6>Habilidades</h6>
               <ul>
                 <li>Trabalho feito de forma rapida</li>
                 <li>Atencioso</li>
@@ -275,7 +280,7 @@ pageEncoding="UTF-8"%>
             </div>
 
             <div class="skills">
-              <h6>Abilidades</h6>
+              <h6>Habilidades</h6>
               <ul>
                 <li>Trabalho feito de forma rapida</li>
                 <li>Atencioso</li>

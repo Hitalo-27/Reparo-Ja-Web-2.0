@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
+    <link rel="shortcut icon" href="../../img/logoFundo.png" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -33,7 +33,6 @@ pageEncoding="UTF-8"%>
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="../../index.jsp">Home</a></li>
-          <li class="items"><a href="../servicos/servicos.jsp">Serviços</a></li>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -68,8 +67,8 @@ pageEncoding="UTF-8"%>
           <h2>Faça o Login</h2>
           <div class="form">
             <div class="inputBox">
-              <input type="text" name="email" id="email" required />
-              <span>E-mail ou CPF</span>
+              <input type="email" name="email" id="email" required />
+              <span>E-mail</span>
             </div>
 
             <div class="inputBox">
@@ -81,9 +80,8 @@ pageEncoding="UTF-8"%>
             	if(log != null){
             %>
             <script>
-              console.log(log);
+              alert("Email ou Senha Incorreto");
             </script>
-            <p><%= log %></p>
             <% 		
             	} 	
             %>
@@ -93,7 +91,6 @@ pageEncoding="UTF-8"%>
                 type="submit"
                 name=""
                 value="Login"
-                required
                 onClick="{login}"
                 class="button"
               />
