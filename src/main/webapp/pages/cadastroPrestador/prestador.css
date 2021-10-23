@@ -105,6 +105,18 @@ input[type=number] {
     cursor: pointer;
     padding: 10px;
     font-size: 18px;
+    margin-top: 5%;
+}
+
+h3{
+    color: var(--color1);
+    margin-top: 5%;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.tipoPres{
+    margin-top: 4%;
+    margin-bottom: 2%;
 }
 
 

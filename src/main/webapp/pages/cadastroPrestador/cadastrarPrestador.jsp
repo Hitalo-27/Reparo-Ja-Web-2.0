@@ -93,26 +93,6 @@
                 <input type="text" name="tipoPrestador" id="tipoPrestador" required />
                 <span>Tipo Prestador</span>
               </div>
-              
-              	<br>
-	      		<label for="marceneiro">Marceneiro</label>
-		        <input type="checkbox" name="marceneiro" id="marceneiro" checked />
-		 		<br><br>
-
-		     	<label for="eletronica">Eletronica</label>
-		        <input type="checkbox" name="eletronica" id="eletronica" />
-		        <br><br>
-     
-	    		<label for="eletroeletronica">Eletroeletronica</label>
-		         <input type="checkbox" name="eletroeletronica" id="eletroeletronica"/>
-		         <br><br>
-
-		     	<label for="pedreiro">Pedreiro</label>
-		       	<input type="checkbox" name="pedreiro" id="pedreiro" />
-	    		<br><br>
-
-	      		<label for="pintor">Pintor</label>
-	        	<input type="checkbox" name="pintor" id="pintor"/>
 
             </div>
 
@@ -153,6 +133,27 @@
               </div>
             </div>
           </div>
+
+        <!-- <h3>Tipo Prestador</h3>
+         
+      <div class="tipoPres">
+        <label for="marceneiro">Marceneiro</label>
+        <input type="checkbox" name="marceneiro" id="marceneiro" checked />
+     
+       <label for="eletronica">Eletronica</label>
+        <input type="checkbox" name="eletronica" id="eletronica" />
+        
+ 
+        <label for="eletroeletronica">Eletroeletronica</label>
+         <input type="checkbox" name="eletroeletronica" id="eletroeletronica"/>
+      </div>
+     
+         <label for="pedreiro">Pedreiro</label>
+         <input type="checkbox" name="pedreiro" id="pedreiro" />
+      
+        <label for="pintor">Pintor</label>
+        <input type="checkbox" name="pintor" id="pintor"/> -->
+
           <%
           	if(cadastro != null){
           %>

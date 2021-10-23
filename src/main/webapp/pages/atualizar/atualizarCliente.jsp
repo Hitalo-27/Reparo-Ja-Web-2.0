@@ -10,7 +10,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="shortcut icon" href="../../img/logoFundo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./img/logoFundo.png" type="image/x-icon" />
     <link rel="stylesheet" href="./global/global.css" />
     <link rel="stylesheet" href="./styles/menu.css" />
     <link rel="stylesheet" href="./pages/atualizar/atualizar.css" />
@@ -83,72 +83,25 @@
                   name="nome"
                   value="<%= cliente.getUser().getNome()%>"
                 />
+                <span>Nome completo</span>
               </div>
 
-              <div class="inputBox">
-                <input
-                  type="email"
-                  name="email"
-                  value="<%= cliente.getUser().getEmail()%>"
-                />
-              </div>
-
-              <div class="inputBox">
-                <input
-                  type="password"
-                  name="senha"
-                  value="<%= cliente.getUser().getSenha()%>"
-                />
-              </div>
-
-              <div class="inputBox">
-                <input
-                  type="number"
-                  name="cpf"
-                  value="<%= cliente.getUser().getCpf()%>"
-                />
-              </div>
-              
-              <div class="inputBox">
-                <input
-                  type="hidden"
-                  name="id_telefone"
-                  value="<%= telefone.getId()%>"
-                />
-              </div>
-              
               <div class="inputBox">
                 <input
                   type="number"
                   name="telefone"
                   value="<%= telefone.getNumero()%>"
                 />
+                <span>Telefone</span>
               </div>
-            </div>
-            
-            <div class="formDireita">
-            	<div class="inputBox">
-                <input
-                  type="number"
-                  name="idade"
-                  value="<%= cliente.getUser().getIdade()%>"
-                />
-              </div>
-            
+
               <div class="inputBox">
                 <input
                   type="number"
                   name="cep"
                   value="<%= cliente.getUser().getCep()%>"
                 />
-              </div>
-
-              <div class="inputBox">
-                <input
-                  type="text"
-                  name="rua"
-                  value="<%= cliente.getUser().getRua()%>"
-                />
+                <span>CEP</span>
               </div>
 
               <div class="inputBox">
@@ -157,6 +110,55 @@
                   name="numeroCasa"
                   value="<%= cliente.getUser().getNumeroCasa()%>"
                 />
+                <span>Numero da casa</span>
+              </div>
+
+              <div class="inputBox">
+                <input
+                  type="number"
+                  name="idade"
+                  value="<%= cliente.getUser().getIdade()%>"
+                />
+                <span>Idade</span>
+              </div>
+            
+              <div class="inputBox">
+                <input
+                  type="hidden"
+                  name="id_telefone"
+                  value="<%= telefone.getId()%>"
+                />
+              </div>
+              
+            </div>
+            
+            <div class="formDireita">
+            
+              <div class="inputBox">
+                <input
+                  type="email"
+                  name="email"
+                  value="<%= cliente.getUser().getEmail()%>"
+                />
+                <span>Email</span>
+              </div>
+
+              <div class="inputBox">
+                <input
+                  type="number"
+                  name="cpf"
+                  value="<%= cliente.getUser().getCpf()%>"
+                />
+                <span>CPF</span>
+              </div>
+
+              <div class="inputBox">
+                <input
+                  type="text"
+                  name="rua"
+                  value="<%= cliente.getUser().getRua()%>"
+                />
+                <span>Rua</span>
               </div>
 
               <div class="inputBox">
@@ -165,7 +167,18 @@
                   name="bairro"
                   value="<%= cliente.getUser().getBairro()%>"
                 />
+                <span>Bairro</span>
               </div>
+
+              <div class="inputBox">
+                <input
+                  type="password"
+                  name="senha"
+                  value="<%= cliente.getUser().getSenha()%>"
+                />
+                <span>Senha</span>
+              </div>
+
             </div>
           </div>
           <div class="inputBox">
