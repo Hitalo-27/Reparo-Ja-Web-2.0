@@ -134,7 +134,7 @@
             </div>
           </div>
 
-        <!-- <h3>Tipo Prestador</h3>
+         <h3>Serviços Prestados</h3>
          
       <div class="tipoPres">
         <label for="marceneiro">Marceneiro</label>
@@ -152,7 +152,7 @@
          <input type="checkbox" name="pedreiro" id="pedreiro" />
       
         <label for="pintor">Pintor</label>
-        <input type="checkbox" name="pintor" id="pintor"/> -->
+        <input type="checkbox" name="pintor" id="pintor"/>
 
           <%
           	if(cadastro != null){
