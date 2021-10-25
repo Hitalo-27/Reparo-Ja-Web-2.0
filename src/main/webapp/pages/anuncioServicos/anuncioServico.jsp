@@ -125,17 +125,6 @@
 					for(AnuncioServico as : anuncioServicos){
 			%>
 
-			<script>
-				function Deletar(){
-					var r=confirm("Deseja Mesmo Deletar o Seu Anuncio?");
-					if (r==true)
-					{
-						window.location = "deletarAnuncio?id_anuncio=<%= as.getId() %>";
-					}
-					document.getElementById("demo").innerHTML=x;
-				}
-			</script>
-
 			<div class="card-grid-space">
 				<div class="card-container">
 				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
@@ -150,7 +139,7 @@
 		
 				  <div class="buttons">
 					<button class="primary"><a href="atualizarAnuncio">Atualizar</a></button>
-					<button class="primary" onclick="Deletar()">Deletar</button>
+					<button class="primary"><a href="deletarAnuncio?id_anuncio=<%= as.getId() %>">Deletar</a></button> 
 				  </div>
 		
 				  <div class="skills">

@@ -213,12 +213,12 @@ pageEncoding="UTF-8"%>
         <div class="card-grid-space">
           <div class="card-container">
             <span class="pro">⭐8/10</span>
-            <img class="round" src="./img/tecnico.jpg" alt="user" />
+            <img class="round" src="https://github.com/E3ND.png" alt="user" />
 
             <h3>Bruno</h3>
             <h6>São Paulo</h6>
             <p>
-             Tecnico focado em consertos de Eletrodomesticos
+             Tecnico focado em consertos de Eletrodomesticos.
             </p>
 
             <div class="buttons">
@@ -240,12 +240,12 @@ pageEncoding="UTF-8"%>
         <div class="card-grid-space">
           <div class="card-container">
             <span class="pro">⭐8/10</span>
-            <img class="round" src="./img/tecnico.jpg" alt="user" />
+            <img class="round" src="https://github.com/Rikellme.png" alt="user" />
 
-            <h3>Bruno</h3>
+            <h3>Rikellme</h3>
             <h6>São Paulo</h6>
             <p>
-             Tecnico focado em consertos de Eletrodomesticos
+             Limpeza de sofás em geral.
             </p>
 
             <div class="buttons">
@@ -267,12 +267,12 @@ pageEncoding="UTF-8"%>
         <div class="card-grid-space">
           <div class="card-container">
             <span class="pro">⭐8/10</span>
-            <img class="round" src="./img/tecnico.jpg" alt="user" />
+            <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
 
-            <h3>Bruno</h3>
+            <h3>Hitalo</h3>
             <h6>São Paulo</h6>
             <p>
-              Tecnico focado em consertos de Eletrodomesticos
+              Faço todos os tipos de moveis planejados.
             </p>
 
             <div class="buttons">

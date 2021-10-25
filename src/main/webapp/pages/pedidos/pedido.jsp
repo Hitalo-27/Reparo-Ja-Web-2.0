@@ -122,17 +122,6 @@
 					for(Pedido pedido : pedidos){
 			%>
 
-			<script>
-				function Deletar(){
-					var r=confirm("Deseja Mesmo Deletar o Seu Pedido?");
-					if (r==true)
-					{
-						window.location = "deletarPedido?id_pedido=<%= pedido.getId() %>";
-					}
-					document.getElementById("demo").innerHTML=x;
-				}
-			</script>
-		
 			<div class="card-grid-space">
 				<div class="card-container">
 				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
@@ -147,8 +136,7 @@
 		
 				  <div class="buttons">
 					<button class="primary"><a href="atualizarPedido">Atualizar</a></button>
-					<!-- <button class="primary"><a href="deletarPedido?id_pedido=<%= pedido.getId() %>">Deletar</a></button> -->
-					<button class="primary" onclick="Deletar()"> Deletar</button>
+					<button class="primary"><a href="deletarPedido?id_pedido=<%= pedido.getId() %>">Deletar</a></button> 
 				  </div>
 		
 				  <div class="skills">
