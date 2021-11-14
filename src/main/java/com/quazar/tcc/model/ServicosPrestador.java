@@ -15,16 +15,12 @@ public class ServicosPrestador implements Serializable{
 	
 	public ServicosPrestador() {
 	}
-	
-	
 
 	public ServicosPrestador(Long id, Servico servico, PrestadorServico prestadorServico) {
 		this.id = id;
 		this.servico = servico;
 		this.prestadorServico = prestadorServico;
 	}
-
-	
 
 	public ServicosPrestador(Long id, Long id_servico, Long id_prestador) {
 		this.id = id;
@@ -33,8 +29,10 @@ public class ServicosPrestador implements Serializable{
 		ServicoService servicoService = new ServicoService();
 		this.servico = servicoService.selectServicoById(id_servico);
 	}
-
-
+	
+	public ServicosPrestador(Long id) {
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

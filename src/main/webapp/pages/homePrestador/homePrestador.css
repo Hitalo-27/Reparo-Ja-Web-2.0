@@ -1,0 +1,35 @@
+.content-dashboard {
+    width: 90%;
+    height: 100vh;
+    margin: auto;
+    display: grid;
+    
+    gap: 2em;
+    padding: 8em 2em 0;
+}
+
+.content-dashboard .informations-prestador,
+.content-dashboard .all-informations {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.116);
+    height: 100%;
+    border-radius: 8px;
+}
+
+h1 {
+    color: var(--color1);
+    text-align: center;
+    margin: 2em;
+    font-weight: 500;
+    font-family: "Rajdhani", sans-serif;
+}
+
+.container-anuncio {
+    width: 85%;
+    margin: 0 auto 5em;
+}
+
+@media(min-width:800px) {
+    .content-dashboard {
+        grid-template-columns: 1fr 4fr;
+    }
+}

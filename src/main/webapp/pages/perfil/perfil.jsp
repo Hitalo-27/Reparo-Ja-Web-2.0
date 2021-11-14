@@ -53,8 +53,7 @@ pageEncoding="UTF-8"%>
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="../../index.jsp">Home</a></li>
-          <li class="items"><a href="../pedidos/pedido">Pedidos</a></li>
-          <li class="items"><a href="../anuncioServicos/anuncioServico">Anuncio Servico</a></li>
+          <li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
           <li class="items"><a href="../perfil/perfil.jsp">Perfil</a></li>
           <li class="items">
             <a href="../quemSomos/quemsomos.jsp">Quem Somos</a>
@@ -345,14 +344,7 @@ pageEncoding="UTF-8"%>
 						
 			}
 			%>
-			
-			<%
-			if(cliente != null || prestadorServico != null || administrador != null ){
-				%>
-				<a href="../../logout" class="logout">Fazer Logout</a>
-				<%
-			}
-			%>
+		
     </div>
     </section>
 

@@ -32,4 +32,13 @@ public class ServicoService {
 		}
 		return tdsServicos;
 	}
+	
+	public Servico selectServicoByName(String name){
+		for(Servico servico : servicos) {
+			if(servico.getNome().equals(name)) {
+				return servico;
+			}
+		}
+		return null;
+	}
 }

@@ -10,6 +10,7 @@ public class AnuncioServico implements Serializable{
 	private Long id;
 	private String titulo;
 	private String categoria;
+	private String subcategoria;
 	private String descricao;
 	private PrestadorServico prestadorServico;
 	private Long id_prestador;
@@ -17,25 +18,28 @@ public class AnuncioServico implements Serializable{
 	public AnuncioServico() {
 	}
 
-	public AnuncioServico(Long id, String titulo, String categoria, String descricao, PrestadorServico prestadorServico) {
+	public AnuncioServico(Long id, String titulo, String categoria, String subcategoria, String descricao, PrestadorServico prestadorServico) {
 		this.id = id;
 		this.titulo = titulo;
 		this.categoria = categoria;
+		this.subcategoria = subcategoria;
 		this.descricao = descricao;
 		this.prestadorServico = prestadorServico;
 	}
 	
-	public AnuncioServico(String titulo, String categoria, String descricao, PrestadorServico prestadorServico) {
+	public AnuncioServico(String titulo, String categoria, String subcategoria, String descricao, PrestadorServico prestadorServico) {
 		this.titulo = titulo;
 		this.categoria = categoria;
+		this.subcategoria = subcategoria;
 		this.descricao = descricao;
 		this.prestadorServico = prestadorServico;
 	}
 	
-	public AnuncioServico(Long id, String titulo, String categoria, String descricao, Long id_prestador) {
+	public AnuncioServico(Long id, String titulo, String categoria, String subcategoria, String descricao, Long id_prestador) {
 		this.id = id;
 		this.titulo = titulo;
 		this.categoria = categoria;
+		this.subcategoria = subcategoria;
 		this.descricao = descricao;
 		this.id_prestador = id_prestador;
 		PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
@@ -68,6 +72,14 @@ public class AnuncioServico implements Serializable{
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+	
+	public String getSubcategoria() {
+		return subcategoria;
+	}
+
+	public void setSubcategoria(String subcategoria) {
+		this.subcategoria = subcategoria;
 	}
 
 	public String getDescricao() {

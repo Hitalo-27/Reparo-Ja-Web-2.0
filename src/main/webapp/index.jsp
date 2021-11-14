@@ -32,8 +32,7 @@ pageEncoding="UTF-8"%>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
-          <li class="items"><a href="./pages/pedidos/pedido">Pedidos</a></li>
-          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Anuncios Servico</a></li>
+          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
           <%
           	}
           %>
@@ -110,16 +109,15 @@ pageEncoding="UTF-8"%>
           <a
             class="card"
             href="#"
-            style="background-image: url('./img/sofa.jpg')"
+            style="background-image: url('./img/marceneiro.jpg')"
           >
             <div class="bodyCard">
-              <h1>Sofá</h1>
+              <h1>Marceneiro</h1>
               <p>
-                Os Melhores eltricistas da sua 
-                região você encontra aqui!
+                Moveis planejados com os melhores profissionais você encontra aqui!
               </p>
               <div class="tags">
-                <div class="tag">Sofá</div>
+                <div class="tag">Marcenaria</div>
               </div>
             </div>
           </a>
@@ -213,12 +211,12 @@ pageEncoding="UTF-8"%>
         <div class="card-grid-space">
           <div class="card-container">
             <span class="pro">⭐8/10</span>
-            <img class="round" src="https://github.com/E3ND.png" alt="user" />
+            <img class="round" src="./img/tecnico.jpg" alt="user" />
 
             <h3>Bruno</h3>
             <h6>São Paulo</h6>
             <p>
-             Tecnico focado em consertos de Eletrodomesticos.
+             Tecnico focado em consertos de Eletrodomesticos
             </p>
 
             <div class="buttons">
@@ -240,12 +238,12 @@ pageEncoding="UTF-8"%>
         <div class="card-grid-space">
           <div class="card-container">
             <span class="pro">⭐8/10</span>
-            <img class="round" src="https://github.com/Rikellme.png" alt="user" />
+            <img class="round" src="./img/tecnico.jpg" alt="user" />
 
-            <h3>Rikellme</h3>
+            <h3>Bruno</h3>
             <h6>São Paulo</h6>
             <p>
-             Limpeza de sofás em geral.
+             Tecnico focado em consertos de Eletrodomesticos
             </p>
 
             <div class="buttons">
@@ -267,12 +265,12 @@ pageEncoding="UTF-8"%>
         <div class="card-grid-space">
           <div class="card-container">
             <span class="pro">⭐8/10</span>
-            <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
+            <img class="round" src="./img/tecnico.jpg" alt="user" />
 
-            <h3>Hitalo</h3>
+            <h3>Bruno</h3>
             <h6>São Paulo</h6>
             <p>
-              Faço todos os tipos de moveis planejados.
+              Tecnico focado em consertos de Eletrodomesticos
             </p>
 
             <div class="buttons">

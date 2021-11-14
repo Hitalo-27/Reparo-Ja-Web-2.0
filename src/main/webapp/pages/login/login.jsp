@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
     <main class="contact">
       <div class="contactForm">
         <form action="login" method="POST">
-          <img src="../../img/logo.png" class="logo" />
+          <img src="../../img/logo.png" />
           <h2>Faça o Login</h2>
           <div class="form">
             <div class="inputBox">

@@ -1,6 +1,7 @@
 package com.quazar.tcc.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,14 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.quazar.tcc.dao.PrestadorServicoDao;
+import com.quazar.tcc.dao.ServicosPrestadorDao;
 import com.quazar.tcc.dao.TelefoneDao;
 import com.quazar.tcc.dao.UserDao;
 import com.quazar.tcc.model.Cliente;
 import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.model.Servico;
+import com.quazar.tcc.model.ServicosPrestador;
 import com.quazar.tcc.model.Telefone;
 import com.quazar.tcc.model.User;
 import com.quazar.tcc.service.ClienteService;
 import com.quazar.tcc.service.PrestadorServicoService;
+import com.quazar.tcc.service.ServicoService;
+import com.quazar.tcc.service.ServicosPrestadorService;
 import com.quazar.tcc.service.TelefoneService;
 import com.quazar.tcc.service.UserService;
 
@@ -30,10 +36,13 @@ public class AtualizarController extends HttpServlet {
 	PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
 	UserService userService = new UserService();
 	TelefoneService telefoneService = new TelefoneService();
+	ServicoService servicoService = new ServicoService();
+	ServicosPrestadorService servicosPrestadorService = new ServicosPrestadorService();
 	
 	UserDao userDao = new UserDao();
 	TelefoneDao telefoneDao = new TelefoneDao();
 	PrestadorServicoDao prestadorServicoDao = new PrestadorServicoDao();
+	ServicosPrestadorDao servicosPrestadorDao = new ServicosPrestadorDao();
        
     public AtualizarController() {
     }
@@ -142,6 +151,14 @@ public class AtualizarController extends HttpServlet {
 		if(prestador != null) {
 			session = request.getSession();
 			session.setAttribute("prestador", prestador);
+			String profissao = request.getParameter("profissoes");
+			if(!profissao.equals("nenhum")) {
+				Servico servico = servicoService.selectServicoByName(profissao);
+				servicosPrestadorDao.cadastrarServicoPrestador(servico, prestadorServico);
+				List<ServicosPrestador> listaServicosPrestador = servicosPrestadorService
+						.selectServicosPrestadorByIdPrestador(prestadorServico.getId());
+				session.setAttribute("servicosPrestador", listaServicosPrestador);
+			}	
 			response.sendRedirect("/ReparoJa/pages/perfil/perfil.jsp");
 		} else {
 			response.sendRedirect("ReparoJa/pages/login/login.jsp");

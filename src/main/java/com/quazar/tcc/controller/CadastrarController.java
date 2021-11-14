@@ -163,16 +163,20 @@ public class CadastrarController extends HttpServlet {
 						String add = "marceneiro";
 						servicosStr.add(add);
 					}
-					if(request.getParameter("eletronica") != null) {
-						String add = "eletronica";
+					if(request.getParameter("eletricista") != null) {
+						String add = "eletricista";
 						servicosStr.add(add);
 					}
-					if(request.getParameter("eletroeletronica") != null) {
-						String add = "eletroeletronica";
+					if(request.getParameter("eletrodomesticos") != null) {
+						String add = "eletrodomesticos";
 						servicosStr.add(add);
 					}
 					if(request.getParameter("pedreiro") != null) {
 						String add = "pedreiro";
+						servicosStr.add(add);
+					}
+					if(request.getParameter("encanador") != null) {
+						String add = "encanador";
 						servicosStr.add(add);
 					}
 					if(request.getParameter("pintor") != null) {

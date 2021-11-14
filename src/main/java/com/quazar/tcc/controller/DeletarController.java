@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.quazar.tcc.dao.AnuncioServicoDao;
 import com.quazar.tcc.dao.ClienteDao;
@@ -27,7 +28,7 @@ import com.quazar.tcc.service.AnuncioServicoService;
 import com.quazar.tcc.service.PedidoService;
 import com.quazar.tcc.service.ServicosPrestadorService;
 
-@WebServlet(urlPatterns = {"/deletarCliente", "/deletarPrestador"})
+@WebServlet(urlPatterns = {"/deletarCliente", "/deletarPrestador", "/deletarServico"})
 public class DeletarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -53,6 +54,9 @@ public class DeletarController extends HttpServlet {
 		}
 		else if(url.equals("/deletarPrestador")) {
 			deletarPrestador(request, response);
+		}
+		else if(url.equals("/deletarServico")) {
+			deletarServico(request, response);
 		}
 	}
 
@@ -91,6 +95,17 @@ public class DeletarController extends HttpServlet {
 		telefoneDao.deletarTelefone(telefone);
 		userDao.deletarUser(user);
 		response.sendRedirect("logout");
+	}
+	
+	protected void deletarServico(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServicosPrestador servicosPrestador = new ServicosPrestador(Long.parseLong(request.getParameter("id_servico")));
+		servicosPrestadorDao.deletarServicoPrestadorEspecifico(servicosPrestador);
+		HttpSession session = request.getSession();
+		PrestadorServico prestadorServico = (PrestadorServico) session.getAttribute("prestador");
+		List<ServicosPrestador> listaServicosPrestador = servicosPrestadorService
+				.selectServicosPrestadorByIdPrestador(prestadorServico.getId());
+		session.setAttribute("servicosPrestador", listaServicosPrestador);
+		response.sendRedirect("pages/perfil/perfil.jsp");
 	}
 
 }

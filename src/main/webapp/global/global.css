@@ -30,11 +30,17 @@
 body{
     background:var(--background);
     color:var(--text);
+    font-family: 'Open Sans';
 }
 
-body, input, textarea,button{
+input, textarea,button{
     font:488 1rem "Inter", sans-serif;
 
+}
+
+h1 {
+    font-size: clamp(1.3em, 3.5vw, 2.0em);
+    color: var(--color1);
 }
 
 button{

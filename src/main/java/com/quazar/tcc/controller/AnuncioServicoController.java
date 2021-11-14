@@ -45,9 +45,10 @@ public class AnuncioServicoController extends HttpServlet {
 	protected void cadastrarAnuncio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String titulo = request.getParameter("titulo");
 		String categoria = request.getParameter("categoria");
+		String subcategoria = request.getParameter("subcategoria");
 		String descricao = request.getParameter("descricao");
 		PrestadorServico prestadorServico = (PrestadorServico) request.getSession().getAttribute("prestador");
-		AnuncioServico anuncioServico = new AnuncioServico(titulo, categoria, descricao, prestadorServico);
+		AnuncioServico anuncioServico = new AnuncioServico(titulo, categoria, subcategoria, descricao, prestadorServico);
 		anuncioServicoDao.cadastrarAnuncioServico(anuncioServico);
 		response.sendRedirect("anuncioServico");
 	}

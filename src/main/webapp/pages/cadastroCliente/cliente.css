@@ -38,10 +38,11 @@
 }
 
 .contactForm h2 {
-    font-size: 35px;
+    font-size: clamp(0.1em, 3.5vw, 2.0em);
     color: var(--color1);
     font-weight: 500;
     font-family: 'Rajdhani', sans-serif;
+    margin-bottom: 3%;
 }
 
 .contactForm .inputBox {
@@ -53,7 +54,7 @@
 .contactForm .inputBox input, .contactForm .inputBox textarea {
     width: 100%;
     padding: 5px 0;
-    font-size: 16px;
+    font-size: clamp(0.1em, 3.5vw, 1.0em);
     margin: 10px 0;
     border: none;
     border-bottom: 2px solid #333;
@@ -79,7 +80,7 @@ input[type=number] {
     position: absolute;
     left: 0;
     padding: 5px 0;
-    font-size: 16px;
+    font-size: clamp(0.1em, 3.5vw, 1.0em);
     margin: 10px 0;
     pointer-events: none;
     transition: 0.5s;
@@ -93,20 +94,26 @@ input[type=number] {
 
  {
     color: var(--color1);
-    font-size: 12px;
+    font-size: clamp(0.1em, 3.5vw, 0.8em);
     transform: translateY(-20px);
+    font-family: 'Rajdhani', sans-serif;
 }
 
 .contactForm .inputBox input[type="submit"] {
     width: 50%;
     background: var(--color1);
-    border-radius: 10px;
+    border-radius: 5px;
     color: var(--background);
     border: none;
     cursor: pointer;
     padding: 10px;
-    font-size: 18px;
+    font-size: clamp(0.1em, 3.5vw, 1.0em);
 }
+
+.contactForm .inputBox input[type="submit"]:hover{
+    background: var(--color);
+}
+
 
 
 @media (max-width: 991px) {

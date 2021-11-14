@@ -40,6 +40,7 @@
     color: var(--color1);
     font-weight: 500;
     font-family: 'Rajdhani', sans-serif;
+    margin-bottom: 5%;
 }
 
 .contactForm .inputBox {
@@ -104,6 +105,17 @@ input[type=number] {
     cursor: pointer;
     padding: 10px;
     font-size: 18px;
+}
+
+.excluirA{
+    color: var(--color1);
+    text-decoration: underline;
+    font-weight: bold;
+    margin-left: 5%;
+}
+
+.excluirA:hover{
+    color: red;
 }
 
 

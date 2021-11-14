@@ -1,10 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %> 
 <%@ page import="com.quazar.tcc.model.PrestadorServico" %> 
 <%@ page import="com.quazar.tcc.model.Telefone" %>
+<%@ page import="com.quazar.tcc.model.ServicosPrestador" %>
 
 <%
 	PrestadorServico prestador = (PrestadorServico) request.getAttribute("prestador");
 	Telefone telefone = (Telefone) request.getAttribute("telefone");
+	@SuppressWarnings("unchecked")
+	List<ServicosPrestador> listaServicosPrestador = (List<ServicosPrestador>) session.getAttribute("servicosPrestador");
 %>
 <!DOCTYPE html>
 <html>
@@ -23,8 +27,7 @@
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="./index.jsp">Home</a></li>
-          <li class="items"><a href="./pages/pedidos/pedido">Pedidos</a></li>
-          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Anuncio Serviço</a></li>
+          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -105,11 +108,11 @@
 
               <div class="inputBox">
                 <input
-                  type="number"
-                  name="numeroCasa"
-                  value="<%= prestador.getUser().getNumeroCasa()%>"
+                  type="text"
+                  name="rua"
+                  value="<%= prestador.getUser().getRua()%>"
                 />
-                <span>Numero da casa</span>
+                <span>Rua</span>
               </div>
 
               <div class="inputBox">
@@ -138,6 +141,29 @@
                 />
               </div>
               
+              <table>
+                <thead>
+                  <tr>
+                    <th>Adicionar serviço</th>
+                  </tr>
+                </thead>
+                <tbody> 		
+                  <tr>	
+                    <td>
+                      <select name="profissoes" id="profissoes">
+                      <option value="nenhum">Nenhum</option>
+                      <option value="marceneiro">Marceneiro</option>
+                      <option value="eletricista">Eletricista</option>
+                      <option value="eletrodomesticos">Eletrodomesticos</option>
+                      <option value="pedreiro">Pedreiro</option>
+                      <option value="encanador">Encanador</option>
+                      <option value="pintor">Pintor</option>
+                    </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
             </div>
             <div class="formDireita">
 
@@ -158,15 +184,6 @@
                 />
                 <span>CPF</span>
               </div>
-              
-              <div class="inputBox">
-                <input
-                  type="text"
-                  name="rua"
-                  value="<%= prestador.getUser().getRua()%>"
-                />
-                <span>Rua</span>
-              </div>
         
               <div class="inputBox">
                 <input
@@ -175,6 +192,15 @@
                   value="<%= prestador.getUser().getBairro()%>"
                 />
                 <span>Bairro</span>
+              </div>
+              
+              <div class="inputBox">
+                <input
+                  type="number"
+                  name="numeroCasa"
+                  value="<%= prestador.getUser().getNumeroCasa()%>"
+                />
+                <span>Numero da casa</span>
               </div>
 
               <div class="inputBox">
@@ -202,6 +228,44 @@
                 />
                 <span>Quantidade de Funcionarios</span>
               </div>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Servico</th>
+                  </tr>
+                </thead>
+                <tbody>		
+                  <% 
+                    try{
+                      for(ServicosPrestador servicosPrestador : listaServicosPrestador){				
+                  %>
+                    <tr>
+                      <td><%= servicosPrestador.getServico().getNome() %></td>
+                      <%
+                        if(listaServicosPrestador.size() > 1){
+                      %>
+                      <td>
+                        <a href="deletarServico?id_servico=<%= servicosPrestador.getId() %>" class="excluirA">Excluir</a>
+                      </td>
+                      <%
+                        }
+                      %>
+                    </tr>
+                  <% 		
+                      } 
+                    } catch(Exception ex){
+                      System.out.println(ex);
+                  %>
+                    <tr>
+                      <td>Falha na execução</td>
+                    </tr>
+                  <%
+                    }
+                  %>	
+                </tbody>
+            </table>
+
             </div>
           </div>
 

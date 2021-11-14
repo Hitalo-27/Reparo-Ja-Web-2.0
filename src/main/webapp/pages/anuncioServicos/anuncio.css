@@ -2,11 +2,21 @@
   text-align: center;
 }
 
+nav {
+  background: var(--color1);
+  padding: 0.1px 40px;
+}
+
+
 h1 {
-  font-size: 45px;
   color: var(--color1);
   font-weight: 500;
   font-family: "Rajdhani", sans-serif;
+}
+
+.categorias{
+  padding-top: 10%;
+  text-align: center;
 }
 .contact {
   min-height: 100vh;
@@ -96,9 +106,9 @@ h4 {
 .contactForm .inputBox input[type="submit"] {
   width: 50%;
   background: var(--color1);
-  border-radius: 10px;
+  border-radius: 5px;
   color: var(--background);
-  border: none;
+  border: 1px solid var(--color1);
   cursor: pointer;
   padding: 10px;
   font-size: 18px;

@@ -87,4 +87,17 @@ public class ServicosPrestadorDao extends ConexaoBd{
 			e.printStackTrace();
 		}
 	}
+	
+	public void deletarServicoPrestadorEspecifico(ServicosPrestador sp) {
+		String delete = "DELETE FROM tb_servicosprestador WHERE id = ?";
+		try {
+			Connection con = conectar();
+			PreparedStatement stmt = con.prepareStatement(delete);
+			stmt.setLong(1, sp.getId());
+			stmt.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

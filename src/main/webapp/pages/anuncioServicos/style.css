@@ -1,0 +1,225 @@
+* {
+     box-sizing: border-box !important;
+     transition: ease all 0.5s;
+}
+
+/* CheckBox */
+
+#accordion {
+	margin: 15px 0 0 0;
+	padding: 0;
+}
+
+#accordion .panel.panel-default {
+	border: none;
+	border-radius: 0;
+	margin: 0 0 16px 0;
+	box-shadow: none;
+	background: transparent;
+	float: left;
+	width: 100%;
+}
+
+#accordion .panel.panel-default .panel-heading {
+	border: none;
+	background: transparent;
+	border-radius: 0;
+	min-height: 50px;
+	padding: 0;
+	float: left;
+	width: 100%;
+}
+
+#accordion .panel-collapse {
+	float: left;
+	width: 100%;
+}
+
+#accordion .panel.panel-default .panel-heading p a[aria-expanded="true"],
+#accordion .panel.panel-default:nth-child(1) .panel-heading p a {
+	background: #1F1A36;
+	border-color: #17a5e9;
+	color: #fff;
+}
+
+#accordion .panel.panel-default .panel-heading p a[aria-expanded="true"] i,
+#accordion .panel.panel-default:nth-child(1) .panel-heading p a i {
+	color: #fff !important;
+}
+
+#accordion .panel.panel-default .panel-heading p a[aria-expanded="true"] i.fa-angle-down,
+#accordion .panel.panel-default:nth-child(1) .panel-heading p a i.fa-angle-down {
+	transform: rotate(180deg);
+	transition: ease all 0.5s;
+}
+
+#accordion .panel.panel-default .panel-heading p a,
+#accordion .panel.panel-default .panel-heading p a[aria-expanded="false"] {
+	border: solid #e4e4e4 1px;
+	background: #fff;
+	border-radius: 0;
+	min-height: 50px;
+	padding: 17px 25px 15px;
+}
+
+#accordion .panel.panel-default .panel-heading p a[aria-expanded="false"] {
+	color: #000 !important;
+}
+
+#accordion .panel.panel-default .panel-heading p a[aria-expanded="false"] i {
+	color: #1F1A36 !important;
+}
+
+#accordion .panel.panel-default .panel-heading p a[aria-expanded="false"] i.fa-angle-down {
+	color: #000 !important;
+}
+
+#accordion .panel.panel-default .panel-heading p {
+	font-size: 15px;
+}
+
+#accordion .panel.panel-default .panel-body {
+	border: none;
+	padding: 0 25px;
+	margin: 15px 0 0 0;
+	box-shadow: none;
+	height: auto;
+}
+
+#accordion .panel.panel-default .panel-body p {
+	margin-bottom: 0;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+#accordion .panel.panel-default .panel-heading p a {
+	float: left;
+	width: 100%;
+	font-weight: 500;
+	position: relative;
+}
+
+
+
+/* End */
+
+.container {
+    margin-bottom: 3rem;
+}
+
+p {
+     margin: 20px;
+     font-weight: 300;
+     font-size: 15px;
+     line-height: 24px;
+}
+
+a,
+.btn {
+     text-decoration: none !important;
+     outline: none !important;
+     -webkit-transition: all .3s ease-in-out;
+     -moz-transition: all .3s ease-in-out;
+     -ms-transition: all .3s ease-in-out;
+     -o-transition: all .3s ease-in-out;
+     transition: all .3s ease-in-out;
+}
+
+img {
+     max-width: 100%;
+}
+
+ :focus {
+     outline: 0;
+}
+
+.layout_padding {
+     padding-top: 90px;
+     padding-bottom: 0px;
+     text-align: start;
+}
+
+.buttonDelAtu{
+    width: 20%;
+    height: 45px;
+    border:1px solid #1F1A36;
+    background-color: #1F1A36;
+    color: #fefefe;
+    border-radius: 5px;
+  }
+
+.buttonDelAtu:hover{
+    background: var(--color);
+}
+
+.buttonDelAtu a:hover{
+    color: #fff;
+}
+
+.items a:hover{
+    color: #fff;
+}
+
+.cabe_text {
+    width: 100%;
+    float: left;
+    font-size: 24px;
+    color: #2b3436;
+    margin-top: 20px;
+}
+
+.local_text {
+    font-size: 15px;
+}
+
+.long_text{
+     width: 100%;
+     float: left;
+     font-size: 16px;
+     color: #2b3436;
+     margin-left: 0px;
+}
+
+.book_bt a{
+    width: 20%;
+    float: left;
+    font-size: 18px;
+    color: #fefefe;
+    background-color: #1F1A36;
+    text-align: center;
+    padding: 10px 0px;
+    margin-top: 30px;
+}
+
+.book_bt a{ color:#fefefe; border-radius: 5px; }
+.book_bt a:hover{     
+    color: #fff;
+    background-color: var(--color);
+
+}
+
+.long_text_2{
+     width: 100%;
+     float: left;
+     font-size: 16px;
+     color: #2b3436;
+     margin-left: 0px;
+     text-align: right;
+}
+
+.book_bt_2 a{
+    width: 20%;
+    float: right;
+    font-size: 18px;
+    color: #fefefe;
+    background-color: #1F1A36;
+    text-align: center;
+    padding: 10px 0px;
+    margin-top: 30px;
+}
+
+.book_bt_2 a{ color:#fefefe; }
+.book_bt_2 a:hover {
+    color: #fff;
+    background: #000;
+}

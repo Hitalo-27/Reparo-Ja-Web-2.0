@@ -16,8 +16,8 @@ pageEncoding="UTF-8"%>
 
     <title>Contato</title>
     <link rel="stylesheet" href="../../global/global.css" />
-    <link rel="stylesheet" href="../../styles/menu.css" />
     <link rel="stylesheet" href="./contato.css" />
+    <link rel="stylesheet" href="../../styles/menu.css" />
     <link rel="stylesheet" href="../../styles/footer.css" />
   </head>
   <body>
@@ -29,8 +29,7 @@ pageEncoding="UTF-8"%>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
-          <li class="items"><a href="../pedidos/pedido">Pedidos</a></li>
-          <li class="items"><a href="../anuncioServicos/anuncioServico">Anuncio Servico</a></li>
+          <li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
           <%
           	}
           %>

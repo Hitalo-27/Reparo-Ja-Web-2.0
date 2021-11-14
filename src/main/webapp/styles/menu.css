@@ -58,7 +58,11 @@ nav ul li.login {
 }
 
 nav ul li.login:hover {
-  background-color: #3c3163;
+  background-color: var(--color);
+}
+
+nav ul li.login a:hover {
+  color: #fff;
 }
 
 
@@ -79,6 +83,7 @@ nav ul li.items:after {
   background: var(--background);
   opacity: 0;
   transition: all 0.2s linear;
+  color: #fff;
 }
 
 nav ul li.items:hover:after {

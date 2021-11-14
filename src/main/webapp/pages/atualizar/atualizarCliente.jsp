@@ -23,8 +23,7 @@
         <ul>
           <li class="logo">Reparo Já</li>
           <li class="items"><a href="./index.jsp">Home</a></li>
-          <li class="items"><a href="./pages/pedidos/pedido">Pedidos</a></li>
-          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Anuncio Serviço</a></li>
+          <li class="items"><a href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
           <%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -106,11 +105,11 @@
 
               <div class="inputBox">
                 <input
-                  type="number"
-                  name="numeroCasa"
-                  value="<%= cliente.getUser().getNumeroCasa()%>"
+                  type="text"
+                  name="rua"
+                  value="<%= cliente.getUser().getRua()%>"
                 />
-                <span>Numero da casa</span>
+                <span>Rua</span>
               </div>
 
               <div class="inputBox">
@@ -155,19 +154,19 @@
               <div class="inputBox">
                 <input
                   type="text"
-                  name="rua"
-                  value="<%= cliente.getUser().getRua()%>"
-                />
-                <span>Rua</span>
-              </div>
-
-              <div class="inputBox">
-                <input
-                  type="text"
                   name="bairro"
                   value="<%= cliente.getUser().getBairro()%>"
                 />
                 <span>Bairro</span>
+              </div>
+
+              <div class="inputBox">
+                <input
+                  type="number"
+                  name="numeroCasa"
+                  value="<%= cliente.getUser().getNumeroCasa()%>"
+                />
+                <span>Numero da casa</span>
               </div>
 
               <div class="inputBox">

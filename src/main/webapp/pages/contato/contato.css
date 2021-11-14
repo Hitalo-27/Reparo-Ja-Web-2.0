@@ -19,7 +19,7 @@
 }
 
 .contact .contact-below h2 {
-    font-size: 36px;
+    font-size: clamp(0.3em, 3.5vw, 2.0em);
     font-weight: 500;
     color: var(--color1);
     margin-bottom: 3%;
@@ -29,7 +29,7 @@
 .contact .contact-below p {
     font-weight: 300;
     color: var(--color1);
-    font-size: 20px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
     font-family: 'Inter', sans-serif;
 }
 
@@ -61,13 +61,13 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    font-size: 22px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
 }
 
 .container-contact .contactInfo .box .text {
     display: flex;
     margin-left: 20px;
-    font-size: 16px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
     color: var(--color1);
     flex-direction: column;
     font-weight:  300;
@@ -91,8 +91,8 @@
 }
 
 .contactForm h2 {
-    font-size: 30px;
-    color: #333;
+    font-size: clamp(0.3em, 3.5vw, 1.7em);
+    color: var(--color1);
     font-weight: 500;
     font-family: 'Rajdhani', sans-serif;
 }
@@ -106,7 +106,7 @@
 .contactForm .inputBox input, .contactForm .inputBox textarea {
     width: 100%;
     padding: 5px 0;
-    font-size: 16px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
     margin: 10px 0;
     border: none;
     border-bottom: 2px solid #333;
@@ -123,7 +123,7 @@
     position: absolute;
     left: 0;
     padding: 5px 0;
-    font-size: 16px;
+    font-size: clamp(0.3em, 3.5vw, 1.0em);
     margin: 10px 0;
     pointer-events: none;
     transition: 0.5s;
@@ -137,7 +137,7 @@
 
     {
     color: var(--color1);
-    font-size: 12px;
+    font-size: clamp(0.3em, 3.5vw, 0.8em);
     transform: translateY(-20px);
     font-family: 'Rajdhani', sans-serif;
   }
@@ -150,7 +150,7 @@
     border: none;
     cursor: pointer;
     padding: 10px;
-    font-size: 18px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
     font-family: 'Inter', sans-serif;
 }
 

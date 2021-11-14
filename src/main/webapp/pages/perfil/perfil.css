@@ -86,13 +86,13 @@
 .seccion-perfil-usuario .perfil-usuario-body .titulo {
     display: block;
     width: 100%;
-    font-size: 1.75em;
+    font-size: clamp(0.3em, 3.5vw, 1.7em);
     margin-bottom: 0.5rem;
 }
 
 .seccion-perfil-usuario .perfil-usuario-body .texto {
     color: #848484;
-    font-size: 0.95em;
+    font-size: clamp(0.3em, 3.5vw, 1.0em);
 }
 
 .seccion-perfil-usuario .perfil-usuario-footer,
@@ -122,7 +122,7 @@
 
 .seccion-perfil-usuario .lista-datos li>.icono {
     margin-right: 1rem;
-    font-size: 1.2rem;
+    font-size: clamp(0.3em, 3.5vw, 1.0em);
     vertical-align: middle;
 }
 
@@ -146,7 +146,7 @@
     border-radius: 50%;
     color: var(--background);
     box-shadow: 0 0 12px rgba(0, 0, 0, .2);
-    font-size: 1.3rem;
+    font-size: clamp(0.3em, 3.5vw, 1.5em);
 }
 
 .seccion-perfil-usuario .redes-sociales .boton-redes+.boton-redes {
@@ -175,13 +175,14 @@
 .deletar{
     width: 15%;
     background:  var(--color1);
-    border-radius: 10px;
+    border-radius: 5px;
     color: var(--background);
     border: none;
     cursor: pointer;
     padding: 10px;
-    font-size: 18px;
+    font-size: clamp(0.3em, 3.5vw, 1.3em);   
     text-align: center;
+    margin-left: 8%;
 }
 
 .deletar:hover{
@@ -190,12 +191,12 @@
 .editar{
     width: 15%;
     background:  var(--color1);
-    border-radius: 10px;
+    border-radius: 5px;
     color: var(--background);
     border: none;
     cursor: pointer;
     padding: 10px;
-    font-size: 18px;
+    font-size: clamp(0.3em, 3.5vw, 1.3em);   
     text-align: center;
     margin: 0 8%;
 }
@@ -203,22 +204,6 @@
 .editar:hover{
     background: var(--color);
 }
-.logout{
-    width: 10%;
-    background:  var(--color1);
-    border-radius: 10px;
-    color: var(--background);
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 18px;
-    text-align: center;
-}
-
-.logout:hover{
-    background: var(--color);
-}
-
 
 @media (max-width: 750px) {
     .seccion-perfil-usuario .lista-datos {

@@ -9,7 +9,7 @@
 .title {
     margin-top: 3rem;
     margin-bottom: 2rem;
-    font-size: 16px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
     font-family: 'Rajdhani', sans-serif;
     text-align: center;
 }
@@ -17,12 +17,13 @@
 .titleAvaliacao{
     margin-top: 30%;
     margin-bottom: 1rem;
-    font-size: 16px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
     font-family: 'Rajdhani', sans-serif;
     text-align: center;
 }
 .boxSizeImg img {
-   width: 18rem;
+   max-width: 18rem;
+   min-width: 18rem;
    margin-left: 8rem;
   
 }
@@ -30,7 +31,7 @@
 .bodyQuemSomos {
     margin-left: 2.5rem;
     margin-right: 5rem;
-    font-size: 17px;
+    font-size: clamp(0.3em, 3.5vw, 1.1em);
     text-align: justify;
     font-family: 'Inter', sans-serif;
     line-height: 28px;

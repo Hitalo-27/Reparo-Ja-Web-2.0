@@ -24,6 +24,80 @@
     <link rel="stylesheet" href="../../styles/menu.css" />
     <link rel="stylesheet" href="./prestador.css" />
     <link rel="stylesheet" href="../../styles/footer.css" />
+
+    <!-- Adicionando Javascript -->
+    <script>
+    
+      function limpa_formulário_cep() {
+              //Limpa valores do formulário de cep.
+              document.getElementById('rua').value=("");
+              document.getElementById('bairro').value=("");
+              // document.getElementById('cidade').value=("");
+              // document.getElementById('uf').value=("");
+              // document.getElementById('ibge').value=("");
+      }
+  
+      function meu_callback(conteudo) {
+          if (!("erro" in conteudo)) {
+              //Atualiza os campos com os valores.
+              document.getElementById('rua').value=(conteudo.logradouro);
+              document.getElementById('bairro').value=(conteudo.bairro);
+              // document.getElementById('cidade').value=(conteudo.localidade);
+              // document.getElementById('uf').value=(conteudo.uf);
+              // document.getElementById('ibge').value=(conteudo.ibge);
+          } //end if.
+          else {
+              //CEP não Encontrado.
+              limpa_formulário_cep();
+              alert("CEP não encontrado.");
+          }
+      }
+          
+      function pesquisacep(valor) {
+  
+          //Nova variável "cep" somente com dígitos.
+          var cep = valor.replace(/\D/g, '');
+  
+          //Verifica se campo cep possui valor informado.
+          if (cep != "") {
+  
+              //Expressão regular para validar o CEP.
+              var validacep = /^[0-9]{8}$/;
+  
+              //Valida o formato do CEP.
+              if(validacep.test(cep)) {
+  
+                  //Preenche os campos com "..." enquanto consulta webservice.
+                  document.getElementById('rua').value="...";
+                  document.getElementById('bairro').value="...";
+                  // document.getElementById('cidade').value="...";
+                  // document.getElementById('uf').value="...";
+                  // document.getElementById('ibge').value="...";
+  
+                  //Cria um elemento javascript.
+                  var script = document.createElement('script');
+  
+                  //Sincroniza com o callback.
+                  script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+  
+                  //Insere script no documento e carrega o conteúdo.
+                  document.body.appendChild(script);
+  
+              } //end if.
+              else {
+                  //cep é inválido.
+                  limpa_formulário_cep();
+                  alert("Formato de CEP inválido.");
+              }
+          } //end if.
+          else {
+              //cep sem valor, limpa formulário.
+              limpa_formulário_cep();
+          }
+      };
+  
+      </script>
+
   </head>
   <body>
     <div class="menuFixed">
@@ -75,13 +149,13 @@
               </div>
 
               <div class="inputBox">
-                <input type="number" name="cep" id="cep" required />
+                <input type="text" name="cep" id="cep" size="10" maxlength="9" onblur="pesquisacep(this.value);" required />
                 <span>CEP</span>
               </div>
 
               <div class="inputBox">
-                <input type="number" name="numeroCasa" id="numeroCasa" required />
-                <span>Numero da Casa</span>
+                <input type="text" name="rua" id="rua" required />
+                <span>Rua</span>
               </div>
 
               <div class="inputBox">
@@ -103,18 +177,18 @@
               </div>
 
               <div class="inputBox">
-                <input type="number" name="cpf" id="cpf" required />
+                <input type="text" name="cpf" id="cpf" maxlength="11" required  />
                 <span>CPF</span>
-              </div>
-
-              <div class="inputBox">
-                <input type="text" name="rua" id="rua" required />
-                <span>Rua</span>
               </div>
 
               <div class="inputBox">
                 <input type="text" name="bairro" id="bairro" required />
                 <span>Bairro</span>
+              </div>
+
+              <div class="inputBox">
+                <input type="number" name="numeroCasa" id="numeroCasa" required />
+                <span>Numero da Casa</span>
               </div>
 
               <div class="inputBox">
@@ -135,24 +209,39 @@
           </div>
 
          <h3>Serviços Prestados</h3>
+
+        <div class="tipoPres">
+          <input type="checkbox" name="eletrodomesticos" id="eletrodomesticos"/>
+          <label for="eletrodomesticos">Eletrodomesticos</label>
+          <i class="fas fa-car-battery eletro"></i>
+
+          <input type="checkbox" name="pintor" id="pintor"/>
+          <label for="pintor">Pintor</label>
+          <i class="fas fa-paint-roller pintor"></i>
+
+        </div>
          
-      <div class="tipoPres">
-        <label for="marceneiro">Marceneiro</label>
-        <input type="checkbox" name="marceneiro" id="marceneiro" checked />
-     
-       <label for="eletronica">Eletronica</label>
-        <input type="checkbox" name="eletronica" id="eletronica" />
-        
- 
-        <label for="eletroeletronica">Eletroeletronica</label>
-         <input type="checkbox" name="eletroeletronica" id="eletroeletronica"/>
-      </div>
-     
-         <label for="pedreiro">Pedreiro</label>
+        <div class="tipoPres">
+          <input type="checkbox" name="marceneiro" id="marceneiro" />
+          <label for="marceneiro">Marceneiro</label>
+          <i class="fas fa-tools marceneiro"></i>
+
+          <input class="eletricista" type="checkbox" name="eletricista" id="eletricista" />
+          <label for="eletricista">Eletricista</label>
+          <i class="fas fa-bolt"></i>
+
+        </div>
+
+        <div class="tipoPres">
          <input type="checkbox" name="pedreiro" id="pedreiro" />
-      
-        <label for="pintor">Pintor</label>
-        <input type="checkbox" name="pintor" id="pintor"/>
+         <label for="pedreiro">Pedreiro</label>
+         <i class="fas fa-th-large pedreiro"></i>
+
+         <input class="encanador" type="checkbox" name="encanador" id="encanador" />
+          <label for="encanador">Encanador</label>
+          <i class="far fa-hand-paper"></i>
+        </div>
+         
 
           <%
           	if(cadastro != null){

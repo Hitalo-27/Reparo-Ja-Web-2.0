@@ -28,11 +28,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 		<title>Reparo Já</title>
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css"/>
 		<link rel="stylesheet" href="../../global/global.css" />
 		<link rel="stylesheet" href="../../styles/menu.css" />
+    <link rel="stylesheet" href="./style.css" />
 		<link rel="stylesheet" href="./anuncio.css" />
 		<link rel="stylesheet" href="../../styles/cardProfile.css" />
 		<link rel="stylesheet" href="../../styles/footer.css" />
+
+    <link rel="stylesheet" href="./responsive.css" />
 	  </head>
 <body>
 	
@@ -42,8 +46,7 @@
 		  <ul>
 			<li class="logo">Reparo Já</li>
 			<li class="items"><a href="../../index.jsp">Home</a></li>
-			<li class="items"><a href="../pedidos/pedido">Pedidos</a></li>
-			<li class="items"><a href="../anuncioServicos/anuncioServico">Anuncio Servico</a></li>
+			<li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
 			<li class="items"><a href="../perfil/perfil.jsp">Perfil</a></li>
 			<li class="items">
 			  <a href="../quemSomos/quemsomos.jsp">Quem Somos</a>
@@ -100,11 +103,27 @@
 			<div class="inputBox">
 			<label>Selecione uma categoria: </label>
 			<select name="categoria">
+        <option value="eletroeletronica">Eletrodomesticos</option>
 				<option value="marcenaria">Marcenaria</option>
 				<option value="eletronica">Eletronica</option>
-				<option value="eletroeletronica">Eletroeletronica</option>
 				<option value="pedreiro">Pedreiro</option>
 				<option value="pintor">Pintor</option>
+        <option value="encanador">Encanador</option>
+			</select>
+			</div>
+			
+			<div class="inputBox">
+			<label>Selecione uma sub-categoria: </label>
+			<select name="subcategoria">
+				<!-- Precisamos utilizar ifs para selecionar uma subcategoria a partir da categoria selecionada 
+					 Acho que só vai dar para fazer com JS 
+					 Por enquanto fica esses valores default -->
+           <option value="eletroeletronica">Eletrodomesticos</option>
+           <option value="marcenaria">Marcenaria</option>
+           <option value="eletronica">Eletronica</option>
+           <option value="pedreiro">Pedreiro</option>
+           <option value="pintor">Pintor</option>
+           <option value="encanador">Encanador</option>
 			</select>
 			</div>
 	
@@ -117,7 +136,7 @@
 		</main>
 
 	<h1>Seus anuncios</h1>
-	<section class="cards-wrapper">
+	<div class="ride_section_2 layout_padding">
 			<%
 				try{
 					List<AnuncioServico> anuncioServicos = anuncioServicoService
@@ -125,31 +144,36 @@
 					for(AnuncioServico as : anuncioServicos){
 			%>
 
-			<div class="card-grid-space">
-				<div class="card-container">
-				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
-		
-				  <h3><%= as.getPrestadorServico().getUser().getNome() %></h3>
-				  <h4><%= as.getTitulo() %></h4>
-				  <br>
-				  <h6>Descrição:</h6>
-				  <p>
-					<%= as.getDescricao() %>
-				  </p>
-		
-				  <div class="buttons">
-					<button class="primary"><a href="atualizarAnuncio">Atualizar</a></button>
-					<button class="primary"><a href="deletarAnuncio?id_anuncio=<%= as.getId() %>">Deletar</a></button> 
-				  </div>
-		
-				  <div class="skills">
-					<h6>Categoria</h6>
-					<ul>
-					  <li><%= as.getCategoria() %></li>
-					</ul>
-				  </div>
-				</div>
-			  </div>
+			<script>
+				function Deletar(){
+					var r=confirm("Deseja Mesmo Deletar o Seu Anuncio?");
+					if (r==true)
+					{
+						window.location = "deletarAnuncio?id_anuncio=<%= as.getId() %>";
+					}
+					document.getElementById("demo").innerHTML=x;
+				}
+			</script>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3">
+                <img src="./images/img-4.png" style="height: 280px" />
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text"><%= as.getTitulo() %></h1>
+              <h5 class="local_text"> <i class="fas fa-map-marker-alt"></i> <%= as.getPrestadorServico().getUser().getBairro() %>, <%= as.getPrestadorServico().getUser().getRua() %></h5>
+              <h5 class="local_text"> <i class="fas fa-user"></i> <%= as.getPrestadorServico().getUser().getNome() %> </h5>
+              <p class="long_text">
+                <%= as.getDescricao() %>
+              </p>
+              <button class="buttonDelAtu"><a href="atualizarAnuncio">Atualizar</a></button>
+              <button class="buttonDelAtu"><a href="deletarAnuncio?id_anuncio=<%= as.getId() %>">Deletar</a></button>
+            </div>
+          </div>
+        </div>
+
 			<%
 					}
 				}
@@ -160,47 +184,601 @@
 	<%
 		}
 	%>
-	</section>
+	</div>
 
-	<h1>Anuncios feitos</h1>
-	<section class="cards-wrapper">
-			<%
-				try{
-					for(AnuncioServico as : listaAnuncioPedidos){
-			%>
+  <div class="categorias">
+    <h1>Nossas Categorias</h1>
+    <!-- Grid dos campos de categoria  -->
+    <div class="col-md-12">
+  <div class="full margin_bottom_30">
+    <div class="accordion border_circle">
+      <div class="bs-example"> 
+        <div class="panel-group" id="accordion">
 
-			<div class="card-grid-space">
-				<div class="card-container">
-				  <img class="round" src="https://github.com/Hitalo-27.png" alt="user" />
-		
-				  <h3><%= as.getPrestadorServico().getUser().getNome() %></h3>
-				  <h4><%= as.getTitulo() %></h4>
-				  <br>
-				  <h6>Descrição:</h6>
-				  <p>
-					<%= as.getDescricao() %>
-				  </p>
-		
-				  <div class="buttons">
-					<button class="primary">Mensagem</button>
-				  </div>
-		
-				  <div class="skills">
-					<h6>Categoria</h6>
-					<ul>
-					  <li><%= as.getCategoria() %></li>
-					</ul>
-				  </div>
-				</div>
-			  </div>
-			<%
-					}
-				}
-				catch(Exception e){
-					out.print("Erro");
-				}
-			%>
-	</section>
+          <!-- Categorias -->
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p class="panel-title"> 
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseG">
+                  <i class="far fa-hand-paper"></i> Destaques <i class="fa fa-angle-down"></i>
+                </a> 
+              </p>
+            </div>
+
+            <div id="collapseG" class="panel-collapse collapse in">
+              <!-- Corpo da categoria  -->
+              <div class="panel-body">
+               
+                <div class="ride_section_2 layout_padding">
+                  <%
+                    try{
+                      for(AnuncioServico as : listaAnuncioPedidos){
+                  %>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="image_3">
+                            <img src="./images/img-4.png" style="height: 280px" />
+                          </div>
+                        </div>
+                        <div class="col-sm-8">
+                          <h1 class="cabe_text"><%= as.getTitulo() %></h1>
+                          <h5 class="local_text"> <i class="fas fa-map-marker-alt"></i> <%= as.getPrestadorServico().getUser().getBairro() %>, <%= as.getPrestadorServico().getUser().getRua() %></h5>
+                          <h5 class="local_text"> <i class="fas fa-user"></i> <%= as.getPrestadorServico().getUser().getNome() %> </h5>
+                          <p class="long_text">
+                            <%= as.getDescricao() %>
+                          </p>
+                          <div class="book_bt"><a href="#">Ver mais</a></div>
+                        </div>
+                      </div>
+                    </div>
+                  <%
+                      }
+                    }
+                    catch(Exception e){
+                      out.print("Erro");
+                    }
+                  %>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p class="panel-title"> 
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseF">
+                  <i class="fas fa-car-battery"></i> Eletrodomestico <i class="fa fa-angle-down"></i>
+                </a> 
+              </p>
+            </div>
+
+            <div id="collapseF" class="panel-collapse collapse in">
+              <!-- Corpo da categoria  -->
+              <div class="panel-body">
+               
+                Conteúdo aqui 
+                
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p class="panel-title"> 
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseA">
+                    <i class="fas fa-bolt"></i> Eletricista <i class="fa fa-angle-down"></i>
+                </a> 
+              </p>
+            </div>
+
+            <div id="collapseA" class="panel-collapse collapse in">
+              <!-- Corpo da categoria  -->
+              <div class="panel-body">
+                <!-- Subcategoria  -->
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseOne">
+                        <i class="fas fa-bolt"></i> Instalação <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+                  </div>
+                  
+                  <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <!-- Corpo da subtageoria -->
+                      Conteúdo aqui
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseTwo">
+                        <i class="fas fa-bolt"></i> Reparo <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+                  </div>
+
+                  <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui2
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Exemplo com o card na subcategoria  -->
+                <div class="ride_section_2 layout_padding">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="image_3">
+                          <img src="images/img-4.png" style="height: 280px" />
+                        </div>
+                      </div>
+
+                      <div class="col-sm-8">
+                        <h1 class="cabe_text">Uloax for Every Pocket</h1>
+                        <h5 class="local_text"> <i class="fas fa-map-marker-alt"></i> São Paulo, Guaianazes</h5>
+                        <h5 class="local_text"> <i class="fas fa-user"></i> Arthur Leywin </h5>
+                        <p class="long_text">
+
+                          It is a long established fact that a reader will be distracted by
+                          the readable content of a page when looking at its layout. The
+                          point of using Lorem Ipsum is that it has a more-or-less normal
+                          distribution of letters, as It is a long established fact that a
+                          reader will be distracted by the readable c
+
+                        </p>
+                        <div class="book_bt"><a href="#">Ver mais</a></div>
+                      </div>
+
+                    </div>
+                  </div>
+                  </div>
+                  <!-- Fim do card -->
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p class="panel-title"> 
+                <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseB">
+                  <i class="fas fa-th-large"></i> Pedreiro <i class="fa fa-angle-down"></i>
+                </a> 
+              </p>
+
+            </div>
+            <div id="collapseB" class="panel-collapse collapse">
+              <div class="panel-body">
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseThree">
+                        <i class="fas fa-th-large"></i> Azulegista / piso <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+                  </div>
+
+                  <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui3
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseFour">
+                        <i class="fas fa-th-large"></i> Rebocar Parede <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+                  </div>
+                  <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui4
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseFive">
+                        <i class="fas fa-th-large"></i> Construir Escadas <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui5
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseSeven">
+                        <i class="fas fa-th-large"></i> Fazer Contrapiso <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseSeven" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui6
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ride_section_2 layout_padding">
+                  <%
+                    try{
+                      for(AnuncioServico as : listaAnuncioPedidos){
+                  %>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="image_3">
+                            <img src="./images/img-4.png" style="height: 280px" />
+                          </div>
+                        </div>
+                        <div class="col-sm-8">
+                          <h1 class="cabe_text"><%= as.getTitulo() %></h1>
+                          <h5 class="local_text"> <i class="fas fa-map-marker-alt"></i> <%= as.getPrestadorServico().getUser().getBairro() %>, <%= as.getPrestadorServico().getUser().getRua() %></h5>
+                          <h5 class="local_text"> <i class="fas fa-user"></i> <%= as.getPrestadorServico().getUser().getNome() %> </h5>
+                          <p class="long_text">
+                            <%= as.getDescricao() %>
+                          </p>
+                          <div class="book_bt"><a href="#">Ver mais</a></div>
+                        </div>
+                      </div>
+                    </div>
+                  <%
+                      }
+                    }
+                    catch(Exception e){
+                      out.print("Erro");
+                    }
+                  %>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p class="panel-title"> 
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseC">
+                  <i class="fas fa-paint-roller"></i> Pintor<i class="fa fa-angle-down"></i>
+                </a> 
+              </p>
+
+            </div>
+            <div id="collapseC" class="panel-collapse collapse">
+              <div class="panel-body">
+
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseEight">
+                        <i class="fas fa-paint-roller"></i> Pintura Clássica <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseEight" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui7
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseNine">
+                        <i class="fas fa-paint-roller"></i> Grafite <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseNine" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui8
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseTeen">
+                        <i class="fas fa-paint-roller"></i> Textura <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseTeen" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui9
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapse0">
+                        <i class="fas fa-paint-roller"></i> Papel de parede <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapse0" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui10
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseTwelve">
+                        <i class="fas fa-paint-roller"></i> Fazer Contrapiso <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseTwelve" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui11
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ride_section_2 layout_padding">
+                  <%
+                    try{
+                      for(AnuncioServico as : listaAnuncioPedidos){
+                  %>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="image_3">
+                            <img src="./images/img-4.png" style="height: 280px" />
+                          </div>
+                        </div>
+                        <div class="col-sm-8">
+                          <h1 class="cabe_text"><%= as.getTitulo() %></h1>
+                          <h5 class="local_text"> <i class="fas fa-map-marker-alt"></i> <%= as.getPrestadorServico().getUser().getBairro() %>, <%= as.getPrestadorServico().getUser().getRua() %></h5>
+                          <h5 class="local_text"> <i class="fas fa-user"></i> <%= as.getPrestadorServico().getUser().getNome() %> </h5>
+                          <h5 class="local_text"><%= as.getCategoria() %></h5>
+                          <p class="long_text">
+                            <%= as.getDescricao() %>
+                          </p>
+                          <div class="book_bt"><a href="#">Ver mais</a></div>
+                        </div>
+                      </div>
+                    </div>
+                  <%
+                      }
+                    }
+                    catch(Exception e){
+                      out.print("Erro");
+                    }
+                  %>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p class="panel-title"> 
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseD">
+                  <i class="fas fa-tools"></i> Merceneiro <i class="fa fa-angle-down"></i>
+                </a> 
+              </p>
+
+            </div>
+            <div id="collapseD" class="panel-collapse collapse in">
+              <div class="panel-body">
+
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseThirteen">
+                        <i class="fas fa-tools"></i> Fazer Contrapiso <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseThirteen" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui12
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapsefourteen">
+                        <i class="fas fa-tools"></i> Instalar <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapsefourteen" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui12.2
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseFifteen">
+                        <i class="fas fa-tools"></i> Reformar <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+
+                  <div id="collapseFifteen" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui13
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseSixteen">
+                        <i class="fas fa-tools"></i> Porta de Madeira <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+
+                  <div id="collapseSixteen" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui14
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <p class="panel-title"> 
+                      <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseSeventeen">
+                        <i class="fas fa-tools"></i> Fazer Móveis sob medida <i class="fa fa-angle-down"></i>
+                      </a> 
+                    </p>
+
+                  </div>
+                  <div id="collapseSeventeen" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                      Conteúdo aqui15
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ride_section_2 layout_padding">
+                  <%
+                    try{
+                      for(AnuncioServico as : listaAnuncioPedidos){
+                  %>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="image_3">
+                            <img src="./images/img-4.png" style="height: 280px" />
+                          </div>
+                        </div>
+                        <div class="col-sm-8">
+                          <h1 class="cabe_text"><%= as.getTitulo() %></h1>
+                          <h5 class="local_text"> <i class="fas fa-map-marker-alt"></i> <%= as.getPrestadorServico().getUser().getBairro() %>, <%= as.getPrestadorServico().getUser().getRua() %></h5>
+                          <h5 class="local_text"> <i class="fas fa-user"></i> <%= as.getPrestadorServico().getUser().getNome() %> </h5>
+                          <p class="long_text">
+                            <%= as.getDescricao() %>
+                          </p>
+                          <div class="book_bt"><a href="#">Ver mais</a></div>
+                        </div>
+                      </div>
+                    </div>
+                  <%
+                      }
+                    }
+                    catch(Exception e){
+                      out.print("Erro");
+                    }
+                  %>
+                  </div>
+                
+              </div>
+            
+            </div>
+
+            
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <p class="panel-title"> 
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseE">
+                  <i class="far fa-hand-paper"></i> Encanador <i class="fa fa-angle-down"></i>
+                </a> 
+              </p>
+            </div>
+
+            <div id="collapseE" class="panel-collapse collapse in">
+              <!-- Corpo da categoria  -->
+              <div class="panel-body">
+               
+                Conteúdo aqui
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    </div>
+    </div>
+
   </div>
 
   <!-- Inicio do Footer -->
@@ -277,5 +855,8 @@
 	</section>
   </div>
   <!-- Fim do Footer -->
+  <script src="https://kit.fontawesome.com/6a495ab8b4.js" crossorigin="anonymous"></script>
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
 </body>
 </html>
