@@ -1,8 +1,8 @@
-## Para rodar o projeto você precisa instalar o tomcat 9.0: 
+## Para rodar o projeto você precisa instalar o tomcat 9.0
 
 ## TCC feito para unir os prestadores de serviços e os clientes:
 
-#### Feito com Java Web e MySQL
+### Feito com Java Web e MySQL
 
 ## Criadores:
 

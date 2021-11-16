@@ -35,8 +35,8 @@
 		<link rel="stylesheet" href="./anuncio.css" />
 		<link rel="stylesheet" href="../../styles/cardProfile.css" />
 		<link rel="stylesheet" href="../../styles/footer.css" />
-
     <link rel="stylesheet" href="./responsive.css" />
+    <script defer src="../../js/scriptAnuncio.js"></script>
 	  </head>
 <body>
 	
@@ -102,7 +102,8 @@
 	
 			<div class="inputBox">
 			<label>Selecione uma categoria: </label>
-			<select name="categoria">
+			<select name="categoria" id="categoria">
+        <option value="0">Selecionar Categoria</option>
         <option value="eletroeletronica">Eletrodomesticos</option>
 				<option value="marcenaria">Marcenaria</option>
 				<option value="eletronica">Eletronica</option>
@@ -114,17 +115,7 @@
 			
 			<div class="inputBox">
 			<label>Selecione uma sub-categoria: </label>
-			<select name="subcategoria">
-				<!-- Precisamos utilizar ifs para selecionar uma subcategoria a partir da categoria selecionada 
-					 Acho que só vai dar para fazer com JS 
-					 Por enquanto fica esses valores default -->
-           <option value="eletroeletronica">Eletrodomesticos</option>
-           <option value="marcenaria">Marcenaria</option>
-           <option value="eletronica">Eletronica</option>
-           <option value="pedreiro">Pedreiro</option>
-           <option value="pintor">Pintor</option>
-           <option value="encanador">Encanador</option>
-			</select>
+			<select name="subcategoria" id="subcategoria"></select>
 			</div>
 	
 			<div class="inputBox">
@@ -133,7 +124,9 @@
 		</div>
 		</form>
 		</div>
-		</main>
+  </main>
+
+  
 
 	<h1>Seus anuncios</h1>
 	<div class="ride_section_2 layout_padding">
@@ -206,7 +199,7 @@
               </p>
             </div>
 
-            <div id="collapseG" class="panel-collapse collapse in">
+            <div id="collapseG" class="panel-collapse collapse in show">
               <!-- Corpo da categoria  -->
               <div class="panel-body">
                
@@ -613,7 +606,7 @@
             <div class="panel-heading">
               <p class="panel-title"> 
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseD">
-                  <i class="fas fa-tools"></i> Merceneiro <i class="fa fa-angle-down"></i>
+                  <i class="fas fa-tools"></i> Marceneiro <i class="fa fa-angle-down"></i>
                 </a> 
               </p>
 

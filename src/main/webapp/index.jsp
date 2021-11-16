@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ page import="com.quazar.tcc.model.PrestadorServico"%>
+<%@ page import="com.quazar.tcc.model.AnuncioServico"%>
+<%@ page import="com.quazar.tcc.service.AnuncioServicoService"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
+
+<%
+	@SuppressWarnings("unchecked")
+	List<AnuncioServico> listaAnuncioPedidos = (ArrayList<AnuncioServico>) request.getAttribute("anuncioServicos");
+	AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
+%>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -17,11 +28,16 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Reparo Já</title>
+    <link rel="stylesheet" href="./pages/anuncioServicos/bootstrap.min.css">
     <link rel="stylesheet" href="./global/global.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/cardProfile.css" /> 
+    <link rel="stylesheet" href="./pages/anuncioServicos/style.css" /> 
     <link rel="stylesheet" type="text/css" href="./styles/menu.css" />
-    <link rel="stylesheet" type="text/css" href="./styles/cardProfile.css" />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/footer.css" /> 
+    <link rel="stylesheet" href="./pages/anuncioServicos/responsive.css" /> 
     <link rel="stylesheet" type="text/css" href="./styles/card.css" />
-    <link rel="stylesheet" type="text/css" href="./styles/footer.css" />
+
   </head>
   <body>
     <div class="menuFixed">
@@ -88,8 +104,9 @@ pageEncoding="UTF-8"%>
         <div class="card-grid-space">
           <a
             class="card"
-            href="#"
+            href="#abrirModal"
             style="background-image: url('./img/eletro.jpg')"
+            onclick="openModalEletrodomestico()"
           >
             <div class="bodyCard">
               <h1>Eletrodomesticos</h1>
@@ -110,6 +127,7 @@ pageEncoding="UTF-8"%>
             class="card"
             href="#"
             style="background-image: url('./img/marceneiro.jpg')"
+            onclick="openModalMarceneiro()"
           >
             <div class="bodyCard">
               <h1>Marceneiro</h1>
@@ -169,6 +187,7 @@ pageEncoding="UTF-8"%>
             class="card"
             href="#"
             style="background-image: url('./img/eletricista.jpg')"
+
           >
             <div class="bodyCard">
               <h1>Eletricista</h1>
@@ -203,7 +222,229 @@ pageEncoding="UTF-8"%>
         </div>
       </section>
 
+      <!-- Começo Modal -->
+    <div class="modal eletrodomestico hide">
+      <div>
+      <a href="#fechar" title="Fechar" class="fechar" onclick="closeModal()">x</a>
+      <div class="categorias">
+        <h1>Nossas Categorias</h1>
+        <!-- Grid dos campos de categoria  -->
+        <div class="col-md-12">
+      <div class="full margin_bottom_30">
+        <div class="accordion border_circle">
+          <div class="bs-example"> 
+            <div class="panel-group" id="accordion">
+    
+              <!-- Categorias -->
+    
+                      <!-- Corpo da categoria  -->
 
+              
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <p class="panel-title"> 
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseF">
+                              <i class="fas fa-car-battery"></i> Eletrodomestico <i class="fa fa-angle-down"></i>
+                            </a> 
+                          </p>
+                        </div>
+            
+                        <div id="collapseF" class="panel-collapse collapse in">
+                          <!-- Corpo da categoria  -->
+                          <div class="panel-body">
+                           
+                            Conteúdo aqui 
+                            
+                          </div>
+                        </div>
+    
+              </div>
+          </div>
+        </div>
+      </div>
+      
+        </div>
+        </div>
+    
+      </div>
+     
+      </div>
+    </div>
+    <!-- Fim Modal -->
+
+    <!-- Começo Modal -->
+    <div class="modal marceneiro hide">
+      <div>
+      <a href="#fechar" title="Fechar" class="fechar" onclick="closeModalMarceneiro()">x</a>
+      <div class="categorias">
+        <h1>Nossas Categorias</h1>
+        <!-- Grid dos campos de categoria  -->
+        <div class="col-md-12">
+      <div class="full margin_bottom_30">
+        <div class="accordion border_circle">
+          <div class="bs-example"> 
+            <div class="panel-group" id="accordion">
+    
+              <!-- Categorias -->
+    
+                      <!-- Corpo da categoria  -->
+
+              
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <p class="panel-title"> 
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseD">
+                              <i class="fas fa-tools"></i> Marceneiro <i class="fa fa-angle-down"></i>
+                            </a> 
+                          </p>
+            
+                        </div>
+                        <div id="collapseD" class="panel-collapse collapse in">
+                          <div class="panel-body">
+            
+            
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <p class="panel-title"> 
+                                  <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseThirteen">
+                                    <i class="fas fa-tools"></i> Fazer Contrapiso <i class="fa fa-angle-down"></i>
+                                  </a> 
+                                </p>
+            
+                              </div>
+                              <div id="collapseThirteen" class="panel-collapse collapse">
+                                <div class="panel-body">
+            
+                                  Conteúdo aqui12
+            
+                                </div>
+                              </div>
+                            </div>
+            
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <p class="panel-title"> 
+                                  <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapsefourteen">
+                                    <i class="fas fa-tools"></i> Instalar <i class="fa fa-angle-down"></i>
+                                  </a> 
+                                </p>
+            
+                              </div>
+                              <div id="collapsefourteen" class="panel-collapse collapse">
+                                <div class="panel-body">
+            
+                                  Conteúdo aqui12.2
+            
+                                </div>
+                              </div>
+                            </div>
+            
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <p class="panel-title"> 
+                                  <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseFifteen">
+                                    <i class="fas fa-tools"></i> Reformar <i class="fa fa-angle-down"></i>
+                                  </a> 
+                                </p>
+            
+                              </div>
+            
+                              <div id="collapseFifteen" class="panel-collapse collapse">
+                                <div class="panel-body">
+            
+                                  Conteúdo aqui13
+            
+                                </div>
+                              </div>
+                            </div>
+            
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <p class="panel-title"> 
+                                  <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseSixteen">
+                                    <i class="fas fa-tools"></i> Porta de Madeira <i class="fa fa-angle-down"></i>
+                                  </a> 
+                                </p>
+            
+                              </div>
+            
+                              <div id="collapseSixteen" class="panel-collapse collapse">
+                                <div class="panel-body">
+            
+                                  Conteúdo aqui14
+            
+                                </div>
+                              </div>
+                            </div>
+            
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <p class="panel-title"> 
+                                  <a data-toggle="collapse" id="collapse" data-parent="#accordion" href="#collapseSeventeen">
+                                    <i class="fas fa-tools"></i> Fazer Móveis sob medida <i class="fa fa-angle-down"></i>
+                                  </a> 
+                                </p>
+            
+                              </div>
+                              <div id="collapseSeventeen" class="panel-collapse collapse">
+                                <div class="panel-body">
+            
+                                  Conteúdo aqui15
+            
+                                </div>
+                              </div>
+                            </div>
+            
+                            <div class="ride_section_2 layout_padding">
+                              <%
+                                try{
+                                  for(AnuncioServico as : listaAnuncioPedidos){
+                              %>
+                                <div class="container">
+                                  <div class="row">
+                                    <div class="col-sm-4">
+                                      <div class="image_3">
+                                        <img src="./images/img-4.png" style="height: 280px" />
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                      <h1 class="cabe_text"><%= as.getTitulo() %></h1>
+                                      <h5 class="local_text"> <i class="fas fa-map-marker-alt"></i> <%= as.getPrestadorServico().getUser().getBairro() %>, <%= as.getPrestadorServico().getUser().getRua() %></h5>
+                                      <h5 class="local_text"> <i class="fas fa-user"></i> <%= as.getPrestadorServico().getUser().getNome() %> </h5>
+                                      <p class="long_text">
+                                        <%= as.getDescricao() %>
+                                      </p>
+                                      <div class="book_bt"><a href="#">Ver mais</a></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              <%
+                                  }
+                                }
+                                catch(Exception e){
+                                  out.print("Erro");
+                                }
+                              %>
+                              </div>
+                            
+                          </div>
+                        
+                        </div>
+            
+                        
+                      </div>
+          </div>
+        </div>
+      </div>
+      
+        </div>
+        </div>
+    
+      </div>
+     
+      </div>
+    </div>
+    <!-- Fim Modal -->
 
       <div class="bodyTitle"><h1>Profissionais mais avaliados</h1></div>
 
@@ -365,5 +606,9 @@ pageEncoding="UTF-8"%>
         </div>
       </section>
     </div>
+    <script src="https://kit.fontawesome.com/6a495ab8b4.js" crossorigin="anonymous"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/scriptModal.js"></script>
   </body>
 </html>

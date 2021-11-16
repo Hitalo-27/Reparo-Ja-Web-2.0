@@ -21,9 +21,7 @@
 }
 
 .footer-subscription > p {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
-    font-size: clamp(0.3em, 3.5vw, 1.2em);
+    font-family: "Inter", sans-serif;
 }
 
 .footer-subscription-heading {
@@ -117,6 +115,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
     width: 90%;
     max-width: 1000px;
     margin: 40px auto 0 auto;

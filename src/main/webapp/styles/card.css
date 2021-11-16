@@ -34,7 +34,9 @@ a {
 }
 
 .bodyCard {
-   background-color: rgba(255, 255, 255, 0.541);
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.541);
 }
 
 .bodyCard h1 {
