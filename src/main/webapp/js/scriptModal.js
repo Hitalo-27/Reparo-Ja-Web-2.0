@@ -17,3 +17,7 @@ function closeModalMarceneiro() {
     document.querySelector(".marceneiro").classList.add("hide")
     document.querySelector("body").classList.remove("noScroll")
 }
+
+function openCategoria(){
+    document.querySelector(".eletro").classList.add("show")
+}

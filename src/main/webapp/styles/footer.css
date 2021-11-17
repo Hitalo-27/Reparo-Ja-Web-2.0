@@ -17,7 +17,7 @@
     text-align: center;
     margin-bottom: 24px;
     padding: 24px;
-    color: var(--background);;
+    color: var(--background);
 }
 
 .footer-subscription > p {
@@ -115,7 +115,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: center;
     width: 90%;
     max-width: 1000px;
     margin: 40px auto 0 auto;
