@@ -72,6 +72,30 @@ input[type=number] {
 
 }
 
+input[type=file]::-webkit-file-upload-button { 
+    width: 40%;
+    background: var(--color1);
+    border-radius: 5px;
+    color: var(--background);
+    border: none;
+    cursor: pointer;
+    padding: 9px;
+    font-size: clamp(0.1em, 3.5vw, 0.9em);
+    margin: 8% 3%;
+}
+
+input[type=file]::-webkit-file-upload-button:hover { 
+    background: var(--color);
+}
+
+h3{
+    font-size: clamp(0.1em, 3.5vw, 1.5em);
+    color: var(--color1);
+    font-weight: 500;
+    font-family: 'Rajdhani', sans-serif;
+    margin-top: 7%;
+}
+
 .textareaStyle {
     height: 90px;
 }

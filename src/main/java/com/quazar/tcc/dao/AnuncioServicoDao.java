@@ -53,20 +53,22 @@ public class AnuncioServicoDao extends ConexaoBd{
 	}
 	
 	//UPDATE
-	/*
-	public void alterarPedido(Pedido pedido) {
-		String update = "update tb_pedidos set descricao = ? where id = ?";
+	public void atualizarAnuncioServico(AnuncioServico anuncioServico) {
+		String update = "update tb_anuncioservicos set titulo = ?, categoria = ?, subcategoria = ?, descricao = ? where id = ?";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(update);
-			stmt.setString(1, pedido.getPedido());
-			stmt.setLong(2, pedido.getId());
+			stmt.setString(1, anuncioServico.getTitulo());
+			stmt.setString(2, anuncioServico.getCategoria());
+			stmt.setString(3, anuncioServico.getSubcategoria());
+			stmt.setString(4, anuncioServico.getDescricao());
+			stmt.setLong(5, anuncioServico.getId());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 	//DELETE
 	public void deletarAnuncioServico(AnuncioServico anuncioServico) {

@@ -35,6 +35,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 <link rel="stylesheet" href="../../styles/footer.css" />
 <link rel="stylesheet" href="./responsive.css" />
 <link rel="stylesheet" href="./anuncio.css" />
+<link rel="stylesheet" href="../../styles/modal.css" />
 <script defer src="../../js/scriptAnuncio.js"></script>
 </head>
 <body>
@@ -109,7 +110,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<option value="0">Selecionar Categoria</option>
 								<option value="eletroeletronica">Eletrodomesticos</option>
 								<option value="marcenaria">Marcenaria</option>
-								<option value="eletronica">Eletronica</option>
+								<option value="eletricista">Eletricista</option>
 								<option value="pedreiro">Pedreiro</option>
 								<option value="pintor">Pintor</option>
 								<option value="encanador">Encanador</option>
@@ -122,6 +123,11 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 						</div>
 
 						<div class="inputBox">
+							<h3>Adcione uma Imagem</h3>
+							<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+						</div>
+
+						<div class="inputBox">
 							<input type="submit" value="Fazer Anuncio">
 						</div>
 					</div>
@@ -129,9 +135,6 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 			</div>
 		</main>
 
-
-
-		<h1>Seus anuncios</h1>
 		<div class="ride_section_2 layout_padding">
 			<%
 			try {
@@ -139,6 +142,10 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 				.selectAnunciosServicoByIdPrestador((PrestadorServico) request.getSession().getAttribute("prestador"));
 				for (AnuncioServico as : anuncioServicos) {
 			%>
+
+			<div class="seusAnuncios">
+				<h1>Seus anuncios</h1>
+			</div>
 
 			<div class="container">
 				<div class="row">
@@ -161,7 +168,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 							<%=as.getDescricao()%>
 						</p>
 						<button class="buttonDelAtu">
-							<a href="atualizarAnuncio">Atualizar</a>
+							<a href="attAnuncio?id_anuncio=<%=as.getId()%>">Atualizar</a>
 						</button>
 						<button class="buttonDelAtu">
 							<a href="deletarAnuncio?id_anuncio=<%=as.getId()%>">Deletar</a>
@@ -182,7 +189,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 		</div>
 
 		<div class="categorias">
-			<h1>Todas as nossas categorias disponiveis!</h1>
+			<h1 class="categoriasDisponiveis">Todas as nossas categorias disponiveis!</h1>
 			<!-- Grid dos campos de categoria  -->
 			<div class="col-md-12">
 				<div class="full margin_bottom_30">
@@ -232,7 +239,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 																<%=as.getDescricao()%>
 															</p>
 															<div class="book_bt">
-																<a href="#">Ver mais</a>
+																<a href="#" onclick="openModal()">Fazer Pedido</a>
 															</div>
 														</div>
 													</div>
@@ -261,7 +268,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 									<div id="collapseF" class="panel-collapse collapse in">
 										<!-- Corpo da categoria  -->
-										<div class="panel-body">Conteúdo aqui</div>
+										<div class="panel-body">
+											<div class="ride_section_2 layout_padding">
+												<%
+												try {
+													for (AnuncioServico as : listaAnuncioPedidos) {
+														if(as.getSubcategoria().equals("Eletrodomestico")){
+												%>
+												<div class="container">
+													<div class="row">
+														<div class="col-sm-4">
+															<div class="image_3">
+																<img src="./images/img-4.png" style="height: 280px" />
+															</div>
+														</div>
+														<div class="col-sm-8">
+															<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+															<h5 class="local_text">
+																<i class="fas fa-map-marker-alt"></i>
+																<%=as.getPrestadorServico().getUser().getBairro()%>,
+																<%=as.getPrestadorServico().getUser().getRua()%></h5>
+															<h5 class="local_text">
+																<i class="fas fa-user"></i>
+																<%=as.getPrestadorServico().getUser().getNome()%>
+															</h5>
+															<p class="long_text">
+																<%=as.getDescricao()%>
+															</p>
+															<div class="book_bt">
+																<a href="#" onclick="openModal()">Fazer Pedido</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<%
+														}
+												}
+												} catch (Exception e) {
+												out.print("Erro");
+												}
+												%>
+											</div>
+										</div>
 									</div>
 								</div>
 
@@ -293,9 +341,46 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												<div id="collapseOne" class="panel-collapse collapse">
 													<div class="panel-body">
-														<!-- Corpo da subtageoria -->
-														Conteúdo aqui
-
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Instalacao")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
 													</div>
 												</div>
 
@@ -313,7 +398,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 												</div>
 
 												<div id="collapseTwo" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui2</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Reparo")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -346,7 +472,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 												</div>
 
 												<div id="collapseThree" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui3</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Azulegista / Piso")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -361,7 +528,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 													</p>
 												</div>
 												<div id="collapseFour" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui4</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Rebocar parede")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -377,7 +585,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												</div>
 												<div id="collapseFive" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui5</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Construir escadas")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -393,7 +642,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												</div>
 												<div id="collapseSeven" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui6</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Fazer contrapiso")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -428,7 +718,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												</div>
 												<div id="collapseEight" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui7</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Pintura classica")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -444,7 +775,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												</div>
 												<div id="collapseNine" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui8</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Grafite")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -460,7 +832,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												</div>
 												<div id="collapseTeen" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui9</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Textura")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -476,23 +889,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												</div>
 												<div id="collapse0" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui10</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseTwelve"> <i
-															class="fas fa-paint-roller"></i> Fazer Contrapiso <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseTwelve" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui11</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Papel de parede")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -512,36 +950,60 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 									<div id="collapseD" class="panel-collapse collapse in">
 										<div class="panel-body">
 
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseThirteen"> <i
-															class="fas fa-tools"></i> Fazer Contrapiso <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseThirteen" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui12</div>
-												</div>
-											</div>
-
 											<div class="panel panel-default">
 												<div class="panel-heading">
 													<p class="panel-title">
 														<a data-toggle="collapse" id="collapse"
 															data-parent="#accordion" href="#collapsefourteen"> <i
-															class="fas fa-tools"></i> Instalar <i
+															class="fas fa-tools"></i> Montagem <i
 															class="fa fa-angle-down"></i>
 														</a>
 													</p>
 
 												</div>
 												<div id="collapsefourteen" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui12.2</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Montagem")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -558,7 +1020,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 												</div>
 
 												<div id="collapseFifteen" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui13</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Reforma")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -575,7 +1078,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 												</div>
 
 												<div id="collapseSixteen" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui14</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Porta de madeira")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -591,7 +1135,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 												</div>
 												<div id="collapseSeventeen" class="panel-collapse collapse">
-													<div class="panel-body">Conteúdo aqui15</div>
+													<div class="panel-body">
+														<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Moveis sobmedida")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+													</div>
 												</div>
 											</div>
 
@@ -614,7 +1199,48 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 									<div id="collapseE" class="panel-collapse collapse in">
 										<!-- Corpo da categoria  -->
-										<div class="panel-body">Conteúdo aqui</div>
+										<div class="panel-body">
+											<div class="ride_section_2 layout_padding">
+															<%
+															try {
+																for (AnuncioServico as : listaAnuncioPedidos) {
+																	if(as.getSubcategoria().equals("Encanador")){
+															%>
+															<div class="container">
+																<div class="row">
+																	<div class="col-sm-4">
+																		<div class="image_3">
+																			<img src="./images/img-4.png" style="height: 280px" />
+																		</div>
+																	</div>
+																	<div class="col-sm-8">
+																		<h1 class="cabe_text"><%=as.getTitulo()%></h1>
+																		<h5 class="local_text">
+																			<i class="fas fa-map-marker-alt"></i>
+																			<%=as.getPrestadorServico().getUser().getBairro()%>,
+																			<%=as.getPrestadorServico().getUser().getRua()%></h5>
+																		<h5 class="local_text">
+																			<i class="fas fa-user"></i>
+																			<%=as.getPrestadorServico().getUser().getNome()%>
+																		</h5>
+																		<p class="long_text">
+																			<%=as.getDescricao()%>
+																		</p>
+																		<div class="book_bt">
+																			<a href="#" onclick="openModal()">Fazer Pedido</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%
+																	}
+															}
+															} catch (Exception e) {
+															out.print("Erro");
+															}
+															%>
+														</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -626,6 +1252,37 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 		</div>
 
 	</div>
+
+			<!-- Começo Modal -->
+			<div class="modal hide">
+				<div>
+					<a href="#fechar" title="Fechar" class="fechar"
+						onclick="closeModal()">x</a>
+
+						<main class="contact">
+							<div class="contactForm modalForm">
+								<form action="cadastrarCliente" method="post">
+									<h2>Faça o seu Pedido</h2>
+									<div class="form formModal">
+										<div class="inputBox inputModal">
+											<textarea name="pedido" required></textarea>
+											<span>Detalhes do seu pedido</span>
+										</div>
+									</div>
+					
+									<h3>Adcione uma Imagem</h3>
+									<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+							
+									<div class="inputBox">
+										<input type="submit" name="" value="Enviar" />
+									</div>
+								</form>
+							</div>
+						</main>
+	
+				</div>
+			</div>
+			<!-- Fim Modal -->
 
 	<!-- Inicio do Footer -->
 	<div class="footer-container">
@@ -670,5 +1327,6 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 		crossorigin="anonymous"></script>
 	<script src="../../js/jquery.min.js"></script>
 	<script src="../../js/bootstrap.min.js"></script>
+	<script src="../../js/scriptModal.js"></script>
 </body>
 </html>

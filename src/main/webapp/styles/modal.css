@@ -1,0 +1,74 @@
+body.noScroll {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.modal {
+  display: block;
+  background: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+
+.modal > div {
+  width: 80%;
+  position: relative;
+  margin: 2em auto;
+  padding: 15px 8em;
+  background-color: #fff;
+  text-align: center;
+}
+
+.modal.hide {
+  display: none;
+}
+/* .modal {
+    position: fixed;
+    top: 10%;
+    right: 0;
+    bottom: 0;
+    left: 0%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: scroll;
+  }
+
+  .modal:target {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal > div {
+    width: 80%;
+    position: relative;
+    margin: 10% auto;
+    padding: 15px 20px;
+    background-color: #fff;
+  }
+
+  */
+  .fechar {
+    position: absolute;
+    width: 30px;
+    right: -15px;
+    top: -20px;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 5px;
+    background: #ff4545;
+    border-radius: 50%;
+    font-size: 16px;
+    color: #8d0000;
+  } 

@@ -68,31 +68,13 @@
 						</div>
 
 						<div class="inputBox">
-							<input type="number" name="telefone" id="telefone" required /> <span>Telefone</span>
+							<input type="text" name="cpf" id="cpf" maxlength="11" required />
+							<span>CPF</span>
 						</div>
 
 						<div class="inputBox">
 							<input type="text" name="cep" id="cep" size="10" maxlength="9"
 								onblur="pesquisacep(this.value);" required /> <span>CEP</span>
-						</div>
-
-						<div class="inputBox">
-							<input type="text" name="rua" id="rua" required /> <span>Rua</span>
-						</div>
-
-						<div class="inputBox">
-							<input type="number" name="idade" id="idade" required /> <span>Idade</span>
-						</div>
-					</div>
-
-					<div class="formDireita">
-						<div class="inputBox">
-							<input type="email" name="email" id="email" required /> <span>Email</span>
-						</div>
-
-						<div class="inputBox">
-							<input type="text" name="cpf" id="cpf" maxlength="11" required />
-							<span>CPF</span>
 						</div>
 
 						<div class="inputBox">
@@ -107,8 +89,39 @@
 						<div class="inputBox">
 							<input type="password" name="senha" id="senha" required /> <span>Senha</span>
 						</div>
+						
+					</div>
+
+					<div class="formDireita">
+						<div class="inputBox">
+							<input type="email" name="email" id="email" required /> <span>Email</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="number" name="idade" id="idade" required /> <span>Idade</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="text" name="cidade" id="cidade" required /> <span>Cidade</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="text" name="rua" id="rua" required /> <span>Rua</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="number" name="telefone" id="telefone" required /> <span>Telefone</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="password" name="senha2" id="senha2" required /> <span>Senha Novamente</span>
+						</div>
+
 					</div>
 				</div>
+
+				<h3>Adcione a Sua Imagem</h3>
+				<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
 				<%
           	if(cadastro != null){
           %>

@@ -15,8 +15,11 @@ h1 {
 }
 
 .categorias{
-  padding-top: 10%;
   text-align: center;
+}
+
+.categoriasDisponiveis{
+  padding-top: 10%;
 }
 .contact {
   min-height: 100vh;
@@ -54,6 +57,15 @@ h4 {
   margin-top: 50px;
 }
 
+.modalForm {
+  width: 100%;
+  margin-top: 0px;
+}
+
+.formModal{
+  margin-top: 8%;
+}
+
 .contactForm h2 {
   font-size: 35px;
   color: var(--color1);
@@ -67,6 +79,10 @@ h4 {
   margin-top: 10px;
 }
 
+.modalForm .inputBox {
+  width: 100%;
+}
+
 .contactForm .inputBox input,
 .contactForm .inputBox textarea {
   width: 100%;
@@ -77,6 +93,10 @@ h4 {
   border-bottom: 2px solid #333;
   outline: none;
   resize: none;
+}
+
+.contactForm .inputModal{
+  margin-left: -10%;
 }
 
 .textareaStyle {
@@ -129,6 +149,35 @@ h4 {
 
 .contactForm .inputBox input[type="submit"]:hover {
   background: var(--color);
+}
+
+input[type=file]::-webkit-file-upload-button { 
+  width: 40%;
+  background: var(--color1);
+  border-radius: 5px;
+  color: var(--background);
+  border: none;
+  cursor: pointer;
+  padding: 9px;
+  font-size: clamp(0.1em, 3.5vw, 0.9em);
+  margin: 8% 3%;
+}
+
+input[type=file]::-webkit-file-upload-button:hover { 
+  background: var(--color);
+}
+
+h3{
+  font-size: clamp(0.1em, 3.5vw, 1.5em);
+  color: var(--color1);
+  font-weight: 500;
+  font-family: 'Rajdhani', sans-serif;
+  margin-top: 7%;
+}
+
+.seusAnuncios{
+  text-align: center;
+  margin-bottom: 5%;
 }
 
 @media (max-width: 991px) {

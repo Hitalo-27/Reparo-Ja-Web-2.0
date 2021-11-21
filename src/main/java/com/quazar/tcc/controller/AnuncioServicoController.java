@@ -13,12 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.quazar.tcc.dao.AnuncioServicoDao;
 import com.quazar.tcc.model.AnuncioServico;
 import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.service.AnuncioServicoService;
 
-@WebServlet(urlPatterns = {"/pages/anuncioServicos/anuncioServico", "/pages/anuncioServicos/fazerAnuncio", "/pages/anuncioServicos/deletarAnuncio"})
+@WebServlet(urlPatterns = {"/pages/anuncioServicos/anuncioServico", "/pages/anuncioServicos/fazerAnuncio", "/pages/anuncioServicos/deletarAnuncio",
+		"/pages/anuncioServicos/attAnuncio", "/pages/anuncioServicos/atualizarAnuncio"})
 public class AnuncioServicoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	AnuncioServicoDao anuncioServicoDao = new AnuncioServicoDao();
+	AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
        
     public AnuncioServicoController() {
     }
@@ -29,16 +32,32 @@ public class AnuncioServicoController extends HttpServlet {
 			listarAnuncios(request, response);
 		else if(url.equals("/pages/anuncioServicos/deletarAnuncio"))
 			deletarAnuncio(request, response);
+		else if(url.equals("/pages/anuncioServicos/attAnuncio")){
+			selecionarAnuncio(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		cadastrarAnuncio(request, response);
+		String url = request.getServletPath();
+		if(url.equals("/pages/anuncioServicos/fazerAnuncio"))
+			cadastrarAnuncio(request, response);
+		else if(url.equals("/pages/anuncioServicos/atualizarAnuncio"))
+			atualizarAnuncio(request, response);
+		
 	}
 	
 	protected void listarAnuncios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<AnuncioServico> anuncioServicos = anuncioServicoDao.listarAnuncioServicos();
 		request.setAttribute("anuncioServicos", anuncioServicos);
 		RequestDispatcher rd = request.getRequestDispatcher("anuncioServico.jsp");
+		rd.forward(request, response);
+	}
+	
+	protected void selecionarAnuncio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AnuncioServico anuncioServicoId = new AnuncioServico(Long.parseLong(request.getParameter("id_anuncio")));
+		AnuncioServico anuncioServico = anuncioServicoService.selectAnuncioServicoById(anuncioServicoId);
+		request.setAttribute("anuncioServico", anuncioServico);
+		RequestDispatcher rd = request.getRequestDispatcher("/pages/atualizar/atualizarAnuncio.jsp");
 		rd.forward(request, response);
 	}
 	
@@ -51,6 +70,17 @@ public class AnuncioServicoController extends HttpServlet {
 		AnuncioServico anuncioServico = new AnuncioServico(titulo, categoria, subcategoria, descricao, prestadorServico);
 		anuncioServicoDao.cadastrarAnuncioServico(anuncioServico);
 		response.sendRedirect("anuncioServico");
+	}
+	
+	protected void atualizarAnuncio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AnuncioServico anuncioServico = new AnuncioServico(Long.parseLong(request.getParameter("id")), request.getParameter("titulo"),
+				request.getParameter("categoria"), request.getParameter("subcategoria"), request.getParameter("descricao"), 
+				Long.parseLong(request.getParameter("id_prestador")));
+		anuncioServicoDao.atualizarAnuncioServico(anuncioServico);
+		List<AnuncioServico> anuncioServicos = anuncioServicoDao.listarAnuncioServicos();
+		request.setAttribute("anuncioServicos", anuncioServicos);
+		RequestDispatcher rd = request.getRequestDispatcher("anuncioServico.jsp");
+		rd.forward(request, response);
 	}
 	
 	protected void deletarAnuncio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

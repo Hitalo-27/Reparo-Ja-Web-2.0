@@ -21,4 +21,14 @@ public class AnuncioServicoService {
 		}
 		return anunciosServicoPrestador;
 	}
+	
+	public AnuncioServico selectAnuncioServicoById(AnuncioServico anuncioServico) {
+		List<AnuncioServico> listaAnuncioServicos = anuncioServicoDao.listarAnuncioServicos();
+		for(AnuncioServico anunServico : listaAnuncioServicos) {
+			if(anunServico.getId() == anuncioServico.getId()) {
+				return anunServico;
+			}
+		}
+		return null;
+	}
 }

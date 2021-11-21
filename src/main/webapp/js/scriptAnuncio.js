@@ -1,10 +1,10 @@
 
 let categoria = document.querySelector('#categoria');
-let categoria1 = ["Eletrodoméstico"];
-let categoria2 = ["Instalação", "Reforma", "Porta de madeira", "Móveis sobmedida"];
-let categoria3 = ["Instalação", "Reparo"];
+let categoria1 = ["Eletrodomestico"];
+let categoria2 = ["Montagem", "Reforma", "Porta de madeira", "Moveis sobmedida"];
+let categoria3 = ["Instalacao", "Reparo"];
 let categoria4 = ["Azulegista / Piso", "Rebocar parede", "Construir escadas", "Fazer contrapiso"];
-let categoria5 = ["Pintura clássica", "Gráfite", "Textura", "Papel de parede"];
+let categoria5 = ["Pintura classica", "Grafite", "Textura", "Papel de parede"];
 let categoria6 = ["Encanador"];
 
 categoria.addEventListener('change', () => {
@@ -15,7 +15,7 @@ categoria.addEventListener('change', () => {
         case "marcenaria":
             criaSelect(categoria2);
             break;
-        case "eletronica":
+        case "eletricista":
             criaSelect(categoria3);
             break;
         case "pedreiro":

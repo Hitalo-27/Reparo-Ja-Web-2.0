@@ -68,7 +68,8 @@
 						</div>
 
 						<div class="inputBox">
-							<input type="number" name="telefone" id="telefone" required /> <span>Telefone</span>
+							<input type="text" name="cpf" id="cpf" maxlength="11" required />
+							<span>CPF</span>
 						</div>
 
 						<div class="inputBox">
@@ -77,11 +78,16 @@
 						</div>
 
 						<div class="inputBox">
-							<input type="text" name="rua" id="rua" required /> <span>Rua</span>
+							<input type="text" name="bairro" id="bairro" required /> <span>Bairro</span>
+						</div>
+						
+						<div class="inputBox">
+							<input type="number" name="numeroCasa" id="numeroCasa" required />
+							<span>Numero da Casa</span>
 						</div>
 
 						<div class="inputBox">
-							<input type="number" name="idade" id="idade" required /> <span>Idade</span>
+							<input type="password" name="senha" id="senha" required /> <span>Senha</span>
 						</div>
 
 						<div class="inputBox">
@@ -97,21 +103,24 @@
 						</div>
 
 						<div class="inputBox">
-							<input type="text" name="cpf" id="cpf" maxlength="11" required />
-							<span>CPF</span>
+							<input type="number" name="idade" id="idade" required /> <span>Idade</span>
 						</div>
 
 						<div class="inputBox">
-							<input type="text" name="bairro" id="bairro" required /> <span>Bairro</span>
+							<input type="text" name="cidade" id="cidade" required /> <span>Cidade</span>
+						</div>
+
+
+						<div class="inputBox">
+							<input type="text" name="rua" id="rua" required /> <span>Rua</span>
 						</div>
 
 						<div class="inputBox">
-							<input type="number" name="numeroCasa" id="numeroCasa" required />
-							<span>Numero da Casa</span>
+							<input type="number" name="telefone" id="telefone" required /> <span>Telefone</span>
 						</div>
 
 						<div class="inputBox">
-							<input type="password" name="senha" id="senha" required /> <span>Senha</span>
+							<input type="password" name="senha2" id="senha2" required /> <span>Senha Novamente</span>
 						</div>
 
 						<div class="inputBox">
@@ -150,6 +159,8 @@
 						for="encanador">Encanador</label> <i class="far fa-hand-paper"></i>
 				</div>
 
+				<h3>Adcione a Sua Imagem</h3>
+				<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
 
 				<%
           	if(cadastro != null){
