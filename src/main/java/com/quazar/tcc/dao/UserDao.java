@@ -13,8 +13,8 @@ public class UserDao extends ConexaoBd{
 	
 	//CREATE
 	public void cadastrarUser(User user) {
-		String create = "INSERT INTO tb_users(nome, email, senha, cpf, idade, cep, rua, numeroCasa, bairro, id_tipoUser)"
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String create = "INSERT INTO tb_users(nome, email, senha, cpf, idade, cep, rua, numeroCasa, bairro, cidade, id_tipoUser)"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(create);
@@ -27,7 +27,8 @@ public class UserDao extends ConexaoBd{
 			stmt.setString(7, user.getRua());
 			stmt.setInt(8, user.getNumeroCasa());
 			stmt.setString(9, user.getBairro());
-			stmt.setLong(10, user.getTipoUser().getId());
+			stmt.setString(10, user.getCidade());
+			stmt.setLong(11, user.getTipoUser().getId());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {
@@ -45,7 +46,7 @@ public class UserDao extends ConexaoBd{
               ResultSet rs = stmt.executeQuery();
               while(rs.next()){
             	  User user = new User(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), 
-            			  rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getString(10), rs.getLong(11));
+            			  rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getString(10), rs.getString(11), rs.getLong(12));
             	  users.add(user);
               }
               con.close();
@@ -59,7 +60,8 @@ public class UserDao extends ConexaoBd{
 	
 	//UPDATE
 	public void alterarUser(User user) {
-		String update = "UPDATE tb_users SET nome = ?, email = ?, senha = ?, cpf = ?, idade = ?, cep = ?, rua = ?, numeroCasa = ?, bairro = ? WHERE id = ?";
+		String update = "UPDATE tb_users SET nome = ?, email = ?, senha = ?, cpf = ?, idade = ?, cep = ?, rua = ?, numeroCasa = ?, "
+				+ "bairro = ?, cidade = ? WHERE id = ?";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(update);
@@ -72,7 +74,8 @@ public class UserDao extends ConexaoBd{
 			stmt.setString(7, user.getRua());
 			stmt.setInt(8, user.getNumeroCasa());
 			stmt.setString(9, user.getBairro());
-			stmt.setLong(10, user.getId());
+			stmt.setString(10, user.getCidade());
+			stmt.setLong(11, user.getId());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {

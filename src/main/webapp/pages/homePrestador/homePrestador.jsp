@@ -43,6 +43,7 @@
 				<li class="logo">Reparo Já</li>
 				<li class="items"><a href="../../index.jsp">Home</a></li>
 				<li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
+				<li class="items"><a href="../prestadores/prestadores.jsp">Prestadores</a></li>
 				<li class="items"><a href="../perfil/perfil.jsp">Perfil</a></li>
 				<li class="items"><a href="../quemSomos/quemsomos.jsp">Quem
 						Somos</a></li>

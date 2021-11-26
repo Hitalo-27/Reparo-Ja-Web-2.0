@@ -4,16 +4,6 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-  	<servlet-name>ServicoPrestadorController</servlet-name>
-  	<display-name>ServicoPrestadorController</display-name>
-  	<description></description>
-  	<servlet-class>com.quazar.tcc.controller.ServicoPrestadorController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ServicoPrestadorController</servlet-name>
-  	<url-pattern>/ServicoPrestadorController</url-pattern>
-  </servlet-mapping>
   <welcome-file-list>
   	<welcome-file>index.html</welcome-file>
   	<welcome-file>index.jsp</welcome-file>

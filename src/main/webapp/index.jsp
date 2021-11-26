@@ -42,8 +42,8 @@
 			<ul>
 				<li class="logo">Reparo Já</li>
 				<li class="items"><a href="./index.jsp">Home</a></li>
-				<li class="items"><a
-					href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
+				<li class="items"><a href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
+				<li class="items"><a href="./pages/prestadores/prestadores.jsp">Prestadores</a></li>
 				<%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -70,14 +70,7 @@
 				<li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
 			</ul>
 		</nav>
-		<script>
-        $(document).ready(function () {
-          $(".btn").click(function () {
-            $(".items").toggleClass("show");
-            $("ul li").toggleClass("hide");
-          });
-        });
-      </script>
+		
 	</div>
 	<div class="Menuvideo">
 		<video src="./video/reparoja.mp4" autoPlay loop muted></video>
@@ -208,7 +201,7 @@
 		<section class="cards-wrapper">
 			<div class="card-grid-space">
 				<div class="card-container">
-					<span class="pro">⭐8/10</span> <img class="round"
+					<img class="round"
 						src="./img/tecnico.jpg" alt="user" />
 
 					<h3>Bruno</h3>
@@ -233,7 +226,7 @@
 
 			<div class="card-grid-space">
 				<div class="card-container">
-					<span class="pro">⭐8/10</span> <img class="round"
+					<img class="round"
 						src="./img/tecnico.jpg" alt="user" />
 
 					<h3>Bruno</h3>
@@ -258,7 +251,7 @@
 
 			<div class="card-grid-space">
 				<div class="card-container">
-					<span class="pro">⭐8/10</span> <img class="round"
+					<img class="round"
 						src="./img/tecnico.jpg" alt="user" />
 
 					<h3>Bruno</h3>
@@ -329,5 +322,6 @@
 		crossorigin="anonymous"></script>
 	<script src="./js/jquery.min.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/scrool.js"></script>
 </body>
 </html>

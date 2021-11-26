@@ -112,7 +112,7 @@ public class AtualizarController extends HttpServlet {
 		HttpSession session = null;
 		User user = new User(Long.parseLong(request.getParameter("id")), request.getParameter("nome"), request.getParameter("email"), 
 				request.getParameter("senha"), request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), 
-				request.getParameter("rua"), Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"));
+				request.getParameter("rua"), Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"));
 		userDao.alterarUser(user);
 		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_telefone")), Integer.parseInt(request.getParameter("telefone")));
 		telefoneDao.alterarTelefone(telefone);
@@ -135,7 +135,7 @@ public class AtualizarController extends HttpServlet {
 		HttpSession session = null;
 		User user = new User(Long.parseLong(request.getParameter("id")), request.getParameter("nome"), request.getParameter("email"), 
 				request.getParameter("senha"), request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), 
-				request.getParameter("rua"), Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"));
+				request.getParameter("rua"), Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"));
 		userDao.alterarUser(user);
 		Telefone telefone = new Telefone(Long.parseLong(request.getParameter("id_telefone")), Integer.parseInt(request.getParameter("telefone")));
 		telefoneDao.alterarTelefone(telefone);

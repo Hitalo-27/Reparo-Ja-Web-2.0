@@ -83,7 +83,7 @@ nav ul li.items:after {
   background: var(--background);
   opacity: 0;
   transition: all 0.2s linear;
-  color: #fff;
+  color: var(--background);
 }
 
 nav ul li.items:hover:after {
@@ -121,13 +121,13 @@ nav ul li.btn.hide i:before {
 }
 
 .Menuvideo {
-    height: 100vh;
+    height: 80vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+    /* box-shadow: inset 0 0 0 1000px black; */
     object-fit: contain;
 }
 

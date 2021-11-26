@@ -94,7 +94,7 @@ public class CadastrarController extends HttpServlet {
 					TipoUser tipoUser = tipoUserService.selectTipoUser(tUser);
 					User user = new User(request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), 
 							request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), request.getParameter("rua"), 
-							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), tipoUser);
+							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"), tipoUser);
 					userDao.cadastrarUser(user);
 					Telefone telefone = new Telefone(Integer.parseInt(request.getParameter("telefone")), userService.selectUserByEmail(user));
 					telefoneDao.cadastrarTelefone(telefone);
@@ -149,7 +149,7 @@ public class CadastrarController extends HttpServlet {
 					TipoUser tipoUser = tipoUserService.selectTipoUser(tUser);
 					User user = new User(request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), 
 							request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), request.getParameter("rua"), 
-							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), tipoUser);
+							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"), tipoUser);
 					userDao.cadastrarUser(user);
 					Telefone telefone = new Telefone(Integer.parseInt(request.getParameter("telefone")), userService.selectUserByEmail(user));
 					telefoneDao.cadastrarTelefone(telefone);
@@ -192,14 +192,12 @@ public class CadastrarController extends HttpServlet {
 					}
 					
 					HttpSession session = null;
-					//user = userService.selectUserByEmail(new User(request.getParameter("email"), request.getParameter("senha")));
 					if(user != null) {
 						telefone = telefoneService.selectTelefoneByIdUser(user);
 						if(telefone != null) {
 							session = request.getSession();
 							session.setAttribute("telefone", telefone);
 						}
-						//prestadorServico = prestadorServicoService.selectPrestadorByIdUser(user);
 						if(prestadorServico != null) {
 							List<ServicosPrestador> servicosPrestador = servicosPrestadorService
 									.selectServicosPrestadorByIdPrestador(prestadorServico.getId());

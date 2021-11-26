@@ -64,7 +64,7 @@ a {
   transition: all, var(--transition-time);
   position: relative;
   overflow: hidden;
-  border: 1px solid #231E39;
+  border: 1px solid var(--color1);
   text-decoration: none;
 }
 

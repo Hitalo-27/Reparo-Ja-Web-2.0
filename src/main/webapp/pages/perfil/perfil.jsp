@@ -54,6 +54,7 @@
 				<li class="logo">Reparo Já</li>
 				<li class="items"><a href="../../index.jsp">Home</a></li>
 				<li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
+				<li class="items"><a href="../prestadores/prestadores.jsp">Prestadores</a></li>
 				<li class="items"><a href="../perfil/perfil.jsp">Perfil</a></li>
 				<li class="items"><a href="../quemSomos/quemsomos.jsp">Quem
 						Somos</a></li>
@@ -92,9 +93,6 @@
 						<i class="far fa-image"></i>
 					</button>
 				</div>
-				<button type="button" class="boton-portada">
-					<i class="far fa-image"></i> Mudar foto de capa
-				</button>
 			</div>
 		</div>
 
@@ -233,7 +231,22 @@
           				out.print("telefone não cadastrado");
           			}
           		%></li>
-					<li><i class="icono fa fa-star"></i>Estrelas:</li>
+					<li><i class="icono fa fa-star"></i>Cidade:
+					<%
+					if(cliente != null){
+						out.print(cliente.getUser().getCidade());
+					}
+					else if(prestadorServico != null){
+						out.print(prestadorServico.getUser().getCidade());
+					}
+					else if(administrador != null){
+						out.print(administrador.getUser().getCidade());
+					}
+					else{
+						out.print("Erro, todos nulos");
+					}
+					%>
+					</li>
 					<li><i class="icono fas fa-calendar-alt"></i>Idade: <%
 					if(cliente != null){
 						out.print(cliente.getUser().getIdade());
@@ -271,10 +284,6 @@
 				}
             %>
 				</ul>
-			</div>
-			<div class="redes-sociales">
-				<a href="#"> <i class="boton-redes instagram fas fa-cogs"></i>
-				</a>
 			</div>
 		</div>
 

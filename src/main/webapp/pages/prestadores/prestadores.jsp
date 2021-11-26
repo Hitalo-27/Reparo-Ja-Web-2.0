@@ -86,109 +86,11 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 	<!-- Fim do Menu -->
 
 	<div class="containerAnuncio">
-		<%
-		if (session.getAttribute("prestador") != null) {
-		%>
-
-		<main class="contact">
-			<div class="contactForm">
-				<form action="fazerAnuncio" method="POST">
-					<div class="form">
-						<h2>Faça o Seu Anuncio Aqui!</h2>
-						<div class="inputBox">
-							<input type="text" name="titulo" id="titulo" required> <span>Digite
-								aqui o titulo do seu anuncio</span>
-						</div>
-
-						<div class="inputBox">
-							<textarea name="descricao" required></textarea>
-							<span>Digite aqui o seu anuncio</span>
-						</div>
-
-						<div class="inputBox">
-							<label>Selecione uma categoria: </label> <select name="categoria"
-								id="categoria">
-								<option value="0">Selecionar Categoria</option>
-								<option value="eletroeletronica">Eletrodomesticos</option>
-								<option value="marcenaria">Marcenaria</option>
-								<option value="eletricista">Eletricista</option>
-								<option value="pedreiro">Pedreiro</option>
-								<option value="pintor">Pintor</option>
-								<option value="encanador">Encanador</option>
-							</select>
-						</div>
-
-						<div class="inputBox">
-							<label>Selecione uma sub-categoria: </label> <select
-								name="subcategoria" id="subcategoria"></select>
-						</div>
-
-						<div class="inputBox">
-							<h3>Adcione uma Imagem</h3>
-							<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
-						</div>
-
-						<div class="inputBox">
-							<input type="submit" value="Fazer Anuncio">
-						</div>
-					</div>
-				</form>
-			</div>
-		</main>
-
-		<div class="seusAnuncios">
-			<h1>Seus anuncios</h1>
-		</div>
-		
-		<section class="cards-wrapper">
-			<%
-			try {
-				List<AnuncioServico> anuncioServicos = anuncioServicoService
-				.selectAnunciosServicoByIdPrestador((PrestadorServico) request.getSession().getAttribute("prestador"));
-				for (AnuncioServico as : anuncioServicos) {
-			%>
-
-			<div class="card-grid-space">
-				<div class="card-container">
-						<img class="round"
-						src="../../img/tecnico.jpg" alt="user" />
-
-					<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-					<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-					<h6 class="nameLocal">
-						<i class="fas fa-map-marker-alt"></i>
-						<%=as.getPrestadorServico().getUser().getBairro()%>,
-						<%=as.getPrestadorServico().getUser().getRua()%></h6>
-					<p> <%=as.getDescricao()%> </p>
-
-					<div class="buttons">
-						<button class="primary"> <a href="attAnuncio?id_anuncio=<%=as.getId()%>"> Atualizar </a> </button>
-						<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Excluir </a> </button>
-					</div>
-
-					<div class="skills">
-						<h6><%=as.getCategoria()%></h6>
-						<ul>
-							<li><%=as.getSubcategoria()%></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<%
-			}
-			} catch (Exception e) {
-			out.print("Erro");
-			}
-			%>
-			<%
-			}
-			%>
-		</section>
+	
 
 		<div class="search">
 			<nav class="main-incline">
-				<h1>Pesquisar serviços</h1>
+				<h1>Pesquisar prestadores</h1>
 				<form id="form-inline-main" class="form-inline" action="buscarServico" method="post">
 				  <input id="form-inline-input"  class="form-control mr-sm-2" type="search" name="pesquisaServico" placeholder="Pesquisar" aria-label="Pesquisar">
 				  <button style="background: #3c3163; color: #FFF" id="btn-button-search" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Pesquisar</button>
@@ -200,7 +102,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 		<div class="categorias">
 
-			<h1 class="categoriasDisponiveis">Todas as nossas categorias disponiveis!</h1>
+			<h1 class="categoriasDisponiveis">Todas os nossos prestadores disponiveis!</h1>
 			<!-- Grid dos campos de categoria  -->
 			<div class="col-md-12">
 				<div class="full margin_bottom_30">
