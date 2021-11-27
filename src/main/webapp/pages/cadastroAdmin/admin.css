@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+
+.contact {
+    position: relative;
+    min-height: 100vh;
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    background-color: var(--background);
+    background-size: cover;
+}
+
+.contactForm {
+    width: 60%;
+    padding: 40px;
+    background: var(--background);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 6px 20px var(--roxoVinhoEscuro);
+    -webkit-filter: drop-shadow(0 6px 20px var(--transparente));
+    filter: drop-shadow(0 6px 20px var(--transparente));
+    margin-top: 50px;
+}
+
+.form{
+    display: flex;
+    text-align: justify;
+    align-items: center;
+    justify-content: center;
+}
+
+.formDireita{
+    margin-left: 5%;
+}
+
+.contactForm h2 {
+    font-size: clamp(0.1em, 3.5vw, 2.0em);
+    color: var(--color1);
+    font-weight: 500;
+    font-family: 'Rajdhani', sans-serif;
+    margin-bottom: 3%;
+}
+
+.contactForm .inputBox {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.contactForm .inputBox input, .contactForm .inputBox textarea {
+    width: 100%;
+    padding: 5px 0;
+    font-size: clamp(0.1em, 3.5vw, 1.0em);
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    resize: none;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
+}
+
+input[type=file]::-webkit-file-upload-button { 
+    width: 40%;
+    background: var(--color1);
+    border-radius: 5px;
+    color: var(--background);
+    border: none;
+    cursor: pointer;
+    padding: 9px;
+    font-size: clamp(0.1em, 3.5vw, 0.9em);
+    margin: 8% 3%;
+}
+
+input[type=file]::-webkit-file-upload-button:hover { 
+    background: var(--color);
+}
+
+h3{
+    font-size: clamp(0.1em, 3.5vw, 1.5em);
+    color: var(--color1);
+    font-weight: 500;
+    font-family: 'Rajdhani', sans-serif;
+    margin-top: 7%;
+}
+
+.textareaStyle {
+    height: 90px;
+}
+
+.contactForm .inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: clamp(0.1em, 3.5vw, 1.0em);
+    margin: 10px 0;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #666;
+}
+
+.contactForm .inputBox input:focus ~ span,
+.contactForm .inputBox input:valid ~ span,
+.contactForm .inputBox textarea:focus ~ span,
+.contactForm .inputBox textarea:valid ~ span
+
+ {
+    color: var(--color1);
+    font-size: clamp(0.1em, 3.5vw, 0.8em);
+    transform: translateY(-20px);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.contactForm .inputBox input[type="submit"] {
+    width: 50%;
+    background: var(--color1);
+    border-radius: 5px;
+    color: var(--background);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: clamp(0.1em, 3.5vw, 1.0em);
+}
+
+.contactForm .inputBox input[type="submit"]:hover{
+    background: var(--color);
+}
+
+
+
+@media (max-width: 991px) {
+    .contact {
+        padding: 50px;
+    }
+
+    .container-contact {
+        flex-direction: column;
+    }
+
+    .contact .contactInfo {
+        margin-bottom: 40px;
+    }
+
+    .contact .contactInfo, .contactForm {
+        width: 100%;
+    }
+}

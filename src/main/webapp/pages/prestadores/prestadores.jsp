@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.quazar.tcc.model.PrestadorServico"%>
-<%@ page import="com.quazar.tcc.model.AnuncioServico"%>
-<%@ page import="com.quazar.tcc.service.AnuncioServicoService"%>
+<%@ page import="com.quazar.tcc.model.ServicosPrestador"%>
+<%@ page import="com.quazar.tcc.model.Cliente"%>
+<%@ page import="com.quazar.tcc.model.Telefone"%>
+<%@ page import="com.quazar.tcc.service.ServicosPrestadorService"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 
 <%
-@SuppressWarnings("unchecked")
-List<AnuncioServico> listaAnuncioPedidos = (ArrayList<AnuncioServico>) request.getAttribute("anuncioServicos");
-AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
+	@SuppressWarnings("unchecked")
+	List<PrestadorServico> listaPrestadores = (ArrayList<PrestadorServico>) request.getAttribute("prestadoresServico");
+	ServicosPrestadorService servicosPrestadorService = new ServicosPrestadorService();
 %>
 
 <!DOCTYPE html>
@@ -33,9 +35,10 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 <link rel="stylesheet" href="./style.css" />
 <link rel="stylesheet" href="../../styles/footer.css" />
 <link rel="stylesheet" href="./responsive.css" />
-<link rel="stylesheet" href="./anuncio.css" />
 <link rel="stylesheet" href="../../styles/modal.css" />
-<link rel="stylesheet" href="./cardAnuncio.css" />
+<link rel="stylesheet" href="../../styles/card.css" />
+<link rel="stylesheet" href="../../styles/cardProfile.css" />
+<link rel="stylesheet" href="./anuncio.css" />
 <script defer src="../../js/scriptAnuncio.js"></script>
 </head>
 <body>
@@ -47,7 +50,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 				<li class="logo">Reparo Já</li>
 				<li class="items"><a href="../../index.jsp">Home</a></li>
 				<li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
-				<li class="items"><a href="../prestadores/prestadores.jsp">Prestadores</a></li>
+				<li class="items"><a href="../prestadores/prestadores">Prestadores</a></li>
 				<%
 				if (session.getAttribute("cliente") != null || session.getAttribute("prestador") != null
 						|| session.getAttribute("administrador") != null) {
@@ -91,8 +94,8 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 		<div class="search">
 			<nav class="main-incline">
 				<h1>Pesquisar prestadores</h1>
-				<form id="form-inline-main" class="form-inline" action="buscarServico" method="post">
-				  <input id="form-inline-input"  class="form-control mr-sm-2" type="search" name="pesquisaServico" placeholder="Pesquisar" aria-label="Pesquisar">
+				<form id="form-inline-main" class="form-inline" action="buscarPrestador" method="post">
+				  <input id="form-inline-input"  class="form-control mr-sm-2" type="search" name="pesquisaPrestador" placeholder="Pesquisar" aria-label="Pesquisar">
 				  <button style="background: #3c3163; color: #FFF" id="btn-button-search" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Pesquisar</button>
 				</form>
 			</nav>		
@@ -100,1478 +103,1524 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 		
 
-		<div class="categorias">
+<div class="categorias">
 
-			<h1 class="categoriasDisponiveis">Todas os nossos prestadores disponiveis!</h1>
-			<!-- Grid dos campos de categoria  -->
-			<div class="col-md-12">
-				<div class="full margin_bottom_30">
-					<div class="accordion border_circle">
-						<div class="bs-example">
-							<div class="panel-group" id="accordion">
+<h1 class="categoriasDisponiveis">Todas os nossos prestadores disponiveis!</h1>
+<!-- Grid dos campos de categoria  -->
+<div class="col-md-12">
+<div class="full margin_bottom_30">
+<div class="accordion border_circle">
+<div class="bs-example">
+<div class="panel-group" id="accordion">
 
-								<!-- Categorias -->
+<!-- Categorias -->
 
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<p class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapseG"> <i class="fa fa-search"></i>
-												Todos <i class="fa fa-angle-down"></i>
-											</a>
-										</p>
-									</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<p class="panel-title">
+			<a data-toggle="collapse" data-parent="#accordion"
+				href="#collapseG"> <i class="fa fa-search"></i>
+				Todos <i class="fa fa-angle-down"></i>
+			</a>
+		</p>
+	</div>
 
-									<div id="collapseG" class="panel-collapse collapse in">
-										<!-- Corpo da categoria  -->
-										<div class="panel-body">
+	<div id="collapseG" class="panel-collapse collapse in show">
+		<!-- Corpo da categoria  -->
+		<div class="panel-body">
 
-											<section class="cards-wrapper">
-												<%
-												try {
-													for (AnuncioServico as : listaAnuncioPedidos) {
-												%>
-													<div class="card-grid-space">
-														<div class="card-container">
-																<img class="round"
-																src="../../img/tecnico.jpg" alt="user" />
-										
-															<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-															<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-															<h6 class="nameLocal">
-																<i class="fas fa-map-marker-alt"></i>
-																<%=as.getPrestadorServico().getUser().getBairro()%>,
-																<%=as.getPrestadorServico().getUser().getRua()%></h6>
-															<p> <%=as.getDescricao()%> </p>
+			<section class="cards-wrapper">
+				<%
+				try {
+					for (PrestadorServico prestadorServico : listaPrestadores) {
+				%>
+					<div class="card-grid-space">
+						<div class="card-container">
+								<img class="round"
+								src="../../img/tecnico.jpg" alt="user" />
+		
+							<h3 style="color: white;"> <i class="fas fa-user"></i> <%=prestadorServico.getUser().getNome()%></h3>
+							<h6>
+								<i class="fas fa-map-marker-alt"></i>
+								<%=prestadorServico.getUser().getBairro()%>,
+								<%=prestadorServico.getUser().getRua()%></h6>
+								<h6> <i class="fas fa-envelope"></i> <%=prestadorServico.getUser().getEmail()%></h6>
+								<p></p>
 
-															<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
+							<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
 
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
 
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Excluir </a> </button>
-															</div>
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarPrestador?id=<%=prestadorServico.getId()%>"> Excluir </a> </button>
+							</div>
 
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-										
-															<div class="skills">
-																<h6><%=as.getCategoria()%></h6>
-																<ul>
-																	<li><%=as.getSubcategoria()%></li>
-																</ul>
-															</div>
-														</div>
-													</div>
-											
-												<%
-												}
-												} catch (Exception e) {
-												out.print("Erro");
-												}
-												%>
-											</section>
-
-										</div>
-									</div>
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
 								</div>
+							<%
+								}
+							%>
+		
+							<div class="skills">
+								<h6>Categorias</h6>
+								<ul>
+									<li><%
+										List<ServicosPrestador> servicosPrestadores = servicosPrestadorService
+																.selectServicosPrestadorByIdPrestador(prestadorServico.getId());
+										for(ServicosPrestador servicosPrestador : servicosPrestadores){
+											out.print(servicosPrestador.getServico().getNome() + " || ");
+										}
+									%></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+			
+				<%
+				}
+				} catch (Exception e) {
+				out.print("Erro");
+				}
+				%>
+			</section>
 
-								<div class="panel panel-default" id="eletrodomestico">
-									<div class="panel-heading">
-										<p class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapseF"> <i class="fas fa-car-battery"></i>
-												Eletrodomestico <i class="fa fa-angle-down"></i>
-											</a>
-										</p>
-									</div>
+		</div>
+	</div>
+</div>
 
-									<div id="collapseF" class="panel-collapse collapse in">
-										<!-- Corpo da categoria  -->
-										<div class="panel-body">
+<%--
+<div class="panel panel-default" id="eletrodomestico">
+	<div class="panel-heading">
+		<p class="panel-title">
+			<a data-toggle="collapse" data-parent="#accordion"
+				href="#collapseF"> <i class="fas fa-car-battery"></i>
+				Eletrodomestico <i class="fa fa-angle-down"></i>
+			</a>
+		</p>
+	</div>
 
-											<section class="cards-wrapper">
-												<%
-												try {
-													for (AnuncioServico as : listaAnuncioPedidos) {
-														if(as.getSubcategoria().equals("Eletrodomestico")){
-												%>
-												
+	<div id="collapseF" class="panel-collapse collapse in">
+		<!-- Corpo da categoria  -->
+		<div class="panel-body">
 
-												<div class="card-grid-space">
-													<div class="card-container">
-															<img class="round"
-															src="../../img/tecnico.jpg" alt="user" />
-									
-														<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-														<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-														<h6 class="nameLocal">
-															<i class="fas fa-map-marker-alt"></i>
-															<%=as.getPrestadorServico().getUser().getBairro()%>,
-															<%=as.getPrestadorServico().getUser().getRua()%></h6>
-														<p> <%=as.getDescricao()%> </p>
-									
-														<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
+			<section class="cards-wrapper">
+				<%
+				try {
+					for (AnuncioServico as : listaAnuncioPedidos) {
+						if(as.getSubcategoria().equals("Eletrodomestico")){
+				%>
+				
 
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
+				<div class="card-grid-space">
+					<div class="card-container">
+							<img class="round"
+							src="../../img/tecnico.jpg" alt="user" />
+	
+						<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+						<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+						<h6 class="nameLocal">
+							<i class="fas fa-map-marker-alt"></i>
+							<%=as.getPrestadorServico().getUser().getBairro()%>,
+							<%=as.getPrestadorServico().getUser().getRua()%></h6>
+						<p> <%=as.getDescricao()%> </p>
+	
+						<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
 
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
 
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-									
-														<div class="skills">
-															<h6><%=as.getCategoria()%></h6>
-															<ul>
-																<li><%=as.getSubcategoria()%></li>
-															</ul>
-														</div>
-													</div>
-												</div>
-												<%
-														}
-												}
-												} catch (Exception e) {
-												out.print("Erro");
-												}
-												%>
-											</section>
-										</div>
-									</div>
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
 								</div>
+							<%
+								}
+							%>
+	
+						<div class="skills">
+							<h6><%=as.getCategoria()%></h6>
+							<ul>
+								<li><%=as.getSubcategoria()%></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<%
+						}
+				}
+				} catch (Exception e) {
+				out.print("Erro");
+				}
+				%>
+			</section>
+		</div>
+	</div>
+</div>
 
 
-								<div class="panel panel-default" id="eletricista">
-									<div class="panel-heading">
-										<p class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapseA"> <i class="fas fa-bolt"></i>
-												Eletricista <i class="fa fa-angle-down"></i>
-											</a>
-										</p>
-									</div>
+<div class="panel panel-default" id="eletricista">
+	<div class="panel-heading">
+		<p class="panel-title">
+			<a data-toggle="collapse" data-parent="#accordion"
+				href="#collapseA"> <i class="fas fa-bolt"></i>
+				Eletricista <i class="fa fa-angle-down"></i>
+			</a>
+		</p>
+	</div>
 
-									<div id="collapseA" class="panel-collapse collapse in">
-										<!-- Corpo da categoria  -->
-										<div class="panel-body">
-											<!-- Subcategoria  -->
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseOne"> <i
-															class="fas fa-bolt"></i> Instalação <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-												</div>
+	<div id="collapseA" class="panel-collapse collapse in">
+		<!-- Corpo da categoria  -->
+		<div class="panel-body">
+			<!-- Subcategoria  -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseOne"> <i
+							class="fas fa-bolt"></i> Instalação <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+				</div>
 
-												<div id="collapseOne" class="panel-collapse collapse">
-													<div class="panel-body">
+				<div id="collapseOne" class="panel-collapse collapse">
+					<div class="panel-body">
 
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Instalacao")){
-															%>
-															
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Instalacao")){
+							%>
+							
 
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
 
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
 
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
 
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseTwo"> <i
-															class="fas fa-bolt"></i> Reparo <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-												</div>
-
-												<div id="collapseTwo" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Reparo")){
-															%>
-
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
 								</div>
-
-								<div class="panel panel-default" id="pedreiro">
-									<div class="panel-heading">
-										<p class="panel-title">
-											<a data-toggle="collapse" id="collapse"
-												data-parent="#accordion" href="#collapseB"> <i
-												class="fas fa-th-large"></i> Pedreiro <i
-												class="fa fa-angle-down"></i>
-											</a>
-										</p>
-
-									</div>
-									<div id="collapseB" class="panel-collapse collapse">
-										<div class="panel-body">
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseThree"> <i
-															class="fas fa-th-large"></i> Azulegista / piso <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-												</div>
-
-												<div id="collapseThree" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Azulegista / Piso")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseFour"> <i
-															class="fas fa-th-large"></i> Rebocar Parede <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-												</div>
-												<div id="collapseFour" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Rebocar parede")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseFive"> <i
-															class="fas fa-th-large"></i> Construir Escadas <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseFive" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Construir escadas")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseSeven"> <i
-															class="fas fa-th-large"></i> Fazer Contrapiso <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseSeven" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Fazer contrapiso")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div>
-
-
-								<div class="panel panel-default" id="pintura">
-									<div class="panel-heading">
-										<p class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapseC"> <i class="fas fa-paint-roller"></i>
-												Pintor <i class="fa fa-angle-down"></i>
-											</a>
-										</p>
-
-									</div>
-									<div id="collapseC" class="panel-collapse collapse">
-										<div class="panel-body">
-
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseEight"> <i
-															class="fas fa-paint-roller"></i> Pintura Clássica <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseEight" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Pintura classica")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseNine"> <i
-															class="fas fa-paint-roller"></i> Grafite <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseNine" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Grafite")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseTeen"> <i
-															class="fas fa-paint-roller"></i> Textura <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseTeen" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Textura")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null){
-															%>
-										
-															<div class="buttons">
-																<button class="primary" onclick="openModal()">Fazer pedido </button>
-															</div>
-
-															<%
-																}else if(session.getAttribute("prestador") != null){
-																
-															%>
-
-															<%
-																}else if(session.getAttribute("administrador") != null){
-															%>
-															<div class="buttons">
-																<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
-															</div>
-
-															<%
-															} else{
-															%>
-																<div class="buttons">
-																	<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																</div>
-															<%
-																}
-															%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapse0"> <i
-															class="fas fa-paint-roller"></i> Papel de parede <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapse0" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Papel de parede")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
-																%>
-											
-																<div class="buttons">
-																	<button class="primary" onclick="openModal()">Fazer pedido </button>
-																</div>
-
-																<%
-																} else{
-																%>
-																	<div class="buttons">
-																		<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																	</div>
-																<%
-																	}
-																%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div>
-								<div class="panel panel-default" id="marceneiro">
-									<div class="panel-heading">
-										<p class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapseD"> <i class="fas fa-tools"></i>
-												Marceneiro <i class="fa fa-angle-down"></i>
-											</a>
-										</p>
-
-									</div>
-									<div id="collapseD" class="panel-collapse collapse in">
-										<div class="panel-body">
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapsefourteen"> <i
-															class="fas fa-tools"></i> Montagem <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapsefourteen" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Montagem")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
-																%>
-											
-																<div class="buttons">
-																	<button class="primary" onclick="openModal()">Fazer pedido </button>
-																</div>
-
-																<%
-																} else{
-																%>
-																	<div class="buttons">
-																		<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																	</div>
-																<%
-																	}
-																%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseFifteen"> <i
-															class="fas fa-tools"></i> Reformar <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-
-												<div id="collapseFifteen" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Reforma")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																		if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
-																	%>
-												
-																	<div class="buttons">
-																		<button class="primary" onclick="openModal()">Fazer pedido </button>
-																	</div>
-
-																	<%
-																	} else{
-																	%>
-																		<div class="buttons">
-																			<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																		</div>
-																	<%
-																		}
-																	%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseSixteen"> <i
-															class="fas fa-tools"></i> Porta de Madeira <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-
-												<div id="collapseSixteen" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Porta de madeira")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
-																%>
-											
-																<div class="buttons">
-																	<button class="primary" onclick="openModal()">Fazer pedido </button>
-																</div>
-
-																<%
-																} else{
-																%>
-																	<div class="buttons">
-																		<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																	</div>
-																<%
-																	}
-																%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<p class="panel-title">
-														<a data-toggle="collapse" id="collapse"
-															data-parent="#accordion" href="#collapseSeventeen"> <i
-															class="fas fa-tools"></i> Fazer Móveis sob medida <i
-															class="fa fa-angle-down"></i>
-														</a>
-													</p>
-
-												</div>
-												<div id="collapseSeventeen" class="panel-collapse collapse">
-													<div class="panel-body">
-
-														<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Moveis sobmedida")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
-																%>
-											
-																<div class="buttons">
-																	<button class="primary" onclick="openModal()">Fazer pedido </button>
-																</div>
-
-																<%
-																} else{
-																%>
-																	<div class="buttons">
-																		<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																	</div>
-																<%
-																	}
-																%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-													</div>
-												</div>
-											</div>
-
-										</div>
-
-									</div>
-
-
-								</div>
-
-								<div class="panel panel-default" id="encanamento">
-									<div class="panel-heading">
-										<p class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion"
-												href="#collapseE"> <i class="far fa-hand-paper"></i>
-												Encanador <i class="fa fa-angle-down"></i>
-											</a>
-										</p>
-									</div>
-
-									<div id="collapseE" class="panel-collapse collapse in">
-										<!-- Corpo da categoria  -->
-										<div class="panel-body">
-
-											<section class="cards-wrapper">
-															<%
-															try {
-																for (AnuncioServico as : listaAnuncioPedidos) {
-																	if(as.getSubcategoria().equals("Encanador")){
-															%>
-															<div class="card-grid-space">
-																<div class="card-container">
-																		<img class="round"
-																		src="../../img/tecnico.jpg" alt="user" />
-												
-																	<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
-																	<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
-																	<h6 class="nameLocal">
-																		<i class="fas fa-map-marker-alt"></i>
-																		<%=as.getPrestadorServico().getUser().getBairro()%>,
-																		<%=as.getPrestadorServico().getUser().getRua()%></h6>
-																	<p> <%=as.getDescricao()%> </p>
-												
-																	<%
-																		if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
-																	%>
-												
-																	<div class="buttons">
-																		<button class="primary" onclick="openModal()">Fazer pedido </button>
-																	</div>
-
-																	<%
-																	} else{
-																	%>
-																		<div class="buttons">
-																			<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
-																		</div>
-																	<%
-																		}
-																	%>
-												
-																	<div class="skills">
-																		<h6><%=as.getCategoria()%></h6>
-																		<ul>
-																			<li><%=as.getSubcategoria()%></li>
-																		</ul>
-																	</div>
-																</div>
-															</div>
-															<%
-																	}
-															}
-															} catch (Exception e) {
-															out.print("Erro");
-															}
-															%>
-														</section>
-										</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
 									</div>
 								</div>
 							</div>
-						</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
 					</div>
 				</div>
 
 			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseTwo"> <i
+							class="fas fa-bolt"></i> Reparo <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+				</div>
+
+				<div id="collapseTwo" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Reparo")){
+							%>
+
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-default" id="pedreiro">
+	<div class="panel-heading">
+		<p class="panel-title">
+			<a data-toggle="collapse" id="collapse"
+				data-parent="#accordion" href="#collapseB"> <i
+				class="fas fa-th-large"></i> Pedreiro <i
+				class="fa fa-angle-down"></i>
+			</a>
+		</p>
+
+	</div>
+	<div id="collapseB" class="panel-collapse collapse">
+		<div class="panel-body">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseThree"> <i
+							class="fas fa-th-large"></i> Azulegista / piso <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+				</div>
+
+				<div id="collapseThree" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Azulegista / Piso")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseFour"> <i
+							class="fas fa-th-large"></i> Rebocar Parede <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+				</div>
+				<div id="collapseFour" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Rebocar parede")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseFive"> <i
+							class="fas fa-th-large"></i> Construir Escadas <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapseFive" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Construir escadas")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseSeven"> <i
+							class="fas fa-th-large"></i> Fazer Contrapiso <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapseSeven" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Fazer contrapiso")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="panel panel-default" id="pintura">
+	<div class="panel-heading">
+		<p class="panel-title">
+			<a data-toggle="collapse" data-parent="#accordion"
+				href="#collapseC"> <i class="fas fa-paint-roller"></i>
+				Pintor <i class="fa fa-angle-down"></i>
+			</a>
+		</p>
+
+	</div>
+	<div id="collapseC" class="panel-collapse collapse">
+		<div class="panel-body">
+
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseEight"> <i
+							class="fas fa-paint-roller"></i> Pintura Clássica <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapseEight" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Pintura classica")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseNine"> <i
+							class="fas fa-paint-roller"></i> Grafite <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapseNine" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Grafite")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseTeen"> <i
+							class="fas fa-paint-roller"></i> Textura <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapseTeen" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Textura")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null){
+							%>
+		
+							<div class="buttons">
+								<button class="primary" onclick="openModal()">Fazer pedido </button>
+							</div>
+
+							<%
+								}else if(session.getAttribute("prestador") != null){
+								
+							%>
+
+							<%
+								}else if(session.getAttribute("administrador") != null){
+							%>
+							<div class="buttons">
+								<button class="primary"> <a href="deletarAnuncio?id_anuncio=<%=as.getId()%>"> Fazer Pedido </a> </button>
+							</div>
+
+							<%
+							} else{
+							%>
+								<div class="buttons">
+									<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+								</div>
+							<%
+								}
+							%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapse0"> <i
+							class="fas fa-paint-roller"></i> Papel de parede <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapse0" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Papel de parede")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+								%>
+			
+								<div class="buttons">
+									<button class="primary" onclick="openModal()">Fazer pedido </button>
+								</div>
+
+								<%
+								} else{
+								%>
+									<div class="buttons">
+										<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+									</div>
+								<%
+									}
+								%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="panel panel-default" id="marceneiro">
+	<div class="panel-heading">
+		<p class="panel-title">
+			<a data-toggle="collapse" data-parent="#accordion"
+				href="#collapseD"> <i class="fas fa-tools"></i>
+				Marceneiro <i class="fa fa-angle-down"></i>
+			</a>
+		</p>
+
+	</div>
+	<div id="collapseD" class="panel-collapse collapse in">
+		<div class="panel-body">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapsefourteen"> <i
+							class="fas fa-tools"></i> Montagem <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapsefourteen" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Montagem")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+								%>
+			
+								<div class="buttons">
+									<button class="primary" onclick="openModal()">Fazer pedido </button>
+								</div>
+
+								<%
+								} else{
+								%>
+									<div class="buttons">
+										<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+									</div>
+								<%
+									}
+								%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseFifteen"> <i
+							class="fas fa-tools"></i> Reformar <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+
+				<div id="collapseFifteen" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Reforma")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+										if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+									%>
+				
+									<div class="buttons">
+										<button class="primary" onclick="openModal()">Fazer pedido </button>
+									</div>
+
+									<%
+									} else{
+									%>
+										<div class="buttons">
+											<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+										</div>
+									<%
+										}
+									%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseSixteen"> <i
+							class="fas fa-tools"></i> Porta de Madeira <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+
+				<div id="collapseSixteen" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Porta de madeira")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+								%>
+			
+								<div class="buttons">
+									<button class="primary" onclick="openModal()">Fazer pedido </button>
+								</div>
+
+								<%
+								} else{
+								%>
+									<div class="buttons">
+										<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+									</div>
+								<%
+									}
+								%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<p class="panel-title">
+						<a data-toggle="collapse" id="collapse"
+							data-parent="#accordion" href="#collapseSeventeen"> <i
+							class="fas fa-tools"></i> Fazer Móveis sob medida <i
+							class="fa fa-angle-down"></i>
+						</a>
+					</p>
+
+				</div>
+				<div id="collapseSeventeen" class="panel-collapse collapse">
+					<div class="panel-body">
+
+						<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Moveis sobmedida")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+								if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+								%>
+			
+								<div class="buttons">
+									<button class="primary" onclick="openModal()">Fazer pedido </button>
+								</div>
+
+								<%
+								} else{
+								%>
+									<div class="buttons">
+										<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+									</div>
+								<%
+									}
+								%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 	</div>
 
-			<!-- Começo Modal -->
-			<div class="modal hide">
-				<div>
-					<a href="#fechar" title="Fechar" class="fechar"
-						onclick="closeModal()">x</a>
 
-						<main class="contact">
-							<div class="contactForm modalForm">
-								<form action="cadastrarCliente" method="post">
-									<h2>Faça o seu Pedido</h2>
-									<div class="form formModal">
+</div>
+
+<div class="panel panel-default" id="encanamento">
+	<div class="panel-heading">
+		<p class="panel-title">
+			<a data-toggle="collapse" data-parent="#accordion"
+				href="#collapseE"> <i class="far fa-hand-paper"></i>
+				Encanador <i class="fa fa-angle-down"></i>
+			</a>
+		</p>
+	</div>
+
+	<div id="collapseE" class="panel-collapse collapse in">
+		<!-- Corpo da categoria  -->
+		<div class="panel-body">
+
+			<section class="cards-wrapper">
+							<%
+							try {
+								for (AnuncioServico as : listaAnuncioPedidos) {
+									if(as.getSubcategoria().equals("Encanador")){
+							%>
+							<div class="card-grid-space">
+								<div class="card-container">
+										<img class="round"
+										src="../../img/tecnico.jpg" alt="user" />
+				
+									<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
+									<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+									<h6 class="nameLocal">
+										<i class="fas fa-map-marker-alt"></i>
+										<%=as.getPrestadorServico().getUser().getBairro()%>,
+										<%=as.getPrestadorServico().getUser().getRua()%></h6>
+									<p> <%=as.getDescricao()%> </p>
+				
+									<%
+										if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
+									%>
+				
+									<div class="buttons">
+										<button class="primary" onclick="openModal()">Fazer pedido </button>
+									</div>
+
+									<%
+									} else{
+									%>
+										<div class="buttons">
+											<button class="primary"> <a href="../login/login.jsp"> Fazer Pedido </a> </button>
+										</div>
+									<%
+										}
+									%>
+				
+									<div class="skills">
+										<h6><%=as.getCategoria()%></h6>
+										<ul>
+											<li><%=as.getSubcategoria()%></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<%
+									}
+							}
+							} catch (Exception e) {
+							out.print("Erro");
+							}
+							%>
+						</section>
+		</div>
+	</div>
+	 
+</div>
+
+--%>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+	</div>
+
+				<!-- Começo Modal -->
+				<div class="modal hide">
+					<div>
+						<a href="#fechar" title="Fechar" class="fechar"
+							onclick="closeModal()">x</a>
+	
+							<main class="contactModal">
+								<div class="contactForm contactFormModal">
+									<form action="cadastrarCliente" method="post">
+										<h2>Envie o seu pedido aqui!</h2>
+										<div class="formModal">
+											<%
+												Cliente cliente = (Cliente) session.getAttribute("cliente");
+												Telefone telefone = (Telefone) session.getAttribute("telefone");
+											%>
+											<div>
+												<div class="inputBox">
+													<input type="hidden" name="id_cliente" id="id_cliente" required />
+													 <span><%= cliente.getId() %></span>
+												</div>
+												
+												<div class="inputBox">
+													<input type="text" name="nome" id="nome" required value="<%= cliente.getUser().getNome() %>" />
+													 <span>Nome</span>
+												</div>
+												
+																		
+												<div class="inputBox">
+													<input type="number" name="telefone" id="telefone" required value="<%= telefone.getNumero() %>" /> 
+													<span>Telefone</span>
+												</div>
+											</div>
+						
+											<div class="formDireita">
+												<div class="inputBox">
+													<input type="email" name="email" id="email" required value="<%= cliente.getUser().getEmail() %>" />
+													<span>Email</span>
+												</div>
+												
+																		
+												<div class="inputBox">
+													<input type="text" name="bairro" id="bairro" required value="<%= cliente.getUser().getBairro() %>" />
+													<span>Bairro</span>
+												</div>
+						
+											</div>
+											
+										</div>
 										<div class="inputBox inputModal">
 											<textarea name="pedido" required></textarea>
 											<span>Detalhes do seu pedido</span>
 										</div>
-									</div>
-					
-									<h3>Adcione uma Imagem</h3>
-									<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
-							
-									<div class="inputBox">
-										<input type="submit" name="" value="Enviar" />
-									</div>
-								</form>
-							</div>
-						</main>
-	
+										<h3>Adicione a Sua Imagem</h3>
+										<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+										
+									  
+										<div class="inputBox buttonModal">
+											<input type="submit" name="" value="Cadastrar" />
+										</div>
+									</form>
+								</div>
+							</main>
+		
+					</div>
 				</div>
-			</div>
-			<!-- Fim Modal -->
+				<!-- Fim Modal -->
 
 	<!-- Inicio do Footer -->
 	<div class="footer-container">

@@ -8,8 +8,12 @@ import java.util.List;
 
 import com.quazar.tcc.connection.ConexaoBd;
 import com.quazar.tcc.model.AnuncioServico;
+import com.quazar.tcc.model.PrestadorServico;
+import com.quazar.tcc.service.PrestadorServicoService;
 
 public class Pesquisa extends ConexaoBd{
+	
+	private PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
 	
 	public List<AnuncioServico> buscarServico(String servico) {
 		List<AnuncioServico> anuncioServicos = new ArrayList<>();
@@ -25,6 +29,26 @@ public class Pesquisa extends ConexaoBd{
               }
               con.close();
               return anuncioServicos;
+        }
+        catch(Exception e){
+              e.printStackTrace();
+              return null;
+        }
+	}
+	
+	public List<PrestadorServico> buscarPrestador(String servico) {
+		List<PrestadorServico> prestadoresServicos = new ArrayList<>();
+        String read = "select * from tb_users where nome like '%" + servico + "%' and id_tipoUser = 2";
+        try{
+              Connection con = conectar();
+              PreparedStatement stmt = con.prepareStatement(read);
+              ResultSet rs = stmt.executeQuery();
+              while(rs.next()){
+            	  PrestadorServico prestadorServico = prestadorServicoService.selectPrestadorByIdUser(rs.getLong(1));
+            	  prestadoresServicos.add(prestadorServico);
+              }
+              con.close();
+              return prestadoresServicos;
         }
         catch(Exception e){
               e.printStackTrace();

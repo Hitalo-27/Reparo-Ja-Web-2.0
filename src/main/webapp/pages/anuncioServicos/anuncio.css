@@ -83,27 +83,15 @@ option {
 h4 {
   text-decoration: underline;
 }
-.contactForm {
-  width: 60%;
-  padding: 40px;
-  background: var(--background);
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 6px 20px var(--roxoVinhoEscuro);
-  -webkit-filter: drop-shadow(0 6px 20px var(--transparente));
-  filter: drop-shadow(0 6px 20px var(--transparente));
-  margin-top: 50px;
-}
 
-.modalForm {
-  width: 100%;
-  min-width: 250px;
-  margin-top: 0px;
-}
 
 .formModal{
-  margin-top: 8%;
+  display: flex;
+  text-align: justify;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .contactForm h2 {
   font-size: 35px;
@@ -114,7 +102,7 @@ h4 {
 
 .contactForm .inputBox {
   position: relative;
-  width: 75%;
+  width: 90%;
   margin-top: 10px;
 }
 
@@ -135,8 +123,14 @@ h4 {
 }
 
 .contactForm .inputModal{
-  margin-left: -10%;
+  margin-left: 20%;
+  width: 58%;
 }
+
+.buttonModal{
+  margin-left: 5%;
+}
+
 
 .textareaStyle {
   height: 90px;
@@ -216,6 +210,52 @@ h3{
 .seusAnuncios{
   text-align: center;
   margin-bottom: 5%;
+}
+
+.contactForm {
+  width: 60%;
+  padding: 40px;
+  background: var(--background);
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 6px 20px var(--roxoVinhoEscuro);
+  -webkit-filter: drop-shadow(0 6px 20px var(--transparente));
+  filter: drop-shadow(0 6px 20px var(--transparente));
+  margin-top: 50px;
+}
+
+.modalForm {
+  width: 100%;
+  min-width: 250px;
+  margin-top: 0px;
+}
+
+.contactModal {
+  position: relative;
+  min-height: 100vh;
+  padding: 50px 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  
+
+  flex-direction: column;
+
+  background-color: #FFFFFF;
+  background-size: cover;
+}
+
+.contactFormModal {
+  width: 130%;
+  padding: 40px;
+  background: #FFFFFF;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 6px 20px var(--roxoVinhoEscuro);
+  -webkit-filter: drop-shadow(0 6px 20px var(--transparente));
+  filter: drop-shadow(0 6px 20px var(--transparente));
+  margin-top: -10px;
 }
 
 @media (max-width: 991px) {

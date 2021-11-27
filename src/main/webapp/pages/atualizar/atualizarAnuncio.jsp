@@ -27,7 +27,7 @@
 				<li class="logo">Reparo Já</li>
 				<li class="items"><a href="./index.jsp">Home</a></li>
 				<li class="items"><a href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
-				<li class="items"><a href="../prestadores/prestadores.jsp">Prestadores</a></li>
+				<li class="items"><a href="../prestadores/prestadores">Prestadores</a></li>
 				<%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>

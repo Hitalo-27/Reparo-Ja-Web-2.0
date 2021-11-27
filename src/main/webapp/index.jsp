@@ -43,7 +43,7 @@
 				<li class="logo">Reparo Já</li>
 				<li class="items"><a href="./index.jsp">Home</a></li>
 				<li class="items"><a href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
-				<li class="items"><a href="./pages/prestadores/prestadores.jsp">Prestadores</a></li>
+				<li class="items"><a href="./pages/prestadores/prestadores">Prestadores</a></li>
 				<%
           	if(session.getAttribute("cliente") != null || session.getAttribute("prestador") != null || session.getAttribute("administrador") != null){
           %>
@@ -202,7 +202,32 @@
 			<div class="card-grid-space">
 				<div class="card-container">
 					<img class="round"
-						src="./img/tecnico.jpg" alt="user" />
+						src="https://github.com/Hitalo-27.png" alt="user" />
+
+					<h3>Hitalo</h3>
+					<h6>São Paulo</h6>
+					<p>Tecnico focado em consertos de Eletrodomesticos</p>
+
+					<div class="buttons">
+						<button class="primary">Mensagem</button>
+					</div>
+
+					<div class="skills">
+						<h6>Habilidades</h6>
+						<ul>
+							<li>Trabalho feito de forma rapida</li>
+							<li>Atencioso</li>
+							<li>Otimo Preço</li>
+							<li>Otima Disponibilidade</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="card-grid-space">
+				<div class="card-container">
+					<img class="round"
+						src="https://github.com/E3ND.png" alt="user" />
 
 					<h3>Bruno</h3>
 					<h6>São Paulo</h6>
@@ -227,34 +252,9 @@
 			<div class="card-grid-space">
 				<div class="card-container">
 					<img class="round"
-						src="./img/tecnico.jpg" alt="user" />
+						src="https://github.com/Rikellme.png" alt="user" />
 
-					<h3>Bruno</h3>
-					<h6>São Paulo</h6>
-					<p>Tecnico focado em consertos de Eletrodomesticos</p>
-
-					<div class="buttons">
-						<button class="primary">Mensagem</button>
-					</div>
-
-					<div class="skills">
-						<h6>Habilidades</h6>
-						<ul>
-							<li>Trabalho feito de forma rapida</li>
-							<li>Atencioso</li>
-							<li>Otimo Preço</li>
-							<li>Otima Disponibilidade</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="card-grid-space">
-				<div class="card-container">
-					<img class="round"
-						src="./img/tecnico.jpg" alt="user" />
-
-					<h3>Bruno</h3>
+					<h3>Rikellme</h3>
 					<h6>São Paulo</h6>
 					<p>Tecnico focado em consertos de Eletrodomesticos</p>
 

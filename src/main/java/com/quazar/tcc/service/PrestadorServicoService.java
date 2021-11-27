@@ -29,5 +29,15 @@ public class PrestadorServicoService {
 		}
 		return null;
 	}
+	
+	public PrestadorServico selectPrestadorByIdUser(Long id) {
+		List<PrestadorServico> listaPrestadores = prestadorServicoDao.listarPrestadores();
+		for(PrestadorServico prestador : listaPrestadores) {
+			if(prestador.getId_user() == id) {
+				return prestador;
+			}
+		}
+		return null;
+	}
 
 }

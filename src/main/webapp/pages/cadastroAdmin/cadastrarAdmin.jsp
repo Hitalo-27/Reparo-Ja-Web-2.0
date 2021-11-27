@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%
+	String cadastro = (String) request.getAttribute("cadastro");
+%>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,11 +17,12 @@
 	type="image/x-icon" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Contato</title>
+<title>Reparo Já</title>
 <link rel="stylesheet" href="../../global/global.css" />
-<link rel="stylesheet" href="./contato.css" />
 <link rel="stylesheet" href="../../styles/menu.css" />
+<link rel="stylesheet" href="./admin.css" />
 <link rel="stylesheet" href="../../styles/footer.css" />
 </head>
 <body>
@@ -37,18 +43,7 @@
 				<li class="items"><a href="../quemSomos/quemsomos.jsp">Quem
 						Somos</a></li>
 				<li class="items"><a href="../contato/contato.jsp">Contato</a></li>
-				<%
-          	if(session.getAttribute("cliente") == null && session.getAttribute("prestador") == null && session.getAttribute("administrador") == null){
-          %>
 				<li class="login"><a href="../login/login.jsp">Login</a></li>
-				<%
-          	}
-          	else{
-          %>
-				<li class="login"><a href="../../logout">Logout</a></li>
-				<%
-          	}
-          %>
 				<li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
 			</ul>
 		</nav>
@@ -61,78 +56,90 @@
         });
       </script>
 	</div>
-	<br />
-	<br />
-	<br />
 
-	<section class="contact">
-		<div class="contact-below">
-			<h2>Contate-nos</h2>
-			<p>Entre em contato conosco para qualquer duvida, reclamação ou
-				elogios, o seu feedback é muito importante para nos.</p>
+	<main class="contact">
+		<div class="contactForm">
+			<form action="cadastrarCliente" method="post">
+				<h2>Cadastrar um novo administrador</h2>
+				<div class="form">
+					<div>
+						<div class="inputBox">
+							<input type="text" name="nome" id="nome" required /> <span>Nome
+								completo</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="text" name="cpf" id="cpf" maxlength="11" required />
+							<span>CPF</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="text" name="cep" id="cep" size="10" maxlength="9"
+								onblur="pesquisacep(this.value);" required /> <span>CEP</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="text" name="bairro" id="bairro" required /> <span>Bairro</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="number" name="numeroCasa" id="numeroCasa" required />
+							<span>Numero da Casa</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="password" name="senha" id="senha" required /> <span>Senha</span>
+						</div>
+						
+					</div>
+
+					<div class="formDireita">
+						<div class="inputBox">
+							<input type="email" name="email" id="email" required /> <span>Email</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="number" name="idade" id="idade" required /> <span>Idade</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="text" name="cidade" id="cidade" required /> <span>Cidade</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="text" name="rua" id="rua" required /> <span>Rua</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="number" name="telefone" id="telefone" required /> <span>Telefone</span>
+						</div>
+
+						<div class="inputBox">
+							<input type="password" name="senha2" id="senha2" required /> <span>Senha Novamente</span>
+						</div>
+
+					</div>
+				</div>
+
+				<h3>Adcione a Sua Imagem</h3>
+				<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+				<%
+          	if(cadastro != null){
+          %>
+				<p><%= cadastro %></p>
+				<%
+          	}
+          %>
+				<div class="inputBox">
+					<input type="submit" name="" value="Cadastrar" />
+				</div>
+			</form>
 		</div>
-		<div class="container-contact">
-			<div class="contactInfo">
-				<div class="box">
-					<div class="icon">
-						<i class="fa fa-street-view" aria-hidden="true"></i>
-					</div>
-					<div class="text">
-						<h3>Endereço</h3>
-						<p>
-							R. Felíciano de Mendonça, <br /> 290 - Guaianases, São Paulo
-						</p>
-					</div>
-				</div>
+	</main>
 
-				<div class="box">
-					<div class="icon">
-						<i class="fa fa-phone" aria-hidden="true"></i>
-					</div>
-					<div class="text">
-						<h3>Telefone</h3>
-						<p>(11)2554-0978</p>
-					</div>
-				</div>
 
-				<div class="box">
-					<div class="icon">
-						<i class="fa fa-envelope" aria-hidden="true"></i>
-					</div>
-					<div class="text">
-						<h3>Email</h3>
-						<p>reparojaoficial@gmail.com</p>
-					</div>
-				</div>
-			</div>
-			<div class="contactForm">
-				<form>
-					<h2>Envie sua menssagem</h2>
-					<div class="inputBox">
-						<input type="text" name="" required /> <span>Nome completo</span>
-					</div>
 
-					<div class="inputBox">
-						<input type="text" name="" required /> <span>Email</span>
-					</div>
-
-					<div class="inputBox">
-						<input type="text" name="" required /> <span>Assunto</span>
-					</div>
-
-					<div class="inputBox">
-						<textarea type="text" name="" required></textarea>
-						<span>Menssagem...</span>
-					</div>
-
-					<div class="inputBox">
-						<input type="submit" name="" value="Enviar" required />
-					</div>
-				</form>
-			</div>
-		</div>
-	</section>
-
+	<!-- Inicio do Footer -->
 	<div class="footer-container">
 		<section class="footer-subscription">
 			<p class="footer-subscription-heading">Receba as nossas melhores
@@ -156,22 +163,21 @@
 				<small class="website-rights">© 2021 Quazar</small>
 				<div class="social-icons">
 					<a href="#" class="social-icon-link facebook" target="_blank"
-						arial-label="Facebook"> <i
-						class="fab fa-facebook"></i>
+						arial-label="Facebook"> <i class="fab fa-facebook"></i>
 					</a> <a href="#" class="social-icon-link instagram" target="_blank"
-						arial-label="Instagram"> <i
-						class="fab fa-instagram"></i>
+						arial-label="Instagram"> <i class="fab fa-instagram"></i>
 					</a> <a href="#" class="social-icon-link youtube" target="_blank"
 						arial-label="Youtube"> <i class="fab fa-youtube"></i>
 					</a> <a href="#" class="social-icon-link twitter" target="_blank"
 						arial-label="Twitter"> <i class="fab fa-twitter"></i>
 					</a> <a href="#" class="social-icon-link linkedin" target="_blank"
-						arial-label="Linkedin"> <i
-						class="fab fa-linkedin"></i>
+						arial-label="Linkedin"> <i class="fab fa-linkedin"></i>
 					</a>
 				</div>
 			</div>
 		</section>
 	</div>
+	<!-- Fim do Footer -->
+	<script src="../../js/scriptCep.js"></script>
 </body>
 </html>

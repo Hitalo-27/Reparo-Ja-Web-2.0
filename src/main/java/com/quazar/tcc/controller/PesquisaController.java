@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.quazar.tcc.dao.Pesquisa;
 import com.quazar.tcc.model.AnuncioServico;
+import com.quazar.tcc.model.PrestadorServico;
 
-@WebServlet(urlPatterns = {"/pages/anuncioServicos/buscarServico"})
+@WebServlet(urlPatterns = {"/pages/anuncioServicos/buscarServico", "/pages/prestadores/buscarPrestador"})
 public class PesquisaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -30,8 +31,12 @@ public class PesquisaController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getServletPath();
-		if(url.equals("/buscaServico"));
+		if(url.equals("/pages/anuncioServicos/buscarServico")) {
 			buscarServico(request, response);
+		}	
+		else if(url.equals("/pages/prestadores/buscarPrestador")) {
+			buscarPrestador(request, response);
+		}		
 	}
 	
 	protected void buscarServico(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +44,14 @@ public class PesquisaController extends HttpServlet {
 		List<AnuncioServico> anuncioServicos = pesquisa.buscarServico(pesquisaServico);
 		request.setAttribute("anuncioServicos", anuncioServicos);
 		RequestDispatcher rd = request.getRequestDispatcher("anuncioServico.jsp");
+		rd.forward(request, response);
+	}
+	
+	protected void buscarPrestador(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String pesquisaServico = request.getParameter("pesquisaPrestador");
+		List<PrestadorServico> prestadoresServicos = pesquisa.buscarPrestador(pesquisaServico);
+		request.setAttribute("prestadoresServico", prestadoresServicos);
+		RequestDispatcher rd = request.getRequestDispatcher("prestadores.jsp");
 		rd.forward(request, response);
 	}
 
