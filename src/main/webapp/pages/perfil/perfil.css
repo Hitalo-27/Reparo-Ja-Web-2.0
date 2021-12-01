@@ -13,7 +13,7 @@
     justify-content: center;
     background: linear-gradient(#3c3163, transparent);
     margin-bottom: 1.25rem;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .seccion-perfil-usuario .perfil-usuario-portada {
@@ -60,6 +60,7 @@
 
 .seccion-perfil-usuario .perfil-usuario-avatar img {
     width: 100%;
+    height: 100%;
     position: relative;
     border-radius: 50%;
 }

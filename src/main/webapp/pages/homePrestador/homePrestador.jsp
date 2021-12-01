@@ -2,14 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.quazar.tcc.model.PrestadorServico"%>
 <%@ page import="com.quazar.tcc.model.AnuncioServico"%>
+<%@ page import="com.quazar.tcc.model.Pedido"%>
 <%@ page import="com.quazar.tcc.service.AnuncioServicoService"%>
+<%@ page import="com.quazar.tcc.service.PedidoService"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 
 <%
 	@SuppressWarnings("unchecked")
-	List<AnuncioServico> listaAnuncioPedidos = (ArrayList<AnuncioServico>) request.getAttribute("anuncioServicos");
+	List<Pedido> listaPedidos = (ArrayList<Pedido>) request.getAttribute("listaPedidos");
+	PrestadorServico prestadorServico = (PrestadorServico) session.getAttribute("prestador");
+	
 	AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
+	PedidoService pedidoService = new PedidoService();
+	
+	List<Pedido> pedidos = pedidoService.selectPedidosByIdPrestador(prestadorServico.getId());
 %>
 
 <!DOCTYPE html>
@@ -30,7 +37,7 @@
 <link rel="stylesheet" href="../../global/global.css" />
 <link rel="stylesheet" href="../../styles/menu.css" />
 <link rel="stylesheet" href="./anuncio.css" />
-<link rel="stylesheet" href="../../styles/cardProfile.css" />
+<link rel="stylesheet" href="../prestadores/cardAnuncio.css">
 <link rel="stylesheet" href="../../styles/footer.css" />
 <link rel="stylesheet" href="homePrestador.css">
 </head>
@@ -41,7 +48,7 @@
 		<nav class="menu">
 			<ul>
 				<li class="logo">Reparo Já</li>
-				<li class="items"><a href="../../index.jsp">Home</a></li>
+				<li class="items"><a href="../homePrestador/homePrestador">Home</a></li>
 				<li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
 				<li class="items"><a href="../prestadores/prestadores">Prestadores</a></li>
 				<li class="items"><a href="../perfil/perfil.jsp">Perfil</a></li>
@@ -74,13 +81,59 @@
 	</div>
 	<!-- Fim do Menu -->
 
+	
+
 	<div class="content-dashboard">
 		<div class="informations-prestador">
-			<p>Rikellme</p>
+			<% 
+				int qtdePedidos = 0;
+				for(Pedido pedido : pedidos){
+					qtdePedidos++;	
+				}
+			%>
+			<div class="perfil-usuario-header">
+				<div class="perfil-usuario-portada">
+					<div class="perfil-usuario-avatar">
+						<img alt="foto de perfil" src="../../upload/<%= prestadorServico.getUser().getFoto() %>">
+					</div>
+				</div>
+			</div>
+			<h4>Seus Dados:</h4>
+
+			
+
+
+
+			<p><i class="fas fa-user"></i> <strong>Nome:</strong>  <%= prestadorServico.getUser().getNome() %></p>
+			<p><i class="fas fa-envelope"></i> <strong>E-mail:</strong>  <%= prestadorServico.getUser().getEmail() %></p>
+			<p><i class="fas fa-map-marker-alt"></i> <strong>Localização:</strong>  <%= prestadorServico.getUser().getBairro() %></p>
+			<p><i class="fas fa-mail-bulk"></i> <strong>Qtde de Pedidos:</strong>  <%= qtdePedidos %></p>
 		</div>
 
 		<div class="all-informations">
-			<p>Total de pedidos: 0</p>
+			
+			<h4>Seus Pedidos:</h4>
+			<%
+				for(Pedido pedido : pedidos){
+			%>
+			<div class="divisor-informations-informations">
+				<div class="imagemPedido">
+					<img alt="imagem pedido" src="../../upload/<%= pedido.getFoto() %>">
+				</div>
+				<div class="group-informations">
+					<p><i class="fas fa-user"></i> <strong>Nome:</strong> <%= pedido.getNome() %></p>
+					<p><i class="fas fa-envelope"></i> <strong>E-mail:</strong> <%= pedido.getEmail() %></p>
+					<p><i class="fas fa-phone"></i> <strong>Telefone:</strong> <%= pedido.getTelefone() %></p>
+					<p><i class="fas fa-map-marker-alt"></i> <strong>Localização:</strong> <%= pedido.getBairro() %></p>
+					<p><i class="fas fa-paste"></i> <strong>Descrição do Pedido:</strong> <%= pedido.getDescricao() %></p>
+				</div>
+			</div>
+			
+			
+			<hr>
+			<%
+				}
+			%>
 		</div>
 	</div>
 
@@ -96,16 +149,17 @@
 
 			<div class="card-grid-space">
 				<div class="card-container">
-					<img class="round" src="https://github.com/Hitalo-27.png"
-						alt="user" />
+						<img class="round"
+						src="../../upload/<%= as.getFoto() %>" alt="user" />
 
-					<h3><%= as.getPrestadorServico().getUser().getNome() %></h3>
-					<h4><%= as.getTitulo() %></h4>
-					<br>
-					<h6>Descrição:</h6>
-					<p>
-						<%= as.getDescricao() %>
-					</p>
+					<h3 style="color: #fff; font-size: 1.5rem; "> <%=as.getTitulo()%></h3>
+					<h6 style="color: #B3B8CD; font-size: 15px; margin: 2px;" class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
+					<h6 style="color: #B3B8CD; font-size: 15px; margin: 2px;" class="nameLocal">
+						<i class="fas fa-map-marker-alt"></i>
+						<%=as.getPrestadorServico().getUser().getBairro()%>,
+						<%=as.getPrestadorServico().getUser().getRua()%></h6>
+					<h6 style="color: #B3B8CD; font-size: 15px; margin: 2px;"> <i class="fas fa-envelope"></i> <%=as.getPrestadorServico().getUser().getEmail()%></h6>
+					<p style="color: #B3B8CD; font-size: 15px; margin: 2px;"> <%=as.getDescricao()%> </p>
 
 					<div class="buttons">
 						<button class="primary">
@@ -117,9 +171,9 @@
 					</div>
 
 					<div class="skills">
-						<h6>Categoria</h6>
+						<h6 style="color: #B3B8CD; font-size: 15px; margin: 2px;"><%=as.getCategoria()%></h6>
 						<ul>
-							<li><%= as.getCategoria() %></li>
+							<li><%=as.getSubcategoria()%></li>
 						</ul>
 					</div>
 				</div>

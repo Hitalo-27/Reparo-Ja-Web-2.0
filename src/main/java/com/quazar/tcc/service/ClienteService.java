@@ -20,6 +20,16 @@ public class ClienteService {
 		return null;
 	}
 	
+	public Cliente selectClienteById(Long id) {
+		List<Cliente> listaClientes = clienteDao.listarClientes();
+		for(Cliente c : listaClientes) {
+			if(c.getId() == id) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
 	public Cliente selectClienteByIdUser(User user) {
 		List<Cliente> listaClientes = clienteDao.listarClientes();
 		for(Cliente cliente : listaClientes) {

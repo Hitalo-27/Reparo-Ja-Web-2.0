@@ -12,27 +12,42 @@ public class AnuncioServico implements Serializable{
 	private String categoria;
 	private String subcategoria;
 	private String descricao;
+	private String foto;
 	private PrestadorServico prestadorServico;
 	private Long id_prestador;
 	
 	public AnuncioServico() {
 	}
 
-	public AnuncioServico(Long id, String titulo, String categoria, String subcategoria, String descricao, PrestadorServico prestadorServico) {
+	public AnuncioServico(Long id, String titulo, String categoria, String subcategoria, String descricao, String foto, PrestadorServico prestadorServico) {
 		this.id = id;
 		this.titulo = titulo;
 		this.categoria = categoria;
 		this.subcategoria = subcategoria;
 		this.descricao = descricao;
+		this.foto = foto;
 		this.prestadorServico = prestadorServico;
 	}
 	
-	public AnuncioServico(String titulo, String categoria, String subcategoria, String descricao, PrestadorServico prestadorServico) {
+	public AnuncioServico(String titulo, String categoria, String subcategoria, String descricao, String foto, PrestadorServico prestadorServico) {
 		this.titulo = titulo;
 		this.categoria = categoria;
 		this.subcategoria = subcategoria;
 		this.descricao = descricao;
+		this.foto = foto;
 		this.prestadorServico = prestadorServico;
+	}
+	
+	public AnuncioServico(Long id, String titulo, String categoria, String subcategoria, String descricao, String foto, Long id_prestador) {
+		this.id = id;
+		this.titulo = titulo;
+		this.categoria = categoria;
+		this.subcategoria = subcategoria;
+		this.descricao = descricao;
+		this.foto = foto;
+		this.id_prestador = id_prestador;
+		PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
+		this.prestadorServico = prestadorServicoService.selectPrestadorById(id_prestador);
 	}
 	
 	public AnuncioServico(Long id, String titulo, String categoria, String subcategoria, String descricao, Long id_prestador) {
@@ -88,6 +103,14 @@ public class AnuncioServico implements Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	public PrestadorServico getPrestadorServico() {

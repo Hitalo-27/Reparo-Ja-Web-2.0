@@ -52,7 +52,17 @@
 		<nav class="menu">
 			<ul>
 				<li class="logo">Reparo Já</li>
+				<%
+          			if(session.getAttribute("prestador") != null){
+          		%>
+				<li class="items"><a href="../homePrestador/homePrestador">Home</a></li>
+				<%
+          			} else{
+          		%>
 				<li class="items"><a href="../../index.jsp">Home</a></li>
+				<%
+          			}
+          		%>
 				<li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
 				<li class="items"><a href="../prestadores/prestadores">Prestadores</a></li>
 				<li class="items"><a href="../perfil/perfil.jsp">Perfil</a></li>
@@ -88,7 +98,20 @@
 		<div class="perfil-usuario-header">
 			<div class="perfil-usuario-portada">
 				<div class="perfil-usuario-avatar">
-					<img src="../../img/FotoPerfil.jpg" alt="img-avatar" />
+					<img src="../../upload/<%
+						if(cliente != null){
+							out.print(cliente.getUser().getFoto());
+						}
+						else if(prestadorServico != null){
+							out.print(prestadorServico.getUser().getFoto());
+						}
+						else if(administrador != null){
+							out.print(administrador.getUser().getFoto());
+						}
+						else{
+							out.print("Erro, Nulo");
+						}
+					%>" alt="img-avatar" />
 					<button type="button" class="boton-avatar">
 						<i class="far fa-image"></i>
 					</button>
@@ -193,12 +216,8 @@
 				%></li>
 					<%
             	if(prestadorServico != null){
-            %>
-					<li><i class="icono fas fa-user-check"></i> Tipo de Prestador:
-						<%= prestadorServico.getTipoPrestador() %></li>
-					<%
-				if(listaServicosPrestador != null){
-					for(ServicosPrestador servicosPrestador : listaServicosPrestador){
+					if(listaServicosPrestador != null){
+						for(ServicosPrestador servicosPrestador : listaServicosPrestador){
 			%>
 					<li><i class="icono fas fa-building"></i>Cargo: <%= servicosPrestador.getServico().getNome() %>
 					</li>
@@ -275,14 +294,6 @@
 						out.print("Erro, todos nulos");
 					}
 				%></li>
-					<%
-	            if(prestadorServico != null){
-			%>
-					<li><i class="icono fa fa-envelope"></i> Quantidade de
-						Funcionarios: <%= prestadorServico.getQtdeFuncionarios() %></li>
-					<%
-				}
-            %>
 				</ul>
 			</div>
 		</div>

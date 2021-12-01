@@ -13,8 +13,8 @@ public class AnuncioServicoDao extends ConexaoBd{
 	
 	//CREATE
 	public void cadastrarAnuncioServico(AnuncioServico anuncioServico) {
-		String create = "INSERT INTO tb_anuncioservicos(titulo, categoria, subcategoria, descricao, id_prestador) "
-				+ "VALUES(?,?,?,?,?)";
+		String create = "INSERT INTO tb_anuncioservicos(titulo, categoria, subcategoria, descricao, imagem, id_prestador) "
+				+ "VALUES(?,?,?,?,?,?)";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(create);
@@ -22,7 +22,8 @@ public class AnuncioServicoDao extends ConexaoBd{
 			stmt.setString(2, anuncioServico.getCategoria());
 			stmt.setString(3, anuncioServico.getSubcategoria());
 			stmt.setString(4, anuncioServico.getDescricao());
-			stmt.setLong(5, anuncioServico.getPrestadorServico().getId());
+			stmt.setString(5, anuncioServico.getFoto());
+			stmt.setLong(6, anuncioServico.getPrestadorServico().getId());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {
@@ -40,7 +41,7 @@ public class AnuncioServicoDao extends ConexaoBd{
               ResultSet rs = stmt.executeQuery();
               while(rs.next()){
             	  AnuncioServico anuncioServico = new AnuncioServico(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), 
-            			  rs.getString(5), rs.getLong(6));
+            			  rs.getString(5), rs.getString(6), rs.getLong(7));
             	  anuncioServicos.add(anuncioServico);
               }
               con.close();

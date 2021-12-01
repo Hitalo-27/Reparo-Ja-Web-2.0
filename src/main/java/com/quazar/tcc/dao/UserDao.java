@@ -13,8 +13,8 @@ public class UserDao extends ConexaoBd{
 	
 	//CREATE
 	public void cadastrarUser(User user) {
-		String create = "INSERT INTO tb_users(nome, email, senha, cpf, idade, cep, rua, numeroCasa, bairro, cidade, id_tipoUser)"
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String create = "INSERT INTO tb_users(nome, email, senha, cpf, idade, cep, rua, numeroCasa, bairro, cidade, imagem, id_tipoUser)"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(create);
@@ -28,7 +28,8 @@ public class UserDao extends ConexaoBd{
 			stmt.setInt(8, user.getNumeroCasa());
 			stmt.setString(9, user.getBairro());
 			stmt.setString(10, user.getCidade());
-			stmt.setLong(11, user.getTipoUser().getId());
+			stmt.setString(11, user.getFoto());
+			stmt.setLong(12, user.getTipoUser().getId());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {
@@ -46,7 +47,8 @@ public class UserDao extends ConexaoBd{
               ResultSet rs = stmt.executeQuery();
               while(rs.next()){
             	  User user = new User(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), 
-            			  rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getString(10), rs.getString(11), rs.getLong(12));
+            			  rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getString(10), rs.getString(11),
+            			  rs.getString(12), rs.getLong(13));
             	  users.add(user);
               }
               con.close();

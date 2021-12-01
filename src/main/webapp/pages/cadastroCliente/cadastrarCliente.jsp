@@ -121,8 +121,9 @@
 					</div>
 				</div>
 
-				<h3>Adcione a Sua Imagem</h3>
-				<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+				<h3>Adicione uma foto</h3>
+				
+				<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" required />
 				<%
           	if(cadastro != null){
           %>

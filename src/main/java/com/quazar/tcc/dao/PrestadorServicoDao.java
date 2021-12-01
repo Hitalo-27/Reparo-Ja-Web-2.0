@@ -13,14 +13,12 @@ public class PrestadorServicoDao extends ConexaoBd {
 
 	//CREATE
 	public void cadastrarPrestador(PrestadorServico prestadorServico) {
-		String create = "INSERT INTO tb_prestadoresServico(tipoPrestador, qtdeFuncionarios, id_userPrestador)"
-				+ "VALUES(?, ?, ?)";
+		String create = "INSERT INTO tb_prestadoresServico(id_userPrestador)"
+				+ "VALUES(?)";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(create);
-			stmt.setString(1, prestadorServico.getTipoPrestador());
-			stmt.setLong(2, prestadorServico.getQtdeFuncionarios());
-			stmt.setLong(3, prestadorServico.getUser().getId());
+			stmt.setLong(1, prestadorServico.getUser().getId());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {
@@ -37,7 +35,7 @@ public class PrestadorServicoDao extends ConexaoBd {
               PreparedStatement stmt = con.prepareStatement(read);
               ResultSet rs = stmt.executeQuery();
               while(rs.next()){
-            	  PrestadorServico prestadorServico = new PrestadorServico(rs.getLong(1), rs.getString(2), rs.getLong(3), rs.getLong(4));
+            	  PrestadorServico prestadorServico = new PrestadorServico(rs.getLong(1), rs.getLong(2));
             	  prestadores.add(prestadorServico);
               }
               con.close();
@@ -50,6 +48,7 @@ public class PrestadorServicoDao extends ConexaoBd {
 	}
 	
 	//UPDATE
+	/*
 	public void alterarPrestador(PrestadorServico prestadorServico) {
 		String update = "UPDATE tb_prestadoresServico SET tipoPrestador = ?, qtdeFuncionarios = ? WHERE id = ?";
 		try {
@@ -64,7 +63,7 @@ public class PrestadorServicoDao extends ConexaoBd {
 			e.printStackTrace();
 		}
 	}
-
+	*/
 	//DELETE
 	public void deletarPrestador(PrestadorServico prestadorServico) {
 		String delete = "delete from tb_prestadoresServico where id = ?";

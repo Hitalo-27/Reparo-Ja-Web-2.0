@@ -13,14 +13,19 @@ public class PedidoDao extends ConexaoBd{
 	
 	//CREATE
 	public void cadastrarPedido(Pedido pedido) {
-		String create = "INSERT INTO tb_pedidos(titulo, categoria, descricao, id_cliente) VALUES(?,?,?,?)";
+		String create = "INSERT INTO tb_pedidos(nome, email, telefone, bairro, descricao, imagem, id_cliente, id_prestador) "
+				+ "VALUES(?,?,?,?,?,?,?,?)";
 		try {
 			Connection con = conectar();
 			PreparedStatement stmt = con.prepareStatement(create);
-			stmt.setString(1, pedido.getTitulo());
-			stmt.setString(2, pedido.getCategoria());
-			stmt.setString(3, pedido.getPedido());
-			stmt.setLong(4, pedido.getCliente().getId());
+			stmt.setString(1, pedido.getNome());
+			stmt.setString(2, pedido.getEmail());
+			stmt.setInt(3, pedido.getTelefone());
+			stmt.setString(4, pedido.getBairro());
+			stmt.setString(5, pedido.getDescricao());
+			stmt.setString(6, pedido.getFoto());
+			stmt.setLong(7, pedido.getId_cliente());
+			stmt.setLong(8, pedido.getId_prestador());
 			stmt.executeUpdate();
 			con.close();
 		} catch (Exception e) {
@@ -37,7 +42,8 @@ public class PedidoDao extends ConexaoBd{
               PreparedStatement stmt = con.prepareStatement(read);
               ResultSet rs = stmt.executeQuery();
               while(rs.next()){
-            	  Pedido pedido = new Pedido(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getLong(5));
+            	  Pedido pedido = new Pedido(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6),
+            			  rs.getString(7), rs.getLong(8), rs.getLong(9));
             	  pedidos.add(pedido);
               }
               con.close();

@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+h3 {
+	margin: 6px 0;
+}
+
+h6 {
+	margin: 5px 0;
+	text-transform: uppercase;
+}
+
+p {
+	font-size: 14px;
+	line-height: 21px;
+	margin-bottom: 5%;
+}
+
+.card-container {
+	background-color: var(--color1);
+	border-radius: 10px;
+	box-shadow: 0px 10px 20px -10px var(--boxShadow);
+	color:#B3B8CD;
+	position: relative;
+	width: 350px;
+	max-width: 100%;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.card-container .pro {
+	color: #FEBB0B;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 3px 7px;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}
+
+.card-container .round {
+    width: 100%;
+	height: 250px;
+	border-radius: 10px 10px 0 0;
+}
+
+button.primary {
+	background-color: var(--azul);
+	border: 1px solid var(--azul);
+	border-radius: 3px;
+	color: var(--color1);
+	font-family: Montserrat, sans-serif;
+	font-weight: 500;
+	padding: 10px 25px;
+    cursor: pointer;
+}
+
+button.primary:hover {
+	background-color: var(--color1);
+	color: var(--azul);
+}
+
+
+.skills {
+	background-color: var(--color1);
+    border-radius: 10px;
+	text-align: left;
+	padding: 15px;
+	margin-top: 10px;
+}
+
+.skills ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.skills ul li {
+	border: 1px solid var(--borderSkills);
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 7px 7px 0;
+	padding: 4px;
+}
+
+
+
+@media screen and (max-width: 500px) {
+    .card-container {
+      max-width: calc(100vw - 4rem);
+    }
+  }

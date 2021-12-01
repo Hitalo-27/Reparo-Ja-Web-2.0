@@ -144,9 +144,8 @@ public class AtualizarController extends HttpServlet {
 			session = request.getSession();
 			session.setAttribute("telefone", newFone);
 		}
-		PrestadorServico prestadorServico = new PrestadorServico(Long.parseLong(request.getParameter("id_prestador")),
-				request.getParameter("tipoPrestador"), Long.parseLong(request.getParameter("qtdeFuncionarios")));
-		prestadorServicoDao.alterarPrestador(prestadorServico);
+		PrestadorServico prestadorServico = new PrestadorServico(Long.parseLong(request.getParameter("id_prestador")));
+		//prestadorServicoDao.alterarPrestador(prestadorServico);
 		PrestadorServico prestador = prestadorServicoService.selectPrestadorByIdUser(user);
 		if(prestador != null) {
 			session = request.getSession();

@@ -1,7 +1,7 @@
 function openModal(id) {
     document.querySelector(".modal").classList.remove("hide")
     document.querySelector("body").classList.add("noScroll")
-    document.getElementById("testeP").innerHTML = `${id}`
+    document.getElementById("id_prestador").value = `${id}`
 }
 
 function closeModal() {

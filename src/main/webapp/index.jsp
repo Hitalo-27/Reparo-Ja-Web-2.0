@@ -30,10 +30,11 @@
 <link rel="stylesheet" type="text/css" href="./styles/cardProfile.css" />
 <link rel="stylesheet" href="./pages/anuncioServicos/style.css" />
 <link rel="stylesheet" type="text/css" href="./styles/menu.css" />
-<link rel="stylesheet" type="text/css" href="./home.css" />
 <link rel="stylesheet" type="text/css" href="./styles/footer.css" />
 <link rel="stylesheet" href="./pages/anuncioServicos/responsive.css" />
 <link rel="stylesheet" type="text/css" href="./styles/card.css" />
+<link rel="stylesheet" href="./pages/prestadores/cardAnuncio.css"> 
+<link rel="stylesheet" type="text/css" href="./home.css" />
 
 </head>
 <body>
@@ -201,24 +202,25 @@
 		<section class="cards-wrapper">
 			<div class="card-grid-space">
 				<div class="card-container">
-					<img class="round"
+						<img class="round"
 						src="https://github.com/Hitalo-27.png" alt="user" />
 
-					<h3>Hitalo</h3>
-					<h6>São Paulo</h6>
-					<p>Tecnico focado em consertos de Eletrodomesticos</p>
+					<h3 style="color: #FFFFFF;"> <i class="fas fa-user" ></i> Hitalo</h3>
+					<h6><i class="fas fa-map-marker-alt"></i> GUAIANASES, SÃO PAULO </h6>
+						<h6> <i class="fas fa-envelope"> hitalo@gmail.com </i></h6>
+						<p></p>
+
 
 					<div class="buttons">
-						<button class="primary">Mensagem</button>
+						<button class="primary">Fazer pedido </button>
 					</div>
 
 					<div class="skills">
-						<h6>Habilidades</h6>
+						<h6>Categorias</h6>
 						<ul>
-							<li>Trabalho feito de forma rapida</li>
-							<li>Atencioso</li>
-							<li>Otimo Preço</li>
-							<li>Otima Disponibilidade</li>
+							<li>
+								Eletrodomesticos
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -226,24 +228,25 @@
 
 			<div class="card-grid-space">
 				<div class="card-container">
-					<img class="round"
+						<img class="round"
 						src="https://github.com/E3ND.png" alt="user" />
 
-					<h3>Bruno</h3>
-					<h6>São Paulo</h6>
-					<p>Tecnico focado em consertos de Eletrodomesticos</p>
+					<h3 style="color: #FFFFFF;"> <i class="fas fa-user" ></i> Bruno</h3>
+					<h6><i class="fas fa-map-marker-alt"></i> GUAIANASES, SÃO PAULO </h6>
+						<h6> <i class="fas fa-envelope"> bruno@gmail.com </i></h6>
+						<p></p>
+
 
 					<div class="buttons">
-						<button class="primary">Mensagem</button>
+						<button class="primary">Fazer pedido </button>
 					</div>
 
 					<div class="skills">
-						<h6>Habilidades</h6>
+						<h6>Categorias</h6>
 						<ul>
-							<li>Trabalho feito de forma rapida</li>
-							<li>Atencioso</li>
-							<li>Otimo Preço</li>
-							<li>Otima Disponibilidade</li>
+							<li>
+								Eletrodomesticos
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -251,24 +254,26 @@
 
 			<div class="card-grid-space">
 				<div class="card-container">
-					<img class="round"
+						<img class="round"
 						src="https://github.com/Rikellme.png" alt="user" />
 
-					<h3>Rikellme</h3>
-					<h6>São Paulo</h6>
-					<p>Tecnico focado em consertos de Eletrodomesticos</p>
+					<h3 style="color: #FFFFFF;"> <i class="fas fa-user" ></i> Rikellme</h3>
+					<h6>
+						<i class="fas fa-map-marker-alt"></i> GUAIANASES, SÃO PAULO </h6>
+						<h6> <i class="fas fa-envelope"> Rikellme@gmail.com </i> </h6>
+						<p></p>
+
 
 					<div class="buttons">
-						<button class="primary">Mensagem</button>
+						<button class="primary">Fazer pedido </button>
 					</div>
 
 					<div class="skills">
-						<h6>Habilidades</h6>
+						<h6>Categorias</h6>
 						<ul>
-							<li>Trabalho feito de forma rapida</li>
-							<li>Atencioso</li>
-							<li>Otimo Preço</li>
-							<li>Otima Disponibilidade</li>
+							<li>
+								Eletrodomesticos
+							</li>
 						</ul>
 					</div>
 				</div>

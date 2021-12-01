@@ -2,6 +2,7 @@ package com.quazar.tcc.model;
 
 import java.io.Serializable;
 
+import com.quazar.tcc.service.PrestadorServicoService;
 import com.quazar.tcc.service.ServicoService;
 
 public class ServicosPrestador implements Serializable{
@@ -28,6 +29,8 @@ public class ServicosPrestador implements Serializable{
 		this.id_prestador = id_prestador;
 		ServicoService servicoService = new ServicoService();
 		this.servico = servicoService.selectServicoById(id_servico);
+		PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
+		this.prestadorServico = prestadorServicoService.selectPrestadorById(id_prestador);
 	}
 	
 	public ServicosPrestador(Long id) {

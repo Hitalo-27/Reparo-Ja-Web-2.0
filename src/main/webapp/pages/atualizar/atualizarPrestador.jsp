@@ -27,7 +27,17 @@
 		<nav class="menu">
 			<ul>
 				<li class="logo">Reparo Já</li>
+				<%
+          			if(session.getAttribute("prestador") != null){
+          		%>
+				<li class="items"><a href="./pages/homePrestador/homePrestador">Home</a></li>
+				<%
+          			} else{
+          		%>
 				<li class="items"><a href="./index.jsp">Home</a></li>
+				<%
+          			}
+          		%>
 				<li class="items"><a href="./pages/anuncioServicos/anuncioServico">Serviços</a></li>
 				<li class="items"><a href="../prestadores/prestadores">Prestadores</a></li>
 				<%

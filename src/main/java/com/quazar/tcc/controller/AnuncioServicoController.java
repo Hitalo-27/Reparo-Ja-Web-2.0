@@ -14,6 +14,7 @@ import com.quazar.tcc.dao.AnuncioServicoDao;
 import com.quazar.tcc.model.AnuncioServico;
 import com.quazar.tcc.model.PrestadorServico;
 import com.quazar.tcc.service.AnuncioServicoService;
+import com.quazar.tcc.service.ImagemService;
 
 @WebServlet(urlPatterns = {"/pages/anuncioServicos/anuncioServico", "/pages/anuncioServicos/fazerAnuncio", "/pages/anuncioServicos/deletarAnuncio",
 		"/pages/anuncioServicos/attAnuncio", "/pages/anuncioServicos/atualizarAnuncio"})
@@ -21,7 +22,9 @@ public class AnuncioServicoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	AnuncioServicoDao anuncioServicoDao = new AnuncioServicoDao();
+	
 	AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
+	ImagemService imagemService = new ImagemService();
        
     public AnuncioServicoController() {
     }
@@ -66,9 +69,12 @@ public class AnuncioServicoController extends HttpServlet {
 		String categoria = request.getParameter("categoria");
 		String subcategoria = request.getParameter("subcategoria");
 		String descricao = request.getParameter("descricao");
+		//String nomeImagem = request.getParameter("nomeImagem");
+		String foto = request.getParameter("img");
 		PrestadorServico prestadorServico = (PrestadorServico) request.getSession().getAttribute("prestador");
-		AnuncioServico anuncioServico = new AnuncioServico(titulo, categoria, subcategoria, descricao, prestadorServico);
+		AnuncioServico anuncioServico = new AnuncioServico(titulo, categoria, subcategoria, descricao, foto, prestadorServico);
 		anuncioServicoDao.cadastrarAnuncioServico(anuncioServico);
+		imagemService.salvarImagem(foto, foto);
 		response.sendRedirect("anuncioServico");
 	}
 	

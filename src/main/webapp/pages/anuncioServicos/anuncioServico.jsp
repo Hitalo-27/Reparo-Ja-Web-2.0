@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.quazar.tcc.model.PrestadorServico"%>
 <%@ page import="com.quazar.tcc.model.AnuncioServico"%>
+<%@ page import="com.quazar.tcc.model.Cliente"%>
+<%@ page import="com.quazar.tcc.model.Telefone"%>
 <%@ page import="com.quazar.tcc.service.AnuncioServicoService"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
@@ -36,6 +38,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 <link rel="stylesheet" href="./anuncio.css" />
 <link rel="stylesheet" href="../../styles/modal.css" />
 <link rel="stylesheet" href="./cardAnuncio.css" />
+<link rel="stylesheet" href="./anuncio.css" />
 <script defer src="../../js/scriptAnuncio.js"></script>
 </head>
 <body>
@@ -45,7 +48,17 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 		<nav class="menu">
 			<ul>
 				<li class="logo">Reparo Já</li>
+				<%
+          			if(session.getAttribute("prestador") != null){
+          		%>
+				<li class="items"><a href="../homePrestador/homePrestador">Home</a></li>
+				<%
+          			} else{
+          		%>
 				<li class="items"><a href="../../index.jsp">Home</a></li>
+				<%
+          			}
+          		%>
 				<li class="items"><a href="../anuncioServicos/anuncioServico">Serviços</a></li>
 				<li class="items"><a href="../prestadores/prestadores">Prestadores</a></li>
 				<%
@@ -122,9 +135,9 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 							<label>Selecione uma sub-categoria: </label> <select
 								name="subcategoria" id="subcategoria"></select>
 						</div>
-
-						<div class="inputBox">
-							<h3>Adcione uma Imagem</h3>
+						
+						<div class="imagemServico">
+							<h3>Adicione uma Imagem</h3>
 							<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
 						</div>
 
@@ -151,7 +164,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 			<div class="card-grid-space">
 				<div class="card-container">
 						<img class="round"
-						src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 
 					<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 					<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -159,6 +172,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 						<i class="fas fa-map-marker-alt"></i>
 						<%=as.getPrestadorServico().getUser().getBairro()%>,
 						<%=as.getPrestadorServico().getUser().getRua()%></h6>
+					<h6> <i class="fas fa-envelope"></i> <%=as.getPrestadorServico().getUser().getEmail()%></h6>
 					<p> <%=as.getDescricao()%> </p>
 
 					<div class="buttons">
@@ -231,8 +245,8 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 					%>
 						<div class="card-grid-space">
 							<div class="card-container">
-									<img class="round"
-									src="../../img/tecnico.jpg" alt="user" />
+								<img class="round"
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 			
 								<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 								<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -240,6 +254,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 									<i class="fas fa-map-marker-alt"></i>
 									<%=as.getPrestadorServico().getUser().getBairro()%>,
 									<%=as.getPrestadorServico().getUser().getRua()%></h6>
+								<h6> <i class="fas fa-envelope"></i> <%=as.getPrestadorServico().getUser().getEmail()%></h6>
 								<p> <%=as.getDescricao()%> </p>
 
 								<%
@@ -247,7 +262,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								%>
 			
 								<div class="buttons">
-									<button class="primary" onclick="openModal(1)">Fazer pedido </button>
+									<button class="primary" onclick="openModal(<%= as.getPrestadorServico().getId()%>)">Fazer pedido </button>
 								</div>
 
 								<%
@@ -318,7 +333,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 					<div class="card-grid-space">
 						<div class="card-container">
 								<img class="round"
-								src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 		
 							<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 							<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -418,7 +433,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -503,8 +518,8 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
-					
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
+						
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
 										<h6 class="nameLocal">
@@ -603,7 +618,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -685,7 +700,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -768,7 +783,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -852,7 +867,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -954,7 +969,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1037,7 +1052,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1120,7 +1135,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1203,7 +1218,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1290,7 +1305,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1362,7 +1377,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1434,7 +1449,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1505,7 +1520,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1583,7 +1598,7 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 								<div class="card-grid-space">
 									<div class="card-container">
 											<img class="round"
-											src="../../img/tecnico.jpg" alt="user" />
+						src="../../upload/<%=as.getFoto()%>" alt="user" />
 					
 										<h3 style="color: #231E39;"> <%=as.getTitulo()%></h3>
 										<h6 class="nameUser"><i class="fas fa-user" ></i> <%=as.getPrestadorServico().getUser().getNome()%></h6>
@@ -1648,72 +1663,110 @@ AnuncioServicoService anuncioServicoService = new AnuncioServicoService();
 
 						<main class="contactModal">
 							<div class="contactForm contactFormModal">
-								<form action="cadastrarCliente" method="post">
+								<form action="cadastrarPedido" method="post">
 									<h2>Envie o seu pedido aqui!</h2>
-									<div class="formModal">
-										<div>
-											<div class="inputBox">
-												<input type="text" name="nome" id="nome" required /> <span>Nome
-													completo</span>
+										<%
+											if(session.getAttribute("cliente") != null){
+												Cliente cliente = (Cliente) session.getAttribute("cliente");
+												Telefone telefone = (Telefone) session.getAttribute("telefone");
+										%>
+										<div class="formModal">
+											
+											<div>
+												<div class="inputBox">
+													<input type="hidden" name="id_cliente" id="id_cliente" required value="<%= cliente.getId() %>" />
+												</div>
+												
+												<div class="inputBox">
+													<input type="text" name="nome" id="nome" required value="<%= cliente.getUser().getNome() %>" />
+													 <span>Nome</span>
+												</div>
+												
+																		
+												<div class="inputBox">
+													<input type="number" name="telefone" id="telefone" required value="<%= telefone.getNumero() %>" /> 
+													<span>Telefone</span>
+												</div>
 											</div>
-					
-											<div class="inputBox">
-												<input type="text" name="cpf" id="cpf" maxlength="11" required />
-												<span>CPF</span>
-											</div>
-					
-											<div class="inputBox">
-												<input type="text" name="cep" id="cep" size="10" maxlength="9"
-													onblur="pesquisacep(this.value);" required /> <span>CEP</span>
-											</div>
-					
-											<div class="inputBox">
-												<input type="text" name="bairro" id="bairro" required /> <span>Bairro</span>
-											</div>
-					
-											<div class="inputBox">
-												<input type="number" name="numeroCasa" id="numeroCasa" required />
-												<span>Numero da Casa</span>
+						
+											<div class="formDireita">
+												<div class="inputBox">
+													<input type="hidden" name="id_prestador" id="id_prestador" required/>
+												</div>
+												
+												<div class="inputBox">
+													<input type="email" name="email" id="email" required value="<%= cliente.getUser().getEmail() %>" />
+													<span>Email</span>
+												</div>
+												
+																		
+												<div class="inputBox">
+													<input type="text" name="bairro" id="bairro" required value="<%= cliente.getUser().getBairro() %>" />
+													<span>Bairro</span>
+												</div>
+						
 											</div>
 											
 										</div>
-					
-										<div class="formDireita">
-											<div class="inputBox">
-												<input type="email" name="email" id="email" required /> <span>Email</span>
+										<div class="inputBox inputModal">
+											<textarea name="pedido" required></textarea>
+											<span>Detalhes do seu pedido</span>
+										</div>
+										<h3>Adicione a Sua Imagem</h3>
+										<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+										
+										<div class="inputBox buttonModal">
+											<input type="submit" name="" value="Cadastrar" />
+										</div>
+										<%	
+											} else{	
+										%>
+										<div class="formModal">
+											
+											<div>
+												
+												<div class="inputBox">
+													<input type="text" name="nome" id="nome" required/>
+													 <span>Nome</span>
+												</div>
+												
+																		
+												<div class="inputBox">
+													<input type="number" name="telefone" id="telefone" required /> 
+													<span>Telefone</span>
+												</div>
 											</div>
-					
-											<div class="inputBox">
-												<input type="number" name="idade" id="idade" required /> <span>Idade</span>
+						
+											<div class="formDireita">
+												<div class="inputBox">
+													<input type="email" name="email" id="email" required />
+													<span>Email</span>
+												</div>
+												
+																		
+												<div class="inputBox">
+													<input type="text" name="bairro" id="bairro" required />
+													<span>Bairro</span>
+												</div>
+						
 											</div>
-					
-											<div class="inputBox">
-												<input type="text" name="cidade" id="cidade" required /> <span>Cidade</span>
-											</div>
-					
-											<div class="inputBox">
-												<input type="text" name="rua" id="rua" required /> <span>Rua</span>
-											</div>
-					
-											<div class="inputBox">
-												<input type="number" name="telefone" id="telefone" required /> <span>Telefone</span>
-											</div>
-					
+											
+										</div>
+										<div class="inputBox inputModal">
+											<textarea name="pedido" required></textarea>
+											<span>Detalhes do seu pedido</span>
 										</div>
 										
-									</div>
-									<div class="inputBox inputModal">
-										<textarea name="pedido" required></textarea>
-										<span>Detalhes do seu pedido</span>
-									</div>
-									<h3>Adcione a Sua Imagem</h3>
-									<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
-									
-									<p id="testeP"></p>
-								  
-									<div class="inputBox buttonModal">
-										<input type="submit" name="" value="Cadastrar" />
-									</div>
+										<h3>Adicione a Sua Imagem</h3>
+										
+										<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+
+										<div class="inputBox buttonModal">
+											<input type="submit" name="" value="Cadastrar" />
+										</div>
+										<%
+											}
+										%>
 								</form>
 							</div>
 						</main>

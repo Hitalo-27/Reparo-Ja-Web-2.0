@@ -21,4 +21,15 @@ public class PedidoService {
 		}
 		return pedidosCliente;
 	}
+	
+	public List<Pedido> selectPedidosByIdPrestador(Long id) {
+		List<Pedido> listaPedidos = pedidoDao.listarPedidos();
+		List<Pedido> pedidos = new ArrayList<Pedido>();
+		for(Pedido p : listaPedidos) {
+			if(p.getId_prestador() == id) {
+				pedidos.add(p);
+			}
+		}
+		return pedidos;
+	}
 }

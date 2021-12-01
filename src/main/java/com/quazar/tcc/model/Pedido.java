@@ -3,47 +3,61 @@ package com.quazar.tcc.model;
 import java.io.Serializable;
 
 import com.quazar.tcc.service.ClienteService;
+import com.quazar.tcc.service.PrestadorServicoService;
 
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String titulo;
-	private String categoria;
-	private String pedido;
+	private String nome;
+	private String email;
+	private Integer telefone;
+	private String bairro;
+	private String descricao;
+	private String foto;
+	
 	private Cliente cliente;
 	private Long id_cliente;
+	
+	private PrestadorServico prestadorServico;
+	private Long id_prestador;
 	
 	public Pedido() {
 	}
 
-	public Pedido(Long id, String titulo, String categoria, String pedido, Cliente cliente) {
+	// READ
+	public Pedido(Long id, String nome, String email, Integer telefone, String bairro, String descricao, String foto,
+			Long id_cliente, Long id_prestador) {
 		this.id = id;
-		this.titulo = titulo;
-		this.categoria = categoria;
-		this.pedido = pedido;
-		this.cliente = cliente;
-	}
-	
-	public Pedido(Long id, String titulo, String categoria, String pedido, Long id_cliente) {
-		this.id = id;
-		this.titulo = titulo;
-		this.categoria = categoria;
-		this.pedido = pedido;
+		this.nome = nome;
+		this.email = email;
+		this.telefone = telefone;
+		this.bairro = bairro;
+		this.descricao = descricao;
+		this.foto = foto;
 		this.id_cliente = id_cliente;
+		this.id_prestador = id_prestador;
+		PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
+		this.prestadorServico = prestadorServicoService.selectPrestadorById(id_prestador);
 		ClienteService clienteService = new ClienteService();
-		this.cliente = clienteService.selectClienteById(new Cliente(id_cliente));
+		this.cliente = clienteService.selectClienteById(id_cliente);
 	}
 	
-	public Pedido(String titulo, String categoria, String pedido, Cliente cliente) {
-		this.titulo = titulo;
-		this.categoria = categoria;
-		this.pedido = pedido;
-		this.cliente = cliente;
-	}
-	
-	public Pedido(Long id) {
-		this.id = id;
+	// CREATE
+	public Pedido(String nome, String email, Integer telefone, String bairro, String descricao, String foto,
+			Long id_cliente, Long id_prestador) {
+		this.nome = nome;
+		this.email = email;
+		this.telefone = telefone;
+		this.bairro = bairro;
+		this.descricao = descricao;
+		this.foto = foto;
+		this.id_cliente = id_cliente;
+		this.id_prestador = id_prestador;
+		PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
+		this.prestadorServico = prestadorServicoService.selectPrestadorById(id_prestador);
+		ClienteService clienteService = new ClienteService();
+		this.cliente = clienteService.selectClienteById(id_cliente);
 	}
 
 	public Long getId() {
@@ -54,28 +68,52 @@ public class Pedido implements Serializable {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getPedido() {
-		return pedido;
+	public Integer getTelefone() {
+		return telefone;
 	}
 
-	public void setPedido(String pedido) {
-		this.pedido = pedido;
+	public void setTelefone(Integer telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	public Cliente getCliente() {
@@ -93,4 +131,21 @@ public class Pedido implements Serializable {
 	public void setId_cliente(Long id_cliente) {
 		this.id_cliente = id_cliente;
 	}
+
+	public PrestadorServico getPrestadorServico() {
+		return prestadorServico;
+	}
+
+	public void setPrestadorServico(PrestadorServico prestadorServico) {
+		this.prestadorServico = prestadorServico;
+	}
+
+	public Long getId_prestador() {
+		return id_prestador;
+	}
+
+	public void setId_prestador(Long id_prestador) {
+		this.id_prestador = id_prestador;
+	}
+
 }

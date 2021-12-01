@@ -26,6 +26,7 @@ import com.quazar.tcc.model.Telefone;
 import com.quazar.tcc.model.TipoUser;
 import com.quazar.tcc.model.User;
 import com.quazar.tcc.service.ClienteService;
+import com.quazar.tcc.service.ImagemService;
 import com.quazar.tcc.service.PrestadorServicoService;
 import com.quazar.tcc.service.ServicoService;
 import com.quazar.tcc.service.ServicosPrestadorService;
@@ -51,6 +52,7 @@ public class CadastrarController extends HttpServlet {
 	PrestadorServicoService prestadorServicoService = new PrestadorServicoService();
 	ServicoService servicoService = new ServicoService();
 	ServicosPrestadorService servicosPrestadorService = new ServicosPrestadorService();
+	ImagemService imagemService = new ImagemService();
 
     public CadastrarController() {
     }
@@ -94,8 +96,12 @@ public class CadastrarController extends HttpServlet {
 					TipoUser tipoUser = tipoUserService.selectTipoUser(tUser);
 					User user = new User(request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), 
 							request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), request.getParameter("rua"), 
-							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"), tipoUser);
+							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"),
+							request.getParameter("img"), tipoUser);
 					userDao.cadastrarUser(user);
+					String foto = request.getParameter("img");
+					//String nomeImagem = request.getParameter("nomeImagem");
+					imagemService.salvarImagem(foto, foto);
 					Telefone telefone = new Telefone(Integer.parseInt(request.getParameter("telefone")), userService.selectUserByEmail(user));
 					telefoneDao.cadastrarTelefone(telefone);
 					Cliente cliente = new Cliente(userService.selectUserByEmail(user));
@@ -149,13 +155,16 @@ public class CadastrarController extends HttpServlet {
 					TipoUser tipoUser = tipoUserService.selectTipoUser(tUser);
 					User user = new User(request.getParameter("nome"), request.getParameter("email"), request.getParameter("senha"), 
 							request.getParameter("cpf"), Integer.parseInt(request.getParameter("idade")), request.getParameter("cep"), request.getParameter("rua"), 
-							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"), tipoUser);
+							Integer.parseInt(request.getParameter("numeroCasa")), request.getParameter("bairro"), request.getParameter("cidade"), 
+							request.getParameter("img"), tipoUser);
 					userDao.cadastrarUser(user);
+					String foto = request.getParameter("img");
+					//String nomeImagem = request.getParameter("nomeImagem");
+					imagemService.salvarImagem(foto, foto);
 					Telefone telefone = new Telefone(Integer.parseInt(request.getParameter("telefone")), userService.selectUserByEmail(user));
 					telefoneDao.cadastrarTelefone(telefone);
 					
-					PrestadorServico prestadorServico = new PrestadorServico(request.getParameter("tipoPrestador"), 
-							Long.parseLong(request.getParameter("qtdeFuncionarios")), userService.selectUserByEmail(user));
+					PrestadorServico prestadorServico = new PrestadorServico(userService.selectUserByEmail(user));
 					prestadorServicoDao.cadastrarPrestador(prestadorServico);
 					
 					List<String> servicosStr = new ArrayList<>();

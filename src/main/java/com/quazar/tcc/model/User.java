@@ -16,6 +16,7 @@ public class User implements Serializable {
 	private Integer numeroCasa;
 	private String bairro;
 	private String cidade;
+	private String foto;
 	
 	private TipoUser tipoUser;
 	private Long id_tipoUser;
@@ -24,7 +25,7 @@ public class User implements Serializable {
 	}
 	
 	public User(Long id, String nome, String email, String senha, String cpf, Integer idade, String cep, String rua, Integer numeroCasa, 
-			String bairro, String cidade, TipoUser tipoUser) {
+			String bairro, String cidade, String foto, TipoUser tipoUser) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
@@ -36,12 +37,13 @@ public class User implements Serializable {
 		this.numeroCasa = numeroCasa;
 		this.bairro = bairro;
 		this.cidade = cidade;
+		this.foto = foto;
 		this.tipoUser = tipoUser;
 	}
 	
 	//create dao
 	public User(String nome, String email, String senha, String cpf, Integer idade, String cep, String rua, Integer numeroCasa, 
-			String bairro, String cidade, TipoUser tipoUser) {
+			String bairro, String cidade, String foto, TipoUser tipoUser) {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
@@ -52,6 +54,7 @@ public class User implements Serializable {
 		this.numeroCasa = numeroCasa;
 		this.bairro = bairro;
 		this.cidade = cidade;
+		this.foto = foto;
 		this.tipoUser = tipoUser;
 	}
 	
@@ -73,7 +76,7 @@ public class User implements Serializable {
 	
 	//read dao
 	public User(Long id, String nome, String email, String senha, String cpf, Integer idade, String cep, String rua, Integer numeroCasa, 
-			String bairro, String cidade, Long id_tipoUser) {
+			String bairro, String cidade, String foto, Long id_tipoUser) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
@@ -85,6 +88,7 @@ public class User implements Serializable {
 		this.numeroCasa = numeroCasa;
 		this.bairro = bairro;
 		this.cidade = cidade;
+		this.foto = foto;
 		this.id_tipoUser = id_tipoUser;
 	}
 	
@@ -168,6 +172,14 @@ public class User implements Serializable {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	public TipoUser getTipoUser() {

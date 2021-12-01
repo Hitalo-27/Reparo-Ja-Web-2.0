@@ -91,10 +91,7 @@
 							<input type="password" name="senha" id="senha" required /> <span>Senha</span>
 						</div>
 
-						<div class="inputBox">
-							<input type="text" name="tipoPrestador" id="tipoPrestador"
-								required /> <span>Tipo Prestador</span>
-						</div>
+						
 
 					</div>
 
@@ -124,11 +121,7 @@
 							<input type="password" name="senha2" id="senha2" required /> <span>Senha Novamente</span>
 						</div>
 
-						<div class="inputBox">
-							<input type="number" name="qtdeFuncionarios"
-								id="qtdeFuncionarios" required /> <span>Qtde
-								Funcionarios</span>
-						</div>
+						
 					</div>
 				</div>
 
@@ -160,8 +153,9 @@
 						for="encanador">Encanador</label> <i class="far fa-hand-paper"></i>
 				</div>
 
-				<h3>Adcione a Sua Imagem</h3>
-				<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" />
+				<h3>Adicione uma foto</h3>
+				
+				<input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" required />
 
 				<%
           	if(cadastro != null){
