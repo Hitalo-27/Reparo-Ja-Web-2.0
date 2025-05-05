@@ -1,29 +1,43 @@
-## Para rodar o projeto você precisa instalar o tomcat 9.0
+# Projeto TCC
 
-## TCC feito para unir os prestadores de serviços e os clientes:
+## 📹 Vídeo de Demonstração
 
-### Feito com Java Web e MySQL
+O vídeo de demonstração está disponível no arquivo [`public/reparoja.mp4`](public/reparoja.mp4).  
+> Para assistir, abra o arquivo diretamente em seu reprodutor de vídeo ou clique no link se estiver visualizando este projeto em uma plataforma que permita.
 
-## Criadores:
+---
 
-### Hitalo Chaves dos santos
+## ▶️ Para rodar o projeto
 
-#### Linkedin : <https://www.linkedin.com/in/hitalo-chaves-b473b5208/>
+Você precisa instalar o **Tomcat 9.0**.
 
-### Bruno da silva pimentel
+---
 
-#### Linkedin : https://www.linkedin.com/in/bruno-pimentel-01b948220/
+## 🎯 Objetivo
 
-### Nickolas Alexandre
+TCC feito para unir os prestadores de serviços e os clientes.
 
-#### Linkedin : <https://www.linkedin.com/in/nickolas-alexandre-b7b43a20b/>
+**Tecnologias utilizadas:**
+- Java Web
+- MySQL
 
-### Rikellme Kevin
+---
 
-#### Linkedin : <https://www.linkedin.com/in/rikellme-lima-a672741a5/>
+## 👨‍💻 Criadores
 
-### Pedro Oliveira Maciel
+### Hitalo Chaves dos Santos  
+[LinkedIn](https://www.linkedin.com/in/hitalo-chaves-b473b5208/)
 
-#### Linkedin : <https://www.linkedin.com/in/pedro-oliveira-385480214/>
+### Bruno da Silva Pimentel  
+[LinkedIn](https://www.linkedin.com/in/bruno-pimentel-01b948220/)
 
-### Danilo Martins 
+### Nickolas Alexandre  
+[LinkedIn](https://www.linkedin.com/in/nickolas-alexandre-b7b43a20b/)
+
+### Rikellme Kevin  
+[LinkedIn](https://www.linkedin.com/in/rikellme-lima-a672741a5/)
+
+### Pedro Oliveira Maciel  
+[LinkedIn](https://www.linkedin.com/in/pedro-oliveira-385480214/)
+
+### Danilo Martins
